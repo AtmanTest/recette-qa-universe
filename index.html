@@ -99,11 +99,85 @@ main{max-width:1280px;margin:0 auto;padding:0 24px}
 .top-title{font-weight:700;font-size:15px;line-height:1.35;margin:6px 0 8px}
 .top-meta{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px}
 .top-meta .score-badge{background:var(--accent-dim);color:var(--accent);padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
-/* News tiles */
-.news-card{padding:18px;background:var(--surface);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:all .2s}
-.news-card:hover{border-color:rgba(255,255,255,.12);box-shadow:var(--shadow);transform:translateY(-1px)}
-.news-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.news-header .source{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+/* News section - Magazine layout */
+.news-hero{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:768px){.news-hero{grid-template-columns:1fr}}
+.hero-feature{position:relative;border-radius:var(--radius);overflow:hidden;cursor:pointer;background:var(--surface);border:1px solid var(--border);min-height:340px;transition:all .3s ease}
+.hero-feature:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,229,200,.15);border-color:var(--accent)}
+.hero-feature .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
+.hero-feature:hover .hero-bg{transform:scale(1.05)}
+.hero-feature .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(7,8,10,.92) 85%);z-index:1}
+.hero-feature .hero-content{position:absolute;bottom:0;left:0;right:0;padding:28px;z-index:2}
+.hero-feature .hero-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;margin-bottom:10px}
+.hero-badge.ai-testing{background:rgba(0,229,200,.2);color:var(--accent)}
+.hero-badge.test-automation{background:rgba(59,130,246,.2);color:#60a5fa}
+.hero-badge.security-risk{background:rgba(239,68,68,.2);color:#f87171}
+.hero-badge.qa-news{background:rgba(156,163,175,.2);color:var(--text2)}
+.hero-badge.thought-leadership{background:rgba(168,85,247,.2);color:#c084fc}
+.hero-feature .hero-source{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.hero-feature .hero-title{font-family:var(--font-display);font-size:24px;font-weight:800;line-height:1.25;color:#fff;margin-bottom:8px}
+@media(max-width:480px){.hero-feature .hero-title{font-size:18px}}
+.hero-feature .hero-meta{display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.6)}
+.hero-feature .hero-score{background:rgba(0,229,200,.2);color:var(--accent);padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.hero-feature .hero-score.high{background:rgba(255,215,0,.2);color:#ffd700}
+.hero-feature .hero-noimg{position:absolute;inset:0;display:grid;place-items:center;font-size:64px}
+.hero-feature .hero-noimg-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,200,.1),rgba(0,0,0,.4))}
+.hero-side{display:flex;flex-direction:column;gap:16px}
+.hero-side-card{position:relative;flex:1;border-radius:var(--radius);overflow:hidden;cursor:pointer;background:var(--surface);border:1px solid var(--border);min-height:160px;transition:all .3s ease}
+.hero-side-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,200,.1);border-color:var(--accent)}
+.hero-side-card .side-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
+.hero-side-card:hover .side-bg{transform:scale(1.05)}
+.hero-side-card .side-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,rgba(7,8,10,.88) 80%);z-index:1}
+.hero-side-card .side-content{position:absolute;bottom:0;left:0;right:0;padding:16px;z-index:2}
+.hero-side-card .side-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:999px;font-size:10px;font-weight:600;margin-bottom:6px}
+.hero-side-card .side-title{font-family:var(--font-display);font-size:15px;font-weight:700;line-height:1.3;color:#fff}
+.hero-side-card .side-meta{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px}
+/* Category filter tabs */
+.news-filters{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.news-filters::-webkit-scrollbar{display:none}
+.news-filter{flex-shrink:0;padding:7px 16px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--text2);font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap}
+.news-filter:hover{color:var(--text);border-color:rgba(255,255,255,.15)}
+.news-filter.active{background:var(--accent-dim);color:var(--accent);border-color:var(--accent)}
+/* Magazine grid */
+.mag-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:768px){.mag-grid{grid-template-columns:1fr}}
+.mag-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .25s ease;display:flex;flex-direction:column}
+.mag-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,200,.1);border-color:rgba(0,229,200,.2)}
+.mag-card-img-wrap{position:relative;width:100%;height:180px;overflow:hidden;flex-shrink:0}
+.mag-card-img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.mag-card:hover .mag-card-img{transform:scale(1.05)}
+.mag-card-noimg{width:100%;height:180px;display:grid;place-items:center;font-size:48px;background:linear-gradient(135deg,rgba(0,229,200,.08),rgba(0,0,0,.2));flex-shrink:0}
+.mag-card-body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.mag-card-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.mag-source{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
+.mag-title{font-weight:700;font-size:15px;line-height:1.35;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mag-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.mag-tags{display:flex;gap:4px;flex-wrap:wrap}
+.mag-tags .tag{font-size:9px;padding:1px 8px;background:var(--surface2);color:var(--text2)}
+.mag-score{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0}
+.mag-score.high{background:rgba(255,215,0,.2);color:#ffd700}
+.mag-score.med{background:rgba(0,229,200,.2);color:var(--accent)}
+.mag-score.low{background:rgba(156,163,175,.2);color:var(--muted)}
+/* Feed section heading */
+.section-divider{display:flex;align-items:center;gap:12px;margin:24px 0 16px}
+.section-divider h3{font-family:var(--font-display);font-size:18px;font-weight:700;white-space:nowrap}
+.section-divider .line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+.section-divider .count{color:var(--muted);font-size:12px;font-weight:500}
+/* Score badge (shared with dash) */
+.score-badge{background:var(--accent-dim);color:var(--accent);padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;flex-shrink:0}
+.score-badge.high{background:rgba(255,215,0,.15);color:#ffd700}
+.score-badge.med{background:rgba(0,229,200,.15);color:var(--accent)}
+.score-badge.low{background:rgba(156,163,175,.15);color:var(--muted)}
+/* Staggered entrance */
+.mag-card,.hero-feature,.hero-side-card{opacity:0;transform:translateY(20px);animation:magIn .5s ease forwards}
+@keyframes magIn{to{opacity:1;transform:translateY(0)}}
+.hero-feature{animation-delay:0s}
+.hero-side-card:nth-child(1){animation-delay:.1s}
+.hero-side-card:nth-child(2){animation-delay:.2s}
+.mag-card:nth-child(1){animation-delay:.1s}.mag-card:nth-child(2){animation-delay:.15s}.mag-card:nth-child(3){animation-delay:.2s}.mag-card:nth-child(4){animation-delay:.25s}.mag-card:nth-child(5){animation-delay:.3s}.mag-card:nth-child(6){animation-delay:.35s}.mag-card:nth-child(7){animation-delay:.4s}.mag-card:nth-child(8){animation-delay:.45s}.mag-card:nth-child(9){animation-delay:.5s}.mag-card:nth-child(10){animation-delay:.55s}
+/* Remove old news styles (keep classes still used by dash) */
+.top3-grid,.top-card,.top-rank,.top-source,.top-title,.top-meta,.no-img-placeholder{display:none}
+/* cat-tag (still used by dash) */
 .cat-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:999px;font-size:10px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
 .cat-tag.ai-testing{background:rgba(0,229,200,.15);color:var(--accent)}
 .cat-tag.test-automation{background:rgba(59,130,246,.15);color:#60a5fa}
@@ -112,29 +186,19 @@ main{max-width:1280px;margin:0 auto;padding:0 24px}
 .cat-tag.thought-leadership{background:rgba(168,85,247,.15);color:#c084fc}
 .cat-tag.ui-e2e{background:rgba(236,201,75,.15);color:#ecc94b}
 .cat-tag.qa-news{background:var(--surface2);color:var(--text2)}
-.news-card .title{font-weight:700;font-size:14px;line-height:1.35;color:var(--text)}
-.news-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+/* dashNews shared styles */
+.news-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.news-header .source{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.news-content{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
 .news-tags{display:flex;gap:4px;flex-wrap:wrap}
 .news-tags .tag{font-size:9px;padding:1px 8px;background:var(--surface2);color:var(--text2)}
-.score-badge{background:var(--accent-dim);color:var(--accent);padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;flex-shrink:0}
-.score-badge.high{background:rgba(255,215,0,.15);color:#ffd700}
-.score-badge.med{background:rgba(0,229,200,.15);color:var(--accent)}
-.score-badge.low{background:rgba(156,163,175,.15);color:var(--muted)}
-.top10-header h3{font-size:20px;font-weight:700;margin-bottom:8px}
-.top10-header .section-sub{color:var(--text2);font-size:13px;margin-bottom:16px}
-/* News cards with images */
-.news-card-img{width:100%;height:160px;object-fit:cover;border-radius:var(--radius-sm);background:var(--surface2);margin-bottom:6px}
-.top-card-img{width:100%;height:140px;object-fit:cover;border-radius:var(--radius-sm) var(--radius-sm) 0 0;margin:-20px -20px 8px;width:calc(100%+40px);display:block}
-.top-card.has-img{padding-top:0;overflow:hidden}
-.top-card.has-img .top-rank{position:absolute;top:10px;left:10px;z-index:2;background:rgba(0,0,0,.5);border-radius:50%;width:40px;height:40px;display:grid;place-items:center;font-size:20px;line-height:1}
-.top-card{position:relative}
-.no-img-placeholder{width:100%;height:140px;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(135deg,rgba(0,229,200,.08),rgba(0,229,200,.02));border-radius:var(--radius-sm);margin-bottom:8px}
 .tile-img-wrap{width:90px;height:68px;flex-shrink:0;border-radius:8px;overflow:hidden}
 .tile-img{width:100%;height:100%;object-fit:cover}
-.tile-img-placeholder{width:90px;height:68px;flex-shrink:0;border-radius:8px;background:linear-gradient(135deg,rgba(0,229,200,.06),rgba(0,229,200,.02));display:grid;place-items:center;font-size:24px}
-.news-card.tile-with-img{flex-direction:row;gap:12px;align-items:flex-start}
-.news-card.tile-with-img .news-content{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
-.news-card.tile-with-img .title{font-size:13px;line-height:1.3}
+.news-card{padding:18px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);display:flex;gap:8px;cursor:pointer;transition:all .2s}
+.news-card.tile-with-img{flex-direction:row;gap:12px;align-items:flex-start;backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4)}
+.news-card .title{font-weight:700;font-size:13px;line-height:1.3;color:var(--text)}
+.news-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+
 
 .weak-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
 .weak-item:last-child{border:none}
@@ -391,18 +455,18 @@ footer a{color:var(--accent);text-decoration:none}
 // ===== I18N =====
 let LANG = localStorage.getItem('qaU2_lang') || 'fr';
 const I = {
-  nav_home:{en:"Dashboard",fr:"Dashboard"},nav_news:{en:"AI News",fr:"Actualités"},nav_tools:{en:"Tools",fr:"Outils"},nav_training:{en:"Training",fr:"Formations"},nav_labs:{en:"Labs",fr:"Labos"},nav_istqb:{en:"ISTQB Prep",fr:"ISTQB Prep"},
-  dash_title:{en:"📊 Analyst Dashboard",fr:"📊 Analyst Dashboard"},dash_sub:{en:"Your QA progress overview",fr:"Vue d'ensemble de votre progression QA"},
+  nav_home:{en:"Dashboard",fr:"Tableau de bord"},nav_news:{en:"AI News",fr:"Actualités"},nav_tools:{en:"Tools",fr:"Outils"},nav_training:{en:"Training",fr:"Formations"},nav_labs:{en:"Labs",fr:"Labos"},nav_istqb:{en:"ISTQB Prep",fr:"Prépa ISTQB"},
+  dash_title:{en:"📊 Analyst Dashboard",fr:"📊 Tableau de bord Analyste"},dash_sub:{en:"Your QA progress overview",fr:"Vue d'ensemble de votre progression QA"},
   btn_quiz:{en:"🎯 Quick Quiz",fr:"🎯 Quiz rapide"},btn_news:{en:"📰 Latest News",fr:"📰 Dernières news"},
   dash_progress:{en:"📈 Domain Progress",fr:"📈 Progression par domaine"},dash_weak:{en:"❌ Weak Areas",fr:"❌ Points faibles"},
   dash_latest:{en:"🔥 Latest AI QA News",fr:"🔥 Dernières actualités AI QA"},
-  news_title:{en:"📰 AI QA News",fr:"📰 AI QA News"},news_sub:{en:"All the latest QA, AI Testing, and certification news.",fr:"Toute l'actualité du Testing, de l'IA et des certifications QA."},
+  news_title:{en:"📰 AI QA News",fr:"📰 Actualités IA QA"},news_sub:{en:"All the latest QA, AI Testing, and certification news.",fr:"Toute l'actualité du Testing, de l'IA et des certifications QA."},
   tools_title:{en:"🛠️ Tools & Resources",fr:"🛠️ Outils & Ressources"},tools_sub:{en:"Best QA tools by category, updated 2026.",fr:"Les meilleurs outils QA par catégorie, 2026."},
   train_title:{en:"📚 Training & Certifications",fr:"📚 Formations & Certifications"},train_sub:{en:"Certification paths, roadmap, and resources.",fr:"Parcours de certification, roadmap et ressources."},
   certs_title:{en:"🎓 Certifications",fr:"🎓 Certifications"},roadmap_title:{en:"🗺️ QA Roadmap 2026",fr:"🗺️ QA Roadmap 2026"},resources_title:{en:"📖 Resources",fr:"📖 Ressources"},
   istqb_title:{en:"🎓 ISTQB Prep",fr:"🎓 ISTQB Prep"},istqb_sub:{en:"Lessons, quizzes, mock exams, progress — everything to pass.",fr:"Leçons, quiz, examen blanc, progression — tout pour réussir."},
   sub_lessons:{en:"Lessons",fr:"Leçons"},sub_quiz:{en:"Quiz",fr:"Quiz"},sub_exam:{en:"Mock Exam",fr:"Examen blanc"},sub_stats:{en:"Stats",fr:"Stats"},
-  opt_ctfl:{en:"Foundation CTFL v4.0",fr:"Foundation CTFL v4.0"},opt_ctai:{en:"AI Testing (CT-AI)",fr:"AI Testing (CT-AI)"},
+  opt_ctfl:{en:"Foundation CTFL v4.0",fr:"Fondation CTFL v4.0"},opt_ctai:{en:"AI Testing (CT-AI)",fr:"AI Testing (CT-AI)"},
   btn_start:{en:"🎯 Start",fr:"🎯 Démarrer"},btn_retry:{en:"🔄 Retry",fr:"🔄 Recommencer"},btn_reset:{en:"🗑️ Reset",fr:"🗑️ Réinitialiser"},
   ready:{en:"Ready!",fr:"Prêt !"},exam_p:{en:"Timed simulation. Pass mark: 65%.",fr:"Simulation chronométrée. Note : 65%."},
   exam_10:{en:"questions · 10 min",fr:"questions · 10 min"},exam_20:{en:"questions · 20 min",fr:"questions · 20 min"},exam_30:{en:"questions · 30 min",fr:"questions · 30 min"},
@@ -621,7 +685,7 @@ function renderDash(){
 // ===== TICKER =====
 function renderTicker(){
   const items=NEWS.map(n=>{
-    const icon=CAT_ICON[n.cat]||'📰';
+    const icon=CAT_ICON2[n.cat]||'📰';
     return `<div class="news-ticker-item"><span class="news-dot"></span><span class="tag" style="background:rgba(0,229,200,.15);color:var(--accent);text-transform:none">${icon}</span><span>${n.title.substring(0,60)}</span><span style="color:var(--muted)">· ${n.score}</span></div>`;
   }).join('');
   document.getElementById('tickerTrack').innerHTML=items+items;
@@ -651,39 +715,116 @@ function switchSub(s){
 document.querySelectorAll('.sub-tab').forEach(btn=>btn.addEventListener('click',()=>switchSub(btn.dataset.sub)));
 
 // ===== RENDERS =====
+let newsFilter='all';
+const CAT_ICON2={'AI Testing':'🤖','Test Automation':'⚡','API Testing':'🔗','UI/E2E':'🖥','Security & Risk':'🔒','Tools':'🛠','Thought Leadership':'💡','QA News':'📰','Default':'📰'};
+const CAT_CLR={'AI Testing':'ai-testing','Test Automation':'test-automation','Security & Risk':'security-risk','QA News':'qa-news','Thought Leadership':'thought-leadership'};
+function catCls2(c){return CAT_CLR[c]||'ai-testing'}
 function renderNews(){
-  const top=NEWS.slice(0,3);const rest=NEWS.slice(3);
-  const icons=['🥇','🥈','🥉'];
-  const catPl = (c,i)=>{const m={'AI Testing':'🤖','Test Automation':'⚡','API Testing':'🔗','UI/E2E':'🖥','Security & Risk':'🔒','Tools':'🛠','Thought Leadership':'💡','QA News':'📰'};return m[c]||'📰'};
-  let h='<div class="top10-header"><h3>🏆 Top 10 Veille QA</h3><p class="section-sub">Articles filtrés, scorés et classés par notre pipeline éditorial depuis 8 sources QA & AI Testing.</p></div><div class="top3-grid">';
-  top.forEach((n,i)=>{
-    const sc=n.score>=60?'high':'med';
-    const img=n.img?`<img class="top-card-img" src="${n.img}" alt="" loading="lazy" onerror="this.style.display='none'">`:'<div class="no-img-placeholder">'+catPl(n.cat)+'</div>';
-    h+=`<div class="top-card${n.img?' has-img':''}" onclick="window.open('${n.url}','_blank')">
-  <div class="top-rank">${icons[i]}</div>
-  ${img}
-  <div class="top-source">${n.source}</div>
-  <div class="top-title">${n.title}</div>
-  <div class="top-meta"><span class="cat-tag ${catCls(n.cat)}">${catPl(n.cat)} ${n.cat.substring(0,14)}</span><span class="score-badge ${sc}">${n.score}</span></div>
-</div>`;
-  });
-  h+='</div><div class="news-all-header" style="margin:16px 0 8px"><h4>📰 Toute la veille</h4></div><div class="grid grid-2" id="allNewsGrid">';
-  rest.forEach(n=>{
-    const sc=n.score>=60?'high':n.score>=45?'med':'low';
-    const tg=n.tags&&n.tags.length?n.tags.slice(0,3).map(t=>`<span class="tag tag-${t}">${t}</span>`).join(''):'';
-    const thumb=n.img?`<div class="tile-img-wrap"><img class="tile-img" src="${n.img}" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=tile-img-placeholder>'+catPl(n.cat)+'</div>'"></div>`:`<div class="tile-img-placeholder">${catPl(n.cat)}</div>`;
-    h+=`<div class="glass news-card tile-with-img" onclick="window.open('${n.url}','_blank')">
-  ${thumb}
-  <div class="news-content">
-    <div class="news-header"><span class="source">${n.source.substring(0,18)}</span><span class="cat-tag ${catCls(n.cat)}">${catPl(n.cat)} ${n.cat.substring(0,12)}</span></div>
-    <div class="title">${n.title.substring(0,80)}</div>
-    <div class="news-footer"><div class="news-tags">${tg}</div><span class="score-badge ${sc}">${n.score}</span></div>
-  </div>
-</div>`;
+  const items=NEWS,a=document.getElementById('newsGrid');
+  if(!items.length){a.innerHTML='<div class="glass" style="text-align:center;padding:40px"><p style="color:var(--muted)">Aucune actualité pour le moment.</p></div>';return}
+  
+  // Category filter buttons
+  const cats=['all',...new Set(items.map(n=>n.cat).filter(Boolean))];
+  const catEmoji={all:'🔥',"AI Testing":'🤖',"QA News":'📰',"Security & Risk":'🔒',"Thought Leadership":'💡',"Test Automation":'⚡',"API Testing":'🔗',"Tools":'🛠',"UI/E2E":"🖥"};
+  const catLabel={all:{en:'All',fr:'Tous'},"AI Testing":{en:'AI Testing',fr:'IA Testing'},"QA News":{en:'QA News',fr:'Actus QA'},"Security & Risk":{en:'Security',fr:'Sécurité'},"Thought Leadership":{en:'Insights',fr:'Analyses'},"Test Automation":{en:'Automation',fr:'Automatisation'},"API Testing":{en:'API',fr:'API'},"Tools":{en:'Tools',fr:'Outils'},"UI/E2E":"E2E"};
+  
+  let h='<div class="news-filters" id="newsFilters">';
+  cats.forEach(c=>{
+    const label=catLabel[c]?catLabel[c][LANG]||catLabel[c]:c;
+    h+=`<button class="news-filter${c===newsFilter?' active':''}" data-cat="${c}">${catEmoji[c]||'📰'} ${label}</button>`;
   });
   h+='</div>';
-  document.getElementById('newsGrid').innerHTML=h;
-  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
+  
+  // Filter items
+  const filtered=newsFilter==='all'?items:items.filter(n=>n.cat===newsFilter);
+  if(!filtered.length){
+    a.innerHTML=h+'<div class="glass" style="text-align:center;padding:40px"><p style="color:var(--muted)">Aucun article dans cette catégorie.</p></div>';
+    document.querySelectorAll('.news-filter').forEach(btn=>btn.addEventListener('click',function(){
+      newsFilter=this.dataset.cat;renderNews();
+    }));
+    return;
+  }
+  
+  // Hero feature (1st article) + side cards (2nd, 3rd)
+  const top=filtered.slice(0,3);
+  const rest=filtered.slice(3);
+  
+  h+='<div class="news-hero">';
+  
+  // Hero feature
+  const hero=top[0];
+  if(hero){
+    const icon=CAT_ICON2[hero.cat]||'📰';
+    const hasImg=hero.img&&hero.img.length>5;
+    const bgStyle=hasImg?`background-image:url(${hero.img})`:'';
+    h+=`<div class="hero-feature" onclick="window.open('${hero.url}','_blank')" style="animation-delay:0s">
+      ${hasImg?`<div class="hero-bg" style="${bgStyle}"></div>`:`<div class="hero-noimg-bg"></div><div class="hero-noimg">${icon}</div>`}
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge ${catCls2(hero.cat)}">${icon} ${hero.cat||'News'}</div>
+        <div class="hero-source">${hero.source||''}</div>
+        <div class="hero-title">${hero.title||''}</div>
+        <div class="hero-meta">
+          <span class="hero-score ${hero.score>=60?'high':'med'}">${hero.score}</span>
+          <span>${hero.date||''}</span>
+        </div>
+      </div>
+    </div>`;
+  }
+  
+  // Side cards
+  h+='<div class="hero-side">';
+  for(let i=1;i<Math.min(3,top.length);i++){
+    const n=top[i];
+    const icon2=CAT_ICON2[n.cat]||'📰';
+    const hasImg2=n.img&&n.img.length>5;
+    const bgStyle2=hasImg2?`background-image:url(${n.img})`:'';
+    h+=`<div class="hero-side-card" onclick="window.open('${n.url}','_blank')">
+      ${hasImg2?`<div class="side-bg" style="${bgStyle2}"></div>`:`<div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,200,.08),rgba(0,0,0,.3));display:grid;place-items:center;font-size:40px">${icon2}</div>`}
+      <div class="side-overlay"></div>
+      <div class="side-content">
+        <div class="side-badge ${catCls2(n.cat)}" style="background:rgba(0,229,200,.25);color:var(--accent);">${icon2}</div>
+        <div class="side-title">${n.title.substring(0,80)}</div>
+        <div class="side-meta">${n.source} · ${n.date||''}</div>
+      </div>
+    </div>`;
+  }
+  h+='</div></div>'; // close hero-side, news-hero
+  
+  // Magazine grid for remaining articles
+  if(rest.length){
+    h+=`<div class="section-divider"><h3>${LANG==='fr'?'📋 Toute la veille':'📋 All articles'}</h3><span class="line"></span><span class="count">${rest.length}</span></div>`;
+    h+='<div class="mag-grid">';
+    rest.forEach((n,i)=>{
+      const icon3=CAT_ICON2[n.cat]||'📰';
+      const hasImg3=n.img&&n.img.length>5;
+      const sc=n.score>=60?'high':n.score>=45?'med':'low';
+      const tg=n.tags&&n.tags.length?n.tags.slice(0,3).map(t=>`<span class="tag">${t}</span>`).join(''):'';
+      h+=`<div class="mag-card" onclick="window.open('${n.url}','_blank')">
+        ${hasImg3?`<div class="mag-card-img-wrap"><img class="mag-card-img" src="${n.img}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=mag-card-noimg>'+CAT_ICON2['${n.cat}']+'</div>'"></div>`:`<div class="mag-card-noimg">${icon3}</div>`}
+        <div class="mag-card-body">
+          <div class="mag-card-header">
+            <span class="mag-source">${n.source.substring(0,22)}</span>
+            <span class="cat-tag" style="font-size:10px;padding:1px 8px;border-radius:999px;background:rgba(0,229,200,.12);color:var(--accent)">${icon3} ${(n.cat||'').substring(0,14)}</span>
+          </div>
+          <div class="mag-title">${n.title.substring(0,90)}</div>
+          <div class="mag-footer">
+            <div class="mag-tags">${tg}</div>
+            <div class="mag-score ${sc}">${n.score}</div>
+          </div>
+        </div>
+      </div>`;
+    });
+    h+='</div>';
+  }
+  
+  a.innerHTML=h;
+  
+  // Bind filter clicks
+  document.querySelectorAll('.news-filter').forEach(btn=>btn.addEventListener('click',function(){
+    newsFilter=this.dataset.cat;
+    renderNews();
+  }));
 }
 const TC={
   "Automation Web":[["Playwright","E2E cross-browser.",true],["Cypress","E2E JS Time Travel.",false],["Selenium","Historical standard.",false]],
