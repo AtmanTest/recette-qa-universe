@@ -22,7 +22,7 @@
  *   Usage:
  *     <link rel="preconnect" href="https://fonts.googleapis.com" />
  *     <link href="...Google Fonts URL..." rel="stylesheet" />
- *     <style> /* paste this file */ </style>
+ *     &lt;style&gt; /* paste this file */ &lt;/style&gt;
  *
  * ═══════════════════════════════════════════════
  */
@@ -5459,7 +5459,7 @@ const I18N = {
 
 // ====== STATE ======
 let currentLang = localStorage.getItem('qaU2_lang') || 'fr';
-let currentTab = 'news';
+let currentTab = 'tab-news';
 let currentToolCategory = 'all';
 let currentToolPage = 1;
 const TOOLS_PER_PAGE = 12;
@@ -5502,7 +5502,7 @@ function setLang(lang) {
   localStorage.setItem('qaU2_lang', lang);
   document.documentElement.lang = lang;
   // Re-render current tab
-  const activeEl = document.querySelector('.nav-item.active');
+  const activeEl = document.querySelector('.nav-tab.active');
   if (activeEl) {
     const tabId = activeEl.dataset.tab;
     switchTab(tabId);
@@ -5570,17 +5570,17 @@ function switchTab(tabId) {
   currentToolPage = 1;
 
   // Update nav items
-  document.querySelectorAll('.nav-item').forEach(el => {
+  document.querySelectorAll('.nav-tab').forEach(el => {
     el.classList.toggle('active', el.dataset.tab === tabId);
   });
 
   // Hide all tab panels
-  document.querySelectorAll('.tab-panel').forEach(el => {
+  document.querySelectorAll('.tab-content').forEach(el => {
     el.classList.remove('active');
   });
 
   // Show target panel
-  const panel = $(`panel-${tabId}`);
+  const panel = document.getElementById(tabId);
   if (panel) panel.classList.add('active');
 
   // Render content based on tab
@@ -5601,7 +5601,7 @@ function switchTab(tabId) {
 
 // ====== DASHBOARD RENDER ======
 function renderDash() {
-  const container = $('panel-home');
+  const container = document.getElementById('tab-home');
   if (!container) return;
 
   // KPI Cards
@@ -5757,7 +5757,7 @@ function renderDash() {
 
 // ====== TOOLS RENDER ======
 function renderTools() {
-  const container = $('panel-tools');
+  const container = document.getElementById('tab-tools');
   if (!container) return;
 
   const categories = [...new Set(TOOLS_DATA.map(t => t.cat))];
@@ -5895,7 +5895,7 @@ function openToolDetail(name) {
 
 // ====== TRAINING RENDER ======
 function renderTrain() {
-  const container = $('panel-training');
+  const container = document.getElementById('tab-training');
   if (!container) return;
 
   let html = `
@@ -6053,7 +6053,7 @@ function switchResourceTab(btn, type) {
 
 // ====== LABS RENDER ======
 function renderLabs() {
-  const container = $('panel-labs');
+  const container = document.getElementById('tab-labs');
   if (!container) return;
 
   container.innerHTML = `
@@ -6414,7 +6414,7 @@ function downloadTemplate(name) {
 
 // ====== ISTQB PREP RENDER ======
 function renderIstqb() {
-  const container = $('panel-istqb');
+  const container = document.getElementById('tab-istqb');
   if (!container) return;
 
   let html = `
@@ -6754,7 +6754,7 @@ function submitExam() {
 
   examActive = false;
 
-  const container = $('panel-istqb');
+  const container = document.getElementById('tab-istqb');
   if (!container) return;
 
   container.innerHTML = `
