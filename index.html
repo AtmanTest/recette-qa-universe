@@ -355,6 +355,11 @@ main{max-width:1280px;margin:0 auto;padding:0 24px}
 .dash-module-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
 .dash-module-row:last-child{border:none}
 .dash-module-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
+/* Tool cards - clickable */
+.tool-card{position:relative;overflow:hidden}
+.tool-card::after{content:'→';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--accent);opacity:0;transition:all .25s ease}
+.tool-card:hover::after{opacity:.6;right:12px}
+.tool-card:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,200,.1);border-color:rgba(0,229,200,.2)!important}
 /* Weak area rows (JS-generated) */
 .dash-wk-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
 .dash-wk-item:last-child{border:none}
@@ -1068,20 +1073,20 @@ function renderNews(){
   }));
 }
 const TC={
-  "Automation Web":[["Playwright","E2E cross-browser.",true],["Cypress","E2E JS Time Travel.",false],["Selenium","Historical standard.",false]],
-  "API":[["Postman","Full API client.",false],["Bruno","Open-source API.",true],["REST Assured","Java REST API.",false]],
-  "Mobile":[["Appium","Cross-platform.",false],["Detox","React Native.",false]],
-  "Perf":[["k6","JS load testing.",true],["JMeter","Multi-protocol.",false],["Gatling","Scala reports.",false]],
-  "Security":[["Burp Suite","Intrusion testing.",false],["OWASP ZAP","CI/CD scanner.",false]],
-  "Mgmt":[["TestRail","Cases & reporting.",false],["qTest","QA platform.",false],["Xray","Jira native.",false]],
-  "Visual":[["Applitools","AI visual testing.",true],["Percy","CI visual review.",false],["Chromatic","Storybook review.",false]]
+  "Automation Web":[["Playwright","E2E cross-browser.",true,"https://playwright.dev/docs/api/class-page"],["Cypress","E2E JS Time Travel.",false,"https://docs.cypress.io/api/table-of-contents"],["Selenium","Historical standard.",false,"https://www.selenium.dev/documentation/webdriver/"]],
+  "API":[["Postman","Full API client.",false,"https://learning.postman.com/docs/getting-started/introduction/"],["Bruno","Open-source API.",true,"https://docs.usebruno.com/"],["REST Assured","Java REST API.",false,"https://github.com/rest-assured/rest-assured/wiki/Usage"]],
+  "Mobile":[["Appium","Cross-platform.",false,"https://appium.io/docs/en/latest/"],["Detox","React Native.",false,"https://wix.github.io/Detox/docs/api/overview"]],
+  "Perf":[["k6","JS load testing.",true,"https://k6.io/docs/"],["JMeter","Multi-protocol.",false,"https://jmeter.apache.org/usermanual/"],["Gatling","Scala reports.",false,"https://gatling.io/docs/gatling/reference/current/"]],
+  "Security":[["Burp Suite","Intrusion testing.",false,"https://portswigger.net/burp/documentation"],["OWASP ZAP","CI/CD scanner.",false,"https://www.zaproxy.org/docs/"]],
+  "Mgmt":[["TestRail","Cases & reporting.",false,"https://support.testrail.com/"],["qTest","QA platform.",false,"https://support.qtest.com/"],["Xray","Jira native.",false,"https://docs.getxray.app/"]],
+  "Visual":[["Applitools","AI visual testing.",true,"https://applitools.com/docs/"],["Percy","CI visual review.",false,"https://percy.io/docs"],["Chromatic","Storybook review.",false,"https://www.chromatic.com/docs/"]]
 };
 function renderTools(){
   let h='';
   for(const[cat,tools]of Object.entries(TC)){
     h+=`<div><div class="cat-header"><span>${cat}</span><span class="accent-line"></span></div><div class="grid grid-3">`;
-    tools.forEach(([n,d,s])=>{
-      h+=`<div class="glass" style="padding:16px;display:flex;align-items:flex-start;gap:12px"><div style="width:36px;height:36px;border-radius:var(--radius-sm);background:rgba(0,229,200,.1);color:var(--accent);display:grid;place-items:center;font-weight:700;flex-shrink:0">${n[0]}</div><div style="flex:1"><strong style="font-size:14px">${n}${s?' <span style="color:var(--accent2);font-size:11px">★</span>':''}</strong><p style="color:var(--text2);font-size:12px;margin-top:2px">${d}</p></div></div>`;
+    tools.forEach(([n,d,s,u])=>{
+      h+=`<div class="glass tool-card" onclick="window.open('${u}','_blank')" style="padding:18px;display:flex;align-items:flex-start;gap:12px;cursor:pointer"><div style="width:38px;height:38px;border-radius:var(--radius-sm);background:rgba(0,229,200,.1);color:var(--accent);display:grid;place-items:center;font-weight:700;flex-shrink:0;font-size:16px">${n[0]}</div><div style="flex:1;min-width:0"><strong style="font-size:14px">${n}${s?' <span style="color:var(--accent2);font-size:11px">★</span>':''}</strong><p style="color:var(--text2);font-size:12px;margin-top:2px">${d}</p><span style="color:var(--accent);font-size:11px;opacity:.7;margin-top:4px;display:inline-flex;align-items:center;gap:4px">Docs →</span></div></div>`;
     });
     h+='</div></div>';
   }

@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QA Universe v2 — AI QA News & Analyst Dashboard</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --font-display:'Cabinet Grotesk',system-ui,sans-serif;
+  --font-body:'Satoshi',system-ui,sans-serif;
+  --bg:#07080a;--surface:rgba(20,21,24,.65);--surface2:rgba(26,27,31,.5);
+  --accent:#00e5c8;--accent-dim:rgba(0,229,200,.15);
+  --accent2:#f59e0b;
+  --accent3:#3b82f6;
+  --accent4:#ef4444;
+  --text:#e8eaed;--text2:#9ca3af;--muted:#6b7280;
+  --border:rgba(255,255,255,.06);
+  --radius:16px;--radius-sm:10px;
+  --shadow:0 8px 32px rgba(0,0,0,.5);
+  --nav-h:68px;
+  --glow-teal:0 0 30px rgba(0,229,200,.15);
+  --glow-amber:0 0 20px rgba(245,158,11,.12);
+}
+[data-theme="light"]{
+  --bg:#f0f2f5;--surface:rgba(255,255,255,.78);--surface2:rgba(241,243,245,.7);
+  --text:#0f1115;--text2:#495057;--muted:#868e96;
+  --border:rgba(0,0,0,.08);
+  --shadow:0 8px 32px rgba(0,0,0,.08);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);background:var(--bg);color:var(--text);
+  -webkit-font-smoothing:antialiased;line-height:1.6;min-height:100vh;
+  background-image:radial-gradient(ellipse 50% 40% at 50% 0%,rgba(0,229,200,.04),transparent);
+  background-attachment:fixed;
+}
+::selection{background:var(--accent);color:#07080a}
+
+/* ===== NAV (glass) ===== */
+nav{
+  position:sticky;top:0;z-index:100;height:var(--nav-h);
+  background:var(--surface);backdrop-filter:blur(24px) saturate(1.6);
+  -webkit-backdrop-filter:blur(24px) saturate(1.6);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 24px;gap:8px;
+}
+.nav-logo{
+  font-family:var(--font-display);font-size:24px;font-weight:800;
+  color:var(--accent);display:flex;align-items:center;gap:10px;
+  margin-right:20px;white-space:nowrap;
+}
+.nav-logo svg{width:30px;height:30px}
+.nav-tabs{display:flex;gap:2px;flex:1;overflow-x:auto;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{
+  padding:8px 16px;border:none;background:transparent;color:var(--muted);
+  font-family:var(--font-body);font-size:14px;font-weight:500;cursor:pointer;
+  border-radius:var(--radius-sm);white-space:nowrap;
+  display:flex;align-items:center;gap:6px;transition:all .12s;
+}
+.nav-tab:hover{color:var(--text);background:var(--surface2)}
+.nav-tab.active{color:var(--accent);background:var(--accent-dim)}
+.theme-btn{
+  width:40px;height:40px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  display:grid;place-items:center;flex-shrink:0;
+  transition:all .12s;
+}
+.theme-btn:hover{background:var(--surface2);color:var(--text);box-shadow:var(--shadow)}
+
+/* ===== LAYOUT ===== */
+main{max-width:1280px;margin:0 auto;padding:0 24px}
+.tab-content{display:none;padding:32px 0 80px;animation:fadeIn .3s ease}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.section-title{font-family:var(--font-display);font-size:32px;font-weight:800;margin-bottom:6px;letter-spacing:-.02em}
+.section-sub{color:var(--text2);font-size:15px;margin-bottom:28px}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px}
+
+/* ===== GLASS CARDS ===== */
+.glass{
+  background:var(--surface);backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border:1px solid var(--border);border-radius:var(--radius);
+  transition:all .2s ease;
+}
+.glass:hover{border-color:rgba(255,255,255,.12);box-shadow:var(--shadow)}
+.glass-accent:hover{border-color:rgba(0,229,200,.2);box-shadow:var(--glow-teal)}
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1024px){.grid-4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+/* ===== TAG ===== */
+.tag{
+  display:inline-flex;align-items:center;padding:2px 10px;
+  border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;white-space:nowrap;
+}
+.tag-ai{background:rgba(0,229,200,.15);color:var(--accent)}
+.tag-istqb{background:rgba(245,158,11,.15);color:var(--accent2)}
+.tag-outils{background:rgba(59,130,246,.15);color:var(--accent3)}
+.tag-formation{background:rgba(34,197,94,.15);color:#22c55e}
+
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 22px;border-radius:var(--radius-sm);border:none;
+  font-family:var(--font-body);font-size:14px;font-weight:500;cursor:pointer;
+  transition:all .15s;text-decoration:none;
+}
+.btn-primary{background:var(--accent);color:#07080a;font-weight:600}
+.btn-primary:hover{box-shadow:var(--glow-teal);transform:translateY(-1px)}
+.btn-ghost{background:var(--surface);color:var(--text2);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--surface2);color:var(--text)}
+.btn-sm{padding:8px 14px;font-size:13px}
+.cat-header{display:flex;align-items:center;gap:12px;margin:28px 0 16px;font-size:20px;font-weight:700;font-family:var(--font-display)}
+.cat-header .accent-line{flex:1;height:1px;background:var(--border);min-width:30px}
+
+/* ===== NEWS TICKER ===== */
+.news-ticker{
+  overflow:hidden;border-radius:var(--radius);margin-bottom:24px;
+  background:var(--surface);backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border:1px solid var(--border);position:relative;
+}
+.news-ticker-track{display:flex;animation:ticker 35s linear infinite;width:max-content}
+.news-ticker-track:hover{animation-play-state:paused}
+.news-ticker-item{
+  display:flex;align-items:center;gap:12px;padding:10px 24px;white-space:nowrap;font-size:14px;flex-shrink:0;
+}
+.news-ticker-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:pulse-dot 2s infinite}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ===== DASHBOARD WIDGETS ===== */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin-bottom:24px}
+@media(max-width:1024px){.dash-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.dash-grid{grid-template-columns:1fr}}
+.dash-card{padding:20px;border-radius:var(--radius);background:var(--surface);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border:1px solid var(--border)}
+.dash-card .icon{width:40px;height:40px;border-radius:var(--radius-sm);display:grid;place-items:center;margin-bottom:10px;font-size:18px}
+.dash-card .value{font-family:var(--font-display);font-size:28px;font-weight:800;line-height:1}
+.dash-card .label{color:var(--text2);font-size:12px;margin-top:6px;text-transform:uppercase;letter-spacing:.04em;font-weight:500}
+.dash-card .change{font-size:12px;margin-top:4px;display:flex;align-items:center;gap:4px}
+
+/* ===== PROGRESS RING ===== */
+.progress-ring{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;position:relative;flex-shrink:0}
+.progress-ring::before{content:'';position:absolute;inset:4px;border-radius:50%;background:var(--bg)}
+.progress-ring .pct{font-size:16px;font-weight:700;font-family:var(--font-display);position:relative;z-index:1}
+
+/* ===== NEWS CARDS ===== */
+.news-card{padding:18px;background:var(--surface);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;gap:8px}
+.news-card:hover{border-color:rgba(255,255,255,.12);box-shadow:var(--shadow)}
+.news-card .date{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.news-card .title{font-weight:700;font-size:15px;line-height:1.35}
+.news-card .desc{color:var(--text2);font-size:13px;line-height:1.5;flex:1}
+
+/* ===== WEAK AREAS ===== */
+.weak-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.weak-item:last-child{border:none}
+.weak-bar{flex:1;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.weak-fill{height:100%;border-radius:3px;transition:width .6s}
+
+/* ===== SUB-TABS ===== */
+.sub-tabs{display:flex;gap:2px;margin-bottom:24px;overflow-x:auto;border-bottom:1px solid var(--border)}
+.sub-tabs::-webkit-scrollbar{display:none}
+.sub-tab{padding:10px 18px;border:none;background:transparent;color:var(--muted);font-family:var(--font-body);font-size:14px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .12s}
+.sub-tab:hover{color:var(--text)}
+.sub-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.sub-content{display:none;animation:fadeIn .2s ease}
+.sub-content.active{display:block}
+
+/* ===== QUIZ ===== */
+.quiz-q{font-size:17px;font-weight:600;line-height:1.5;margin-bottom:16px}
+.quiz-opt{padding:14px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);cursor:pointer;display:flex;align-items:center;gap:12px;font-size:14px;margin-bottom:8px;transition:all .12s}
+.quiz-opt:hover{border-color:rgba(255,255,255,.12);background:var(--surface)}
+.quiz-opt .ltr{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--muted);flex-shrink:0}
+.quiz-opt.selected{border-color:var(--accent);background:var(--accent-dim)}
+.quiz-opt.selected .ltr{border-color:var(--accent);color:var(--accent);background:rgba(0,229,200,.15)}
+.quiz-opt.correct{border-color:var(--accent)!important;background:rgba(0,229,200,.1)!important}
+.quiz-opt.correct .ltr{background:rgba(0,229,200,.2);color:var(--accent);border-color:var(--accent)}
+.quiz-opt.wrong{border-color:var(--accent4)!important;background:rgba(239,68,68,.08)!important}
+.quiz-opt.wrong .ltr{background:rgba(239,68,68,.12);color:var(--accent4);border-color:var(--accent4)}
+
+/* ===== LESSON ===== */
+.lesson-card{padding:18px;cursor:pointer;margin-bottom:8px;background:var(--surface);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border:1px solid var(--border);border-radius:var(--radius)}
+.lesson-card:hover{border-color:rgba(255,255,255,.12)}
+.lesson-concepts{display:none;padding-top:12px;margin-top:12px;border-top:1px solid var(--border)}
+.lesson-card.open .lesson-concepts{display:block}
+.concept-item{padding:8px 0;border-bottom:1px solid var(--border)}
+.concept-item:last-child{border:none}
+.concept-item strong{color:var(--accent)}
+.concept-item p{color:var(--text2);font-size:13px;margin-top:2px;line-height:1.45}
+.quiz-result-box{padding:14px;border-radius:var(--radius-sm);margin-top:14px;font-size:14px;line-height:1.5;display:none}
+.quiz-result-box.show{display:block}
+
+/* ===== EXAM ===== */
+.exam-timer{font-family:var(--font-display);font-size:26px;font-weight:800;color:var(--accent)}
+.exam-timer.warning{color:var(--accent2)}
+.exam-timer.danger{color:var(--accent4);animation:pulse-exam 1s infinite}
+@keyframes pulse-exam{0%,100%{opacity:1}50%{opacity:.4}}
+.exam-progress{height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.exam-progress-bar{height:100%;background:var(--accent);border-radius:3px;transition:width .3s}
+
+/* ===== REVEAL ===== */
+.reveal{opacity:0;transform:translateY(24px);transition:all .5s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){
+  nav{padding:0 12px}
+  .nav-logo{font-size:20px;margin-right:10px}
+  .nav-tab{padding:6px 10px;font-size:12px}
+  .section-title{font-size:26px}
+  main{padding:0 12px}
+  .tab-content{padding:20px 0 60px}
+}
+
+footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;color:var(--muted);font-size:13px;margin-top:40px}
+footer a{color:var(--accent);text-decoration:none}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <svg viewBox="0 0 32 32" fill="none"><path d="M4 16C4 9.373 9.373 4 16 4s12 5.373 12 12-5.373 12-12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M16 22a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" fill="currentColor" opacity=".3"/><path d="M22 16h6M4 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    QA∞
+  </div>
+  <div class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" data-tab="home">📊 Dashboard</button>
+    <button class="nav-tab" data-tab="news">📰 AI News</button>
+    <button class="nav-tab" data-tab="tools">🛠️ Tools</button>
+    <button class="nav-tab" data-tab="training">📚 Training</button>
+    <button class="nav-tab" data-tab="istqb">🎓 ISTQB Prep</button>
+  </div>
+  <button class="theme-btn" id="themeToggle">🌙</button>
+</nav>
+
+<main>
+
+<!-- ===== NEWS TICKER (always visible) ===== -->
+<div class="news-ticker">
+  <div class="news-ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- ===== TAB: DASHBOARD ===== -->
+<section class="tab-content active" id="tab-home">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:20px">
+    <div><h2 class="section-title" style="margin:0">📊 Analyst Dashboard</h2><p class="section-sub" style="margin:4px 0 0">Vue d'ensemble de votre progression QA</p></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <button class="btn btn-primary btn-sm" onclick="switchMainTab('istqb')">🎯 Quiz rapide</button>
+      <button class="btn btn-ghost btn-sm" onclick="switchMainTab('news')">📰 Dernières news</button>
+    </div>
+  </div>
+  <div class="dash-grid reveal" id="dashWidgets"></div>
+  <div class="grid grid-2 reveal" style="margin-bottom:24px">
+    <div class="dash-card"><div class="cat-header" style="margin:0 0 12px"><span>📈 Progression par domaine</span><span class="accent-line"></span></div><div id="dashModules"></div></div>
+    <div class="dash-card"><div class="cat-header" style="margin:0 0 12px"><span>❌ Points faibles</span><span class="accent-line"></span></div><div id="dashWeak"></div></div>
+  </div>
+  <div class="reveal"><div class="cat-header"><span>🔥 Dernières actualités AI QA</span><span class="accent-line"></span></div>
+    <div class="grid grid-2" id="dashNews"></div>
+  </div>
+</section>
+
+<!-- ===== TAB: NEWS ===== -->
+<section class="tab-content" id="tab-news">
+  <h2 class="section-title reveal">📰 AI QA News</h2>
+  <p class="section-sub reveal">Toute l'actualité du Testing, de l'IA et des certifications QA.</p>
+  <div class="grid grid-2" id="newsGrid"></div>
+</section>
+
+<!-- ===== TAB: TOOLS ===== -->
+<section class="tab-content" id="tab-tools">
+  <h2 class="section-title reveal">🛠️ Tools & Resources</h2>
+  <p class="section-sub reveal">Les meilleurs outils QA par catégorie, mis à jour 2026.</p>
+  <div id="toolsGrid"></div>
+</section>
+
+<!-- ===== TAB: TRAINING ===== -->
+<section class="tab-content" id="tab-training">
+  <h2 class="section-title reveal">📚 Training & Certifications</h2>
+  <p class="section-sub reveal">Parcours de certification, roadmap et ressources.</p>
+  <div class="reveal"><div class="cat-header"><span>🎓 Certifications</span><span class="accent-line"></span></div><div class="grid grid-2" id="certsGrid"></div></div>
+  <div class="reveal" style="margin-top:24px"><div class="cat-header"><span>🗺️ Roadmap QA 2026</span><span class="accent-line"></span></div>
+    <div class="glass" style="padding:24px"><div id="roadmapHTML"></div></div>
+  </div>
+  <div class="reveal" style="margin-top:24px"><div class="cat-header"><span>📖 Ressources</span><span class="accent-line"></span></div><div class="grid grid-2" id="resourcesGrid"></div></div>
+</section>
+
+<!-- ===== TAB: ISTQB PREP ===== -->
+<section class="tab-content" id="tab-istqb">
+  <h2 class="section-title reveal">🎓 ISTQB Prep</h2>
+  <p class="section-sub reveal">Leçons, quiz, examen blanc, progression — tout pour réussir.</p>
+  <div class="sub-tabs">
+    <button class="sub-tab active" data-sub="lessons">📖 Leçons</button>
+    <button class="sub-tab" data-sub="quiz">🎯 Quiz</button>
+    <button class="sub-tab" data-sub="exam">📝 Examen blanc</button>
+    <button class="sub-tab" data-sub="progress">📊 Stats</button>
+  </div>
+  <div class="sub-content active" id="sub-lessons"><div id="lessonsGrid"></div></div>
+  <div class="sub-content" id="sub-quiz">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;align-items:center">
+      <select id="quizDomain" style="padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface2);color:var(--text);font-family:var(--font-body);font-size:14px;cursor:pointer;outline:none">
+        <option value="ctfl">Foundation CTFL v4.0</option>
+        <option value="ctai">AI Testing (CT-AI)</option>
+      </select>
+      <button class="btn btn-primary" id="quizStartBtn">🎯 Démarrer</button>
+    </div>
+    <div id="quizArea"></div>
+    <div style="display:none;margin-top:16px;text-align:center" id="quizFinalScore">
+      <div class="glass" style="display:inline-block;min-width:280px;padding:28px">
+        <div style="font-size:48px" id="quizFinalEmoji">🎉</div>
+        <div style="font-size:28px;font-weight:800;font-family:var(--font-display);margin-top:8px" id="quizFinalPct">0%</div>
+        <div style="color:var(--text2);margin-top:4px;font-size:14px" id="quizFinalLabel">Prêt !</div>
+        <div style="margin-top:8px;font-size:13px;color:var(--muted)" id="quizFinalDetail">0/0</div>
+        <button class="btn btn-primary btn-sm" style="margin-top:12px" onclick="resetQuiz()">🔄 Recommencer</button>
+      </div>
+    </div>
+  </div>
+  <div class="sub-content" id="sub-exam">
+    <div id="examSetup">
+      <p style="color:var(--text2);font-size:14px;margin-bottom:16px">Simulation chronométrée. Note de passage : 65%.</p>
+      <div class="grid grid-3" style="max-width:500px">
+        <div class="glass" style="text-align:center;padding:20px;cursor:pointer" onclick="startExam(10)"><div style="font-size:28px;font-weight:800;font-family:var(--font-display);color:var(--accent)">10</div><div style="font-size:13px;margin-top:2px;color:var(--text2)">questions · 10 min</div></div>
+        <div class="glass glass-accent" style="text-align:center;padding:20px;cursor:pointer;border-color:rgba(0,229,200,.2)" onclick="startExam(20)"><div style="font-size:28px;font-weight:800;font-family:var(--font-display);color:var(--accent)">20</div><div style="font-size:13px;margin-top:2px;color:var(--text2)">questions · 20 min</div></div>
+        <div class="glass" style="text-align:center;padding:20px;cursor:pointer" onclick="startExam(30)"><div style="font-size:28px;font-weight:800;font-family:var(--font-display);color:var(--accent)">30</div><div style="font-size:13px;margin-top:2px;color:var(--text2)">questions · 30 min</div></div>
+      </div>
+    </div>
+    <div id="examArea" style="display:none"></div>
+    <div id="examResults" style="display:none"></div>
+  </div>
+  <div class="sub-content" id="sub-progress">
+    <div class="dash-grid" id="progStats" style="margin-bottom:20px"></div>
+    <div class="glass" style="margin-bottom:16px;padding:18px">
+      <div class="cat-header" style="margin:0 0 12px"><span>📈 Scores</span><span class="accent-line"></span></div>
+      <div id="progBestScores"></div>
+    </div>
+    <div class="glass" style="margin-bottom:16px;padding:18px">
+      <div class="cat-header" style="margin:0 0 12px"><span>❌ Dernières erreurs</span><span class="accent-line"></span></div>
+      <div id="progWrong"></div>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="if(confirm('Réinitialiser ?')){localStorage.removeItem('qaU2_progress');renderProgress();renderDashboard();}">🗑️ Reset</button>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:10px">
+    <a href="https://www.istqb.org" target="_blank">ISTQB</a>
+    <a href="https://www.ministryoftesting.com" target="_blank">Ministry of Testing</a>
+    <a href="https://testautomationu.applitools.com" target="_blank">TAU</a>
+  </div>
+  <p>🧪 QA Universe v2 · <a href="https://github.com/AtmanTest/recette-qa-universe" target="_blank">recette</a></p>
+</footer>
+
+<script>
+// ===== DATA =====
+const NEWS = [
+  {date:"Mai 2026",tag:"ISTQB",tc:"tag-istqb",title:"CTAL-AT v2.0 : nouvelle certification Agile Tester",desc:"L'ISTQB a publié la v2.0 du Certified Tester Advanced Level Agile Tester."},
+  {date:"Avril 2026",tag:"AI Testing",tc:"tag-ai",title:"CT-GenAI v1.1 : mise à jour du syllabus",desc:"Mise à jour mineure du syllabus testing with Generative AI."},
+  {date:"Mars 2026",tag:"ISTQB",tc:"tag-istqb",title:"1 000 000 certifications ISTQB délivrées",desc:"Milestone historique : cap du million de certificats."},
+  {date:"Fév 2026",tag:"AI Testing",tc:"tag-ai",title:"76.8% des QA utilisent l'IA",desc:"Rapport PractiTest 2026 : adoption massive de l'IA en QA."},
+  {date:"Jan 2026",tag:"ISTQB",tc:"tag-istqb",title:"CT-AI Syllabus v2.0 publié",desc:"Mise à jour majeure du Certified Tester AI Testing."},
+  {date:"Jan 2026",tag:"Outils",tc:"tag-outils",title:"Playwright devient le standard E2E 2026",desc:"Playwright s'impose comme référence pour les tests cross-browser."},
+  {date:"Déc 2025",tag:"AI Testing",tc:"tag-ai",title:"Qodo Lève 40M$ pour l'AI Code Review",desc:"Qodo (ex CodiumAI) lève des fonds pour l'analyse de code."},
+  {date:"Nov 2025",tag:"Outils",tc:"tag-outils",title:"Bruno dépasse Postman en adopteurs",desc:"Le client API open-source local-first gagne du terrain."}
+];
+const QUIZ_OPT = 'ABCD';
+const QUIZ_CTFL=[
+  {q:"Objectif principal du test ISTQB ?",opts:["Trouver tous les bugs","Réduire le risque de défaillance","Remplacer la revue","Automatiser tout"],c:1,expl:"Réduire le risque de défaillance en fournissant des informations sur la qualité."},
+  {q:"Chaîne erreur → défaut → défaillance ?",opts:["Synonymes","Erreur → Défaut → Défaillance","Toujours une erreur","Défaut = erreur"],c:1,expl:"L'erreur humaine produit un défaut dans le code qui peut causer une défaillance."},
+  {q:"Principe : test exhaustif impossible ?",opts:["Présence pas absence","Exhaustif impossible","Tester tôt","Absence ≠ qualité"],c:1,expl:"Il est impossible de tester toutes les combinaisons."},
+  {q:"Niveau de test le plus précoce ?",opts:["Système","Intégration","Composant","Recette"],c:2,expl:"Le test de composant (unitaire) est le premier niveau."},
+  {q:"Qu'est-ce que la traçabilité ?",opts:["Suivi des bugs","Lien base ↔ conditions ↔ cas","Suivi perf","Documentation"],c:1,expl:"Traçabilité relie les conditions, cas et résultats aux exigences."},
+  {q:"Test basé sur la structure interne ?",opts:["Fonctionnel","Boîte blanche","Exploratoire","Charge"],c:1,expl:"Boîte blanche : analyse des branches, chemins, conditions."},
+  {q:"Différence confirmation vs régression ?",opts:["Même chose","Confirmation corrige, régression vérifie effets","Régression avant","Confirmation plus rapide"],c:1,expl:"Confirmation après correction, régression vérifie les effets secondaires."},
+  {q:"Qu'est-ce qu'un oracle de test ?",opts:["Outil oracle","Source du résultat attendu","Développeur","Base de données"],c:1,expl:"Oracle = source pour déterminer le résultat attendu."},
+  {q:"Test exploratoire, c'est quoi ?",opts:["Sans doc préalable","Automatisé","Performance","Sécurité"],c:0,expl:"Le test exploratoire conçoit et exécute simultanément."},
+  {q:"Avantage des techniques de conception ?",opts:["Moins de testeurs","Tests systématiques","Automatisation","Délais"],c:1,expl:"Produisent des tests systématiques avec couverture mesurable."},
+  {q:"Qu'est-ce qu'un faux positif ?",opts:["Test passe au lieu d'échouer","Test échoue au lieu de passer","Bug non détecté","Nouvelle fonctionnalité"],c:1,expl:"Faux positif = test qui échoue sans raison valable."},
+  {q:"Que mesure la latence ?",opts:["Utilisateurs","Temps réponse requête→réponse","Mémoire","Transactions"],c:1,expl:"Latence = temps entre requête et réponse."},
+  {q:"Qu'est-ce que le TDD ?",opts:["Test après code","Test avant code","Après déploiement","Sans tests"],c:1,expl:"TDD : test qui échoue → code min → refactor."},
+  {q:"Objectif du test d'acceptation ?",opts:["Tous les chemins","Valider les besoins","Tous les bugs","Optimiser"],c:1,expl:"Acceptation : valider que le système répond aux besoins métier."},
+  {q:"Que teste la maintenabilité ?",opts:["Exécution","Facilité de modification","Bugs","Temps"],c:1,expl:"Maintenabilité = facilité à modifier les tests quand le logiciel évolue."},
+  {q:"Technique de test basée sur l'expérience ?",opts:["Boîte noire","Guesswork","Boîte blanche","Valeurs limites"],c:1,expl:"Guesswork/Error guessing utilise l'intuition et l'expérience du testeur."},
+  {q:"Qu'est-ce qu'un critère de couverture ?",opts:["Bugs trouvés","Mesure du degré de test","Date de fin","Budget"],c:1,expl:"Mesure du degré de test effectué pour un objet donné."},
+  {q:"Phase d'analyse des tests : quoi ?",opts:["Exécution","Identification des conditions testables","Clôture","Déploiement"],c:1,expl:"Analyse = identifier ce qui doit être testé depuis la base de test."},
+  {q:"Rôle d'un test leader ?",opts:["Écrire tous les tests","Planifier et coordonner","Trouver des bugs","Automatiser"],c:1,expl:"Le test leader planifie, estime, coordonne et supervise."},
+  {q:"7 principes du test — lequel dit que tester tôt réduit les coûts ?",opts:["Présence pas absence","Tester tôt","Regroupement des défauts","Pesticide"],c:1,expl:"Tester tôt réduit les coûts de correction."}
+];
+const QUIZ_CTAI=[
+  {q:"Self-healing test en AI Testing ?",opts:["Test corrigeant ses sélecteurs","Test sans humain","Test ML","Sans assertion"],c:0,expl:"Self-healing adapte les tests aux changements d'interface."},
+  {q:"Test adversarial pour AI ?",opts:["Entre équipes","Tromper un modèle AI","Performance","Compétition"],c:1,expl:"Tests adversariaux = entrées qui forcent l'erreur du modèle."},
+  {q:"IA explicable (XAI) définit ?",opts:["IA qui explique ses conclusions","Test auto-explicatif","Outil reporting","Méthode debug"],c:0,expl:"XAI permet de comprendre et valider les décisions des modèles."},
+  {q:"Défi principal des LLMs en test ?",opts:["Taille mémoire","Non-déterminisme","Coût","Outils"],c:1,expl:"Les LLMs sont non-déterministes : oracle difficile à définir."},
+  {q:"Data drift : c'est quoi ?",opts:["Fuite données","Changement distribution données","Augmentation","Bug"],c:1,expl:"Data drift = changement des données d'entrée dégradant le modèle."},
+  {q:"Outil AI gen de tests le + utilisé ?",opts:["Selenium","GitHub Copilot","Applitools","k6"],c:1,expl:"GitHub Copilot génère des tests dans l'IDE via LLMs."},
+  {q:"Couverture de comportement ?",opts:["Lignes exécutées","Diversité comportements explorés","% automatisé","Feedback"],c:1,expl:"Diversité des chemins de décision explorés par l'AI."},
+  {q:"Avantage visual testing AI ?",opts:["Pas de code","Détecte différences visuelles subtiles","Gratuit","Remplace tout"],c:1,expl:"Détecte les régressions visuelles invisibles aux tests fonctionnels."},
+  {q:"Valider un modèle AI en prod ?",opts:["Pré-prod seulement","Monitoring + drift + A/B","On ne valide pas","Unitaires"],c:1,expl:"Nécessite monitoring continu, détection de drift, tests A/B."},
+  {q:"Recommandation test chatbot LLM ?",opts:["Auto seulement","Auto + exploratoire","Manuel","Ne pas tester"],c:1,expl:"Hybride : automatisés pour cas standards, exploratoires pour cas imprévus."}
+];
+const ALL_QUESTIONS = [...QUIZ_CTFL, ...QUIZ_CTAI];
+
+// ===== STATE =====
+const LS_KEY = 'qaU2_progress';
+
+// ===== MODULES =====
+const MODULES = [
+  {id:1,ch:"Ch.1",title:"Fondamentaux du test",concepts:[
+    {t:"Objectifs du test",d:"Réduire le risque de défaillance, fournir des informations sur la qualité."},
+    {t:"7 Principes",d:"Présence pas absence, exhaustif impossible, tester tôt, regroupement défauts, paradoxe pesticide, dépend du contexte, absence d'erreur n'est pas qualité."},
+    {t:"Processus de test",d:"Planification → Analyse → Conception → Mise en œuvre → Exécution → Clôture."}
+  ]},
+  {id:2,ch:"Ch.2",title:"Testing cycle de vie",concepts:[
+    {t:"Niveaux de test",d:"Composant, Intégration, Système, Acceptation."},
+    {t:"Types de test",d:"Fonctionnel, Non-fonctionnel, Structurel, Lié au changement."},
+    {t:"Tests de maintenance",d:"Corrective, adaptive, perfective, évolutive."}
+  ]},
+  {id:3,ch:"Ch.3",title:"Techniques statiques",concepts:[
+    {t:"Revues",d:"Walkthrough, technique, inspection. Rôles : auteur, modérateur, réviseur."},
+    {t:"Analyse statique",d:"Dead code, violations standards, complexité cyclomatique."},
+    {t:"Avantages",d:"30-70% des défauts trouvés en revue, coût réduit, partage."}
+  ]},
+  {id:4,ch:"Ch.4",title:"Techniques dynamiques",concepts:[
+    {t:"Boîte noire",d:"Partitionnement, valeurs limites, tables décision, transition états."},
+    {t:"Boîte blanche",d:"Instructions, branches, conditions, chemins, MC/DC."},
+    {t:"Basée expérience",d:"Exploratoire, error guessing."}
+  ]},
+  {id:5,ch:"Ch.5",title:"Gestion des tests",concepts:[
+    {t:"Planification",d:"Wideband Delphi, Three-point, PERT, Function Point."},
+    {t:"Analyse risques",d:"Risques produit (qualité) et projet (planning). Test basé risques."},
+    {t:"Métriques",d:"Densité défauts, couverture, taux passage, coût qualité."}
+  ]},
+  {id:6,ch:"Ch.6",title:"Outils de test",concepts:[
+    {t:"Catégories",d:"Gestion, automatisation, performance, analyse statique."},
+    {t:"Sélection",d:"Maturité, support, intégration, coût total, compétences."},
+    {t:"Pilotage",d:"POC → pilote → déploiement progressif. ROI automaton."}
+  ]}
+];
+
+// ===== PROGRESS =====
+function getP(){try{return JSON.parse(localStorage.getItem(LS_KEY))||{q:0,scores:[],wrong:[]}}catch(e){return{q:0,scores:[],wrong:[]}}}
+function saveP(p){try{localStorage.setItem(LS_KEY,JSON.stringify(p))}catch(e){}}
+function addResult(correct,domain){
+  const p=getP();p.q++;
+  if(!correct)p.wrong.unshift({t:Date.now(),d:domain,q:p.q});
+  if(p.wrong.length>50)p.wrong=p.wrong.slice(0,50);
+  saveP(p);
+}
+
+// ===== DASHBOARD =====
+function renderDashboard(){
+  const p=getP();
+  const w=p.wrong.filter(x=>x.d!=='exam').length;
+  const domainPct = Math.min(100, Math.round((p.q/(QUIZ_CTFL.length))*100));
+  const weakPct = Math.min(100, w*10);
+  const streak = p.wrong.filter(x=>x.t>Date.now()-604800000).length;
+  
+  document.getElementById('dashWidgets').innerHTML = `
+    <div class="dash-card"><div class="icon" style="background:rgba(0,229,200,.12);color:var(--accent)">📊</div><div class="value">${p.q}</div><div class="label">Questions répondues</div></div>
+    <div class="dash-card"><div class="icon" style="background:rgba(59,130,246,.12);color:var(--accent3)">🎯</div><div class="value">${p.scores.length||0}</div><div class="label">Examens tentés</div></div>
+    <div class="dash-card"><div class="icon" style="background:rgba(245,158,11,.12);color:var(--accent2)">🔥</div><div class="value">${streak}</div><div class="label">Erreurs cette semaine</div></div>
+    <div class="dash-card">
+      <div class="icon" style="background:rgba(34,197,94,.12);color:#22c55e">📈</div>
+      <div class="progress-ring" style="background:conic-gradient(var(--accent) ${domainPct}%, var(--surface2) ${domainPct}%)"><span class="pct">${domainPct}%</span></div>
+      <div class="label" style="margin-top:4px">Progression CTFL</div>
+    </div>
+  `;
+  
+  // Modules progress (dummy for now — tracks question answered)
+  document.getElementById('dashModules').innerHTML = MODULES.map(m=>{
+    const modPct = Math.min(100, Math.round((p.q>0?1:0)*Math.random()*80+10));
+    return `<div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)">
+      <span class="tag tag-istqb">${m.ch}</span>
+      <span style="flex:1;font-size:14px">${m.title}</span>
+      <div style="width:80px;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:${modPct}%;background:var(--accent);border-radius:3px"></div>
+      </div>
+      <span style="color:var(--muted);font-size:11px;width:28px;text-align:right">${modPct}%</span>
+    </div>`;
+  }).join('');
+  
+  // Weak areas
+  const weakDomains = {};
+  p.wrong.forEach(x=>{weakDomains[x.d]=(weakDomains[x.d]||0)+1});
+  const weakHtml = Object.keys(weakDomains).length
+    ? Object.entries(weakDomains).slice(0,5).map(([d,cnt])=>{
+        const name = d==='ctfl'?'Foundation Level':d==='ctai'?'AI Testing':'Examen';
+        const pct = Math.min(100, cnt*12);
+        const c = d==='ctfl'?'var(--accent2)':d==='ctai'?'var(--accent)':'var(--accent3)';
+        return `<div class="weak-item"><span style="font-size:13px;min-width:120px">${name}</span><div class="weak-bar"><div class="weak-fill" style="width:${pct}%;background:${c}"></div></div><span style="color:var(--muted);font-size:11px;width:24px;text-align:right">${cnt}</span></div>`;
+      }).join('')
+    : '<p style="color:var(--muted);font-size:14px">Aucune erreur. Beau travail ! 🎉</p>';
+  document.getElementById('dashWeak').innerHTML = weakHtml;
+  
+  // News preview
+  document.getElementById('dashNews').innerHTML = NEWS.slice(0,4).map(n=>`
+    <div class="news-card"><div class="date"><span class="tag ${n.tc}">${n.tag}</span>${n.date}</div><div class="title">${n.title}</div><div class="desc">${n.desc}</div></div>
+  `).join('');
+}
+
+// ===== TICKER =====
+function renderTicker(){
+  const items = NEWS.map(n=>`<div class="news-ticker-item"><span class="news-ticker-dot"></span><span class="tag ${n.tc}">${n.tag}</span><span>${n.title}</span><span style="color:var(--muted)">· ${n.date}</span></div>`).join('');
+  document.getElementById('tickerTrack').innerHTML = items + items;
+}
+
+// ===== NAV =====
+function switchMainTab(t){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  document.querySelector(`.nav-tab[data-tab="${t}"]`).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(t==='home') renderDashboard();
+  setTimeout(reveal,100);
+}
+document.querySelectorAll('.nav-tab').forEach(btn=>btn.addEventListener('click',()=>switchMainTab(btn.dataset.tab)));
+
+// ===== SUB-TABS =====
+function switchSubTab(s){
+  const p = document.getElementById('tab-istqb');
+  p.querySelectorAll('.sub-content').forEach(el=>el.classList.remove('active'));
+  p.querySelectorAll('.sub-tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('sub-'+s).classList.add('active');
+  p.querySelector(`.sub-tab[data-sub="${s}"]`).classList.add('active');
+  if(s==='progress') renderProgress();
+  setTimeout(reveal,100);
+}
+document.querySelectorAll('.sub-tab').forEach(btn=>btn.addEventListener('click',()=>switchSubTab(btn.dataset.sub)));
+
+// ===== RENDERS =====
+function renderNews(){
+  document.getElementById('newsGrid').innerHTML = NEWS.map(n=>`
+    <div class="glass news-card"><div class="date"><span class="tag ${n.tc}">${n.tag}</span>${n.date}</div><div class="title">${n.title}</div><div class="desc">${n.desc}</div></div>
+  `).join('');
+}
+
+const TOOLS_BY_CAT = {
+  "Automation Web":[["Playwright","E2E cross-browser moderne.",true],["Cypress","E2E JS Time Travel.",false],["Selenium","Standard historique.",false]],
+  "API":[["Postman","Client API complet.",false],["Bruno","API open-source local-first.",true],["REST Assured","Tests API REST Java.",false]],
+  "Mobile":[["Appium","Cross-platform mobile.",false],["Detox","React Native.",false]],
+  "Perf":[["k6","Load testing JS.",true],["JMeter","Multi-protocole.",false],["Gatling","Scala rapports.",false]],
+  "Sécurité":[["Burp Suite","Test intrusion.",false],["OWASP ZAP","Scanner CI/CD.",false]],
+  "Management":[["TestRail","Cas et reporting.",false],["qTest","Plateforme QA analytics.",false],["Xray","Test Jira natif.",false]],
+  "Visual":[["Applitools","Visual AI testing.",true],["Percy","Visual review CI.",false],["Chromatic","Storybook review.",false]]
+};
+
+function renderTools(){
+  let h='';
+  for(const[cat,tools]of Object.entries(TOOLS_BY_CAT)){
+    h+=`<div class="reveal"><div class="cat-header"><span>${cat}</span><span class="accent-line"></span></div><div class="grid grid-3">`;
+    tools.forEach(([n,d,s])=>{
+      h+=`<div class="glass" style="padding:16px;display:flex;align-items:flex-start;gap:12px">
+        <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:rgba(0,229,200,.1);color:var(--accent);display:grid;place-items:center;font-weight:700;flex-shrink:0">${n[0]}</div>
+        <div style="flex:1"><strong style="font-size:14px">${n}${s?' <span style="color:var(--accent2);font-size:11px">★</span>':''}</strong><p style="color:var(--text2);font-size:12px;margin-top:2px">${d}</p></div>
+      </div>`;
+    });
+    h+='</div></div>';
+  }
+  document.getElementById('toolsGrid').innerHTML = h;
+}
+
+function renderCerts(){
+  document.getElementById('certsGrid').innerHTML = [
+    {b:"tag-istqb",t:"CTFL v4.0 — Foundation",d:"Le point d'entrée. Fondamentaux du test."},
+    {b:"tag-outils",t:"CTAL-TA v4.0 — Test Analyst",d:"Spécialisation analyse de test."},
+    {b:"tag-ai",t:"CT-AI v2.0 — AI Testing",d:"Test des systèmes IA."},
+    {b:"tag-ai",t:"CT-GenAI v1.1",d:"Test avec et pour l'IA générative."},
+    {b:"tag-istqb",t:"CTAL-AT v2.0 — Agile Tester",d:"Testing Agile."}
+  ].map(c=>`<div class="glass" style="padding:18px;display:flex;flex-direction:column;gap:6px"><span class="tag ${c.b}">${c.b.split('-')[1]||'istqb'}</span><strong style="font-size:15px">${c.t}</strong><p style="color:var(--text2);font-size:13px">${c.d}</p></div>`).join('');
+  document.getElementById('roadmapHTML').innerHTML = `
+    <div style="display:flex;gap:0;flex-wrap:wrap">${["CTFL Foundation","Spécialisation","Framework E2E","CT-AI","Open Source"].map((s,i)=>`
+      <div style="flex:1;min-width:140px;padding:16px;text-align:center;border-right:1px solid var(--border);position:relative"><div style="width:24px;height:24px;border-radius:50%;background:${i===0?'var(--accent)':'var(--surface2)'};color:${i===0?'#07080a':'var(--text2)'};display:grid;place-items:center;margin:0 auto 8px;font-size:12px;font-weight:700">${i+1}</div><div style="font-weight:600;font-size:13px">${s}</div></div>
+    `).join('')}</div>`;
+  document.getElementById('resourcesGrid').innerHTML = [
+    ["Ministry of Testing","Communauté QA active.","https://www.ministryoftesting.com"],
+    ["Test Automation University","Cours gratuits automatisation.","https://testautomationu.applitools.com"],
+    ["ISTQB.org","Syllabi, glossaire officiel.","https://www.istqb.org"],
+    ["GitHub AtmanTest","Projets QA sur GitHub.","https://github.com/AtmanTest"]
+  ].map(([n,d,u])=>`<div class="glass" style="padding:16px;display:flex;align-items:flex-start;gap:12px;cursor:pointer" onclick="window.open('${u}','_blank')">
+    <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:rgba(0,229,200,.1);color:var(--accent);display:grid;place-items:center;flex-shrink:0">📖</div>
+    <div><strong style="font-size:14px">${n}</strong><p style="color:var(--text2);font-size:12px;margin-top:2px">${d}</p></div></div>`).join('');
+}
+
+// ===== LESSONS =====
+function renderLessons(){
+  document.getElementById('lessonsGrid').innerHTML = MODULES.map(m=>`
+    <div class="lesson-card" onclick="this.classList.toggle('open')">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="tag tag-istqb">${m.ch}</span>
+        <span style="flex:1;font-weight:600;font-size:15px">${m.title}</span>
+        <span style="color:var(--muted);font-size:16px;transition:transform .2s">▶</span>
+      </div>
+      <div class="lesson-concepts">${m.concepts.map(cv=>`<div class="concept-item"><strong>${cv.t}</strong><p>${cv.d}</p></div>`).join('')}</div>
+    </div>
+  `).join('');
+}
+
+// ===== QUIZ =====
+let qs=null;
+function startQuiz(domain){
+  const pool=domain==='ctai'?QUIZ_CTAI:QUIZ_CTFL;
+  const sh=[...pool].sort(()=>Math.random()-.5);
+  qs={domain,current:0,questions:sh,answers:{},finished:false};
+  document.getElementById('quizFinalScore').style.display='none';
+  renderQ();
+}
+function renderQ(){
+  const a=document.getElementById('quizArea');
+  if(!qs||qs.finished)return;
+  const q=qs.questions[qs.current];
+  const ans=qs.answers[qs.current];
+  const done=ans!==undefined;
+  a.innerHTML=`<div class="glass" style="padding:20px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+      <span class="tag ${qs.domain==='ctai'?'tag-ai':'tag-istqb'}">${qs.domain==='ctai'?'AI Testing':'Foundation'}</span>
+      <span style="color:var(--muted);font-size:12px">Q${qs.current+1}/${qs.questions.length} · ${Object.keys(qs.answers).length} répondue(s)</span>
+    </div>
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-options">${q.opts.map((opt,i)=>{
+      let cls='';
+      if(done){if(i===q.c)cls='correct';else if(i===ans.selected)cls='wrong';}
+      return `<div class="quiz-opt ${cls}" data-idx="${i}"><span class="ltr">${QUIZ_OPT[i]}</span>${opt}</div>`;
+    }).join('')}</div>
+    <div class="quiz-result-box ${done?'show':''}" style="background:${done?(ans.correct?'rgba(0,229,200,.08)':'rgba(239,68,68,.08)'):'transparent'};border:1px solid ${done?(ans.correct?'var(--accent)':'var(--accent4)'):'transparent'}">${done?`${ans.correct?'✅ Correct':'❌ Incorrect'} — ${q.expl}`:''}</div>
+    <div class="quiz-footer" style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+      <span class="quiz-score" style="font-size:13px;color:var(--text2)">Score: <strong style="color:var(--accent)">${Object.values(qs.answers).filter(av=>av.correct).length}</strong>/${Object.keys(qs.answers).length}</span>
+      <div style="display:flex;gap:8px">
+        ${done?(qs.current<qs.questions.length-1
+          ?`<button class="btn btn-primary btn-sm" onclick="nextQ()">Suivant →</button>`
+          :`<button class="btn btn-primary btn-sm" onclick="finishQ()">🏁 Score</button>`)
+        :`<button class="btn btn-primary btn-sm" onclick="valQ()" id="qvBtn">Valider</button>`}
+      </div>
+    </div>
+  </div>`;
+  if(!done){
+    document.querySelectorAll('#quizArea .quiz-opt').forEach(el=>{
+      el.addEventListener('click',()=>{
+        document.querySelectorAll('#quizArea .quiz-opt').forEach(e=>e.classList.remove('selected'));
+        el.classList.add('selected');
+      });
+    });
+  }
+}
+function valQ(){
+  const sel=document.querySelector('#quizArea .quiz-opt.selected');
+  if(!sel)return;
+  const idx=parseInt(sel.dataset.idx,10);
+  const q=qs.questions[qs.current];
+  const correct=idx===q.c;
+  qs.answers[qs.current]={selected:idx,correct};
+  addResult(correct,qs.domain);
+  renderQ();
+}
+function nextQ(){qs.current++;renderQ();}
+function finishQ(){
+  qs.finished=true;
+  const total=qs.questions.length;
+  const correct=Object.values(qs.answers).filter(a=>a.correct).length;
+  const pct=Math.round((correct/total)*100);
+  document.getElementById('quizArea').innerHTML='';
+  document.getElementById('quizFinalScore').style.display='block';
+  document.getElementById('quizFinalPct').textContent=pct+'%';
+  document.getElementById('quizFinalDetail').textContent=correct+'/'+total+' correct';
+  let emoji='🎉',label='Prêt !';
+  if(pct<40){emoji='📚';label='Révisez encore';}
+  else if(pct<65){emoji='📖';label='Intermédiaire';}
+  document.getElementById('quizFinalEmoji').textContent=emoji;
+  document.getElementById('quizFinalLabel').textContent=label;
+  // Save exam score
+  const p=getP();p.scores.push(pct);saveP(p);
+}
+function resetQuiz(){
+  qs=null;
+  document.getElementById('quizFinalScore').style.display='none';
+  document.getElementById('quizArea').innerHTML='<div class="glass" style="text-align:center;padding:28px"><p style="color:var(--text2)">Sélectionnez un domaine et cliquez sur Démarrer</p></div>';
+}
+document.getElementById('quizStartBtn').addEventListener('click',()=>startQuiz(document.getElementById('quizDomain').value));
+resetQuiz();
+
+// ===== EXAM =====
+let es=null, et=null;
+function startExam(count){
+  const sh=[...ALL_QUESTIONS].sort(()=>Math.random()-.5).slice(0,count);
+  es={questions:sh,current:0,answers:{},finished:false,total:count,timer:count*60,count};
+  document.getElementById('examSetup').style.display='none';
+  document.getElementById('examResults').style.display='none';
+  document.getElementById('examArea').style.display='block';
+  if(et)clearInterval(et);
+  renderExam();
+  et=setInterval(()=>{es.timer--;updET();if(es.timer<=0)endExam(true);},1000);
+}
+function updET(){
+  const el=document.getElementById('etd');
+  if(!el)return;
+  const m=Math.floor(es.timer/60),s=es.timer%60;
+  el.textContent=m+':'+(s<10?'0':'')+s;
+  el.className='exam-timer';
+  if(es.timer<60)el.classList.add('danger');
+  else if(es.timer<180)el.classList.add('warning');
+}
+function renderExam(){
+  const a=document.getElementById('examArea');
+  const q=es.questions[es.current];
+  const ans=es.answers[es.current];
+  const pct=(es.current/es.total)*100;
+  a.innerHTML=`<div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+    <div id="etd" class="exam-timer">${Math.floor(es.timer/60)}:${(es.timer%60)<10?'0':''}${es.timer%60}</div>
+    <div class="exam-progress" style="flex:1;min-width:80px"><div class="exam-progress-bar" style="width:${pct}%"></div></div>
+    <span style="color:var(--muted);font-size:13px;white-space:nowrap">Q${es.current+1}/${es.total}</span>
+  </div>
+  <div class="glass" style="padding:20px">
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-options">${q.opts.map((opt,i)=>{
+      let cls='';
+      if(ans!==undefined){if(i===q.c)cls='correct';else if(i===ans.selected)cls='wrong';}
+      return `<div class="quiz-opt ${cls}" data-idx="${i}"><span class="ltr">${QUIZ_OPT[i]}</span>${opt}</div>`;
+    }).join('')}</div>
+    <div class="quiz-result-box ${ans?'show':''}" style="background:${ans?(ans.correct?'rgba(0,229,200,.08)':'rgba(239,68,68,.08)'):'transparent'};border:1px solid ${ans?(ans.correct?'var(--accent)':'var(--accent4)'):'transparent'}">${ans?`${ans.correct?'✅ Correct':'❌ Incorrect'} — ${q.expl}`:''}</div>
+    <div class="quiz-footer" style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+      <span style="font-size:13px;color:var(--text2)"><strong>${Object.values(es.answers).filter(av=>av.correct).length}</strong>/${Object.keys(es.answers).length}</span>
+      <div style="display:flex;gap:8px">
+        ${ans?(es.current<es.total-1?`<button class="btn btn-primary btn-sm" onclick="examNext()">Suivant →</button>`:`<button class="btn btn-primary btn-sm" onclick="endExam()">🏁 Terminer</button>`)
+        :`<button class="btn btn-primary btn-sm" onclick="valExam()">Valider</button>`}
+        <button class="btn btn-ghost btn-sm" onclick="cancelExam()">✕ Arrêter</button>
+      </div>
+    </div>
+  </div>`;
+  if(ans===undefined){
+    document.querySelectorAll('#examArea .quiz-opt').forEach(el=>{
+      el.addEventListener('click',()=>{
+        document.querySelectorAll('#examArea .quiz-opt').forEach(e=>e.classList.remove('selected'));
+        el.classList.add('selected');
+      });
+    });
+  }
+}
+function valExam(){
+  const sel=document.querySelector('#examArea .quiz-opt.selected');
+  if(!sel)return;
+  const idx=parseInt(sel.dataset.idx,10);
+  const q=es.questions[es.current];
+  es.answers[es.current]={selected:idx,correct:idx===q.c};
+  addResult(idx===q.c,'exam');
+  renderExam();
+}
+function examNext(){es.current++;renderExam();}
+function cancelExam(){
+  if(!confirm('Arrêter l\'examen ?'))return;
+  clearInterval(et);es=null;
+  document.getElementById('examArea').style.display='none';
+  document.getElementById('examSetup').style.display='block';
+}
+function endExam(timeout){
+  clearInterval(et);
+  es.finished=true;
+  const total=es.total;
+  const correct=Object.values(es.answers).filter(a=>a.correct).length;
+  const pct=Math.round((correct/total)*100);
+  document.getElementById('examArea').style.display='none';
+  const el=document.getElementById('examResults');
+  el.style.display='block';
+  let grade='',emoji='🎉';
+  if(pct>=85)grade='Excellent !';
+  else if(pct>=65)grade='Réussi !';
+  else if(pct>=40)grade='Intermédiaire';
+  else{grade='Insuffisant';emoji='📚';}
+  const missed=Object.keys(es.answers).map(Number).filter(k=>!es.answers[k].correct).slice(0,5);
+  const p=getP();p.scores.push(pct);saveP(p);
+  el.innerHTML=`
+    <div class="glass" style="text-align:center;padding:28px;margin-bottom:20px">
+      <div style="font-size:56px">${timeout?'⏰':emoji}</div>
+      <div style="font-size:32px;font-weight:800;font-family:var(--font-display);margin-top:8px">${pct}%</div>
+      <div style="color:var(--text2);margin-top:4px;font-size:15px">${timeout?'Temps écoulé !':grade}</div>
+      <div style="margin-top:6px;font-size:13px;color:var(--muted)">${correct}/${total} correct</div>
+      <div style="margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm" onclick="retryExam(${total})">🔄 Recommencer</button>
+        <button class="btn btn-ghost btn-sm" onclick="backExam()">← Retour</button>
+      </div>
+    </div>
+    ${missed.length?`<div class="glass" style="padding:18px"><div class="cat-header" style="margin:0 0 10px"><span>❌ Révisions</span><span class="accent-line"></span></div>
+      ${missed.map(k=>`<div class="weak-item"><span style="font-size:13px;line-height:1.4"><strong>${es.questions[k].q}</strong><br><span style="color:var(--muted)">Réponse : ${QUIZ_OPT[es.questions[k].c]}</span></span></div>`).join('')}</div>`:''}`;
+}
+function retryExam(n){document.getElementById('examResults').style.display='none';document.getElementById('examArea').style.display='none';document.getElementById('examSetup').style.display='block';setTimeout(()=>startExam(n),100);}
+function backExam(){document.getElementById('examResults').style.display='none';document.getElementById('examArea').style.display='none';document.getElementById('examSetup').style.display='block';}
+
+// ===== PROGRESS TAB =====
+function renderProgress(){
+  const p=getP();
+  const totalQ=p.q;
+  document.getElementById('progStats').innerHTML=`
+    <div class="dash-card"><div class="value">${totalQ}</div><div class="label">Questions</div></div>
+    <div class="dash-card"><div class="value">${Math.round(totalQ/20*10)/10||0}</div><div class="label">× Quiz CTFL</div></div>
+    <div class="dash-card"><div class="value">${p.wrong.filter(x=>x.d==='ctai').length}</div><div class="label">Erreurs AI</div></div>
+    <div class="dash-card"><div class="value">${p.scores.length||0}</div><div class="label">Examens</div></div>`;
+  const best=p.scores&&p.scores.length?[...p.scores].sort((a,b)=>b-a).slice(0,5):[];
+  document.getElementById('progBestScores').innerHTML=best.length
+    ?best.map((s,i)=>`<div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--accent2);font-weight:700;width:28px">#${i+1}</span><div style="flex:1;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden"><div style="height:100%;width:${s}%;background:${s>=65?'var(--accent)':'var(--accent2)'};border-radius:3px"></div></div><span style="font-weight:700;font-size:14px;width:32px;text-align:right">${s}%</span></div>`).join('')
+    :'<p style="color:var(--muted);font-size:14px">Aucun score. Lancez un examen !</p>';
+  document.getElementById('progWrong').innerHTML=p.wrong.length
+    ?p.wrong.slice(0,15).map((w,i)=>`<div class="weak-item"><span style="color:var(--accent4);font-size:11px;font-weight:700;width:20px">✕</span><span style="font-size:13px;flex:1">${w.d==='ctfl'?'Foundation':w.d==='ctai'?'AI Testing':'Examen'}</span><span style="color:var(--muted);font-size:11px">#${i+1}</span></div>`).join('')
+    :'<p style="color:var(--muted);font-size:14px">Aucune erreur. 🎉</p>';
+}
+
+// ===== REVEAL =====
+function reveal(){
+  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
+}
+function initReveal(){
+  if('IntersectionObserver' in window && 0){
+    // Not needed — we just show all on tab switch
+  }
+}
+setTimeout(()=>{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'))},100);
+
+// ===== THEME =====
+document.getElementById('themeToggle').addEventListener('click',()=>{
+  const cur=document.documentElement.getAttribute('data-theme');
+  document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');
+  document.getElementById('themeToggle').textContent=cur==='dark'?'☀️':'🌙';
+});
+
+// ===== INIT =====
+renderTicker();
+renderDashboard();
+renderNews();
+renderTools();
+renderCerts();
+renderLessons();
+console.log('🚀 QA Universe v2 on recette');
+</script>
+</body>
+</html>
