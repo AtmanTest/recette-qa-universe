@@ -177,81 +177,131 @@ main{max-width:1280px;margin:0 auto;padding:0 24px}
 .top-meta{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px}
 .top-meta .score-badge{background:var(--accent-dim);color:var(--accent);padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
 /* News section - Magazine layout */
-.news-hero{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-@media(max-width:768px){.news-hero{grid-template-columns:1fr}}
-.hero-feature{position:relative;border-radius:var(--radius);overflow:hidden;cursor:pointer;background:var(--surface);border:1px solid var(--border);min-height:340px;transition:all .3s ease}
-.hero-feature:hover{transform:translateY(-2px) scale(1.01);box-shadow:0 12px 40px rgba(0,229,200,.15);border-color:var(--accent)}
-.hero-feature .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
-.hero-feature:hover .hero-bg{transform:scale(1.05)}
-.hero-feature .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(7,8,10,.92) 85%);z-index:1}
-.hero-feature .hero-content{position:absolute;bottom:0;left:0;right:0;padding:28px;z-index:2}
-.hero-feature .hero-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.04em;margin-bottom:10px}
-.hero-badge.ai-testing{background:rgba(0,229,200,.2);color:var(--accent)}
-.hero-badge.test-automation{background:rgba(59,130,246,.2);color:#60a5fa}
-.hero-badge.security-risk{background:rgba(239,68,68,.2);color:#f87171}
-.hero-badge.qa-news{background:rgba(156,163,175,.2);color:var(--text2)}
-.hero-badge.thought-leadership{background:rgba(168,85,247,.2);color:#c084fc}
-.hero-feature .hero-source{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-.hero-feature .hero-title{font-family:var(--font-display);font-size:24px;font-weight:800;line-height:1.25;color:#fff;margin-bottom:8px}
-@media(max-width:480px){.hero-feature .hero-title{font-size:18px}}
-.hero-feature .hero-meta{display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.6)}
-.hero-feature .hero-score{background:rgba(0,229,200,.2);color:var(--accent);padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700}
-.hero-feature .hero-score.high{background:rgba(255,215,0,.2);color:#ffd700}
-.hero-feature .hero-noimg{position:absolute;inset:0;display:grid;place-items:center;font-size:64px}
-.hero-feature .hero-noimg-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,200,.1),rgba(0,0,0,.4))}
-.hero-side{display:flex;flex-direction:column;gap:16px}
-.hero-side-card{position:relative;flex:1;border-radius:var(--radius);overflow:hidden;cursor:pointer;background:var(--surface);border:1px solid var(--border);min-height:160px;transition:all .3s ease}
-.hero-side-card:hover{transform:translateY(-2px) scale(1.01);box-shadow:0 8px 30px rgba(0,229,200,.12);border-color:var(--accent)}
-.hero-side-card .side-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
-.hero-side-card:hover .side-bg{transform:scale(1.05)}
-.hero-side-card .side-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,rgba(7,8,10,.88) 80%);z-index:1}
-.hero-side-card .side-content{position:absolute;bottom:0;left:0;right:0;padding:16px;z-index:2}
-.hero-side-card .side-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:999px;font-size:10px;font-weight:600;margin-bottom:6px}
-.hero-side-card .side-title{font-family:var(--font-display);font-size:15px;font-weight:700;line-height:1.3;color:#fff}
-.hero-side-card .side-meta{font-size:11px;color:rgba(255,255,255,.5);margin-top:4px}
-/* Category filter tabs */
-.news-filters{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.news-filters::-webkit-scrollbar{display:none}
-.news-filter{flex-shrink:0;padding:7px 16px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--text2);font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap}
-.news-filter:hover{color:var(--text);border-color:rgba(255,255,255,.15)}
-.news-filter.active{background:var(--accent-dim);color:var(--accent);border-color:var(--accent)}
-/* Magazine grid */
-.mag-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-@media(max-width:768px){.mag-grid{grid-template-columns:1fr}}
-.mag-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .25s ease;display:flex;flex-direction:column}
-.mag-card:hover{transform:translateY(-2px) scale(1.01);box-shadow:0 8px 30px rgba(0,229,200,.12);border-color:rgba(0,229,200,.25)}
-.mag-card-img-wrap{position:relative;width:100%;height:180px;overflow:hidden;flex-shrink:0}
-.mag-card-img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
-.mag-card:hover .mag-card-img{transform:scale(1.05)}
-.mag-card-noimg{width:100%;height:180px;display:grid;place-items:center;font-size:48px;background:linear-gradient(135deg,rgba(0,229,200,.08),rgba(0,0,0,.2));flex-shrink:0}
-.mag-card-body{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
-.mag-card-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.mag-source{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
-.mag-title{font-weight:700;font-size:15px;line-height:1.35;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.mag-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
-.mag-tags{display:flex;gap:4px;flex-wrap:wrap}
-.mag-tags .tag{font-size:9px;padding:1px 8px;background:var(--surface2);color:var(--text2)}
-.mag-score{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0}
-.mag-score.high{background:rgba(255,215,0,.2);color:#ffd700}
-.mag-score.med{background:rgba(0,229,200,.2);color:var(--accent)}
-.mag-score.low{background:rgba(156,163,175,.2);color:var(--muted)}
-/* Feed section heading */
-.section-divider{display:flex;align-items:center;gap:12px;margin:24px 0 16px}
-.section-divider h3{font-family:var(--font-display);font-size:18px;font-weight:700;white-space:nowrap}
-.section-divider .line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
-.section-divider .count{color:var(--muted);font-size:12px;font-weight:500}
-/* Score badge (shared with dash) */
-.score-badge{background:var(--accent-dim);color:var(--accent);padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700;flex-shrink:0}
-.score-badge.high{background:rgba(255,215,0,.15);color:#ffd700}
-.score-badge.med{background:rgba(0,229,200,.15);color:var(--accent)}
-.score-badge.low{background:rgba(156,163,175,.15);color:var(--muted)}
-/* Staggered entrance */
-.mag-card,.hero-feature,.hero-side-card{opacity:0;transform:translateY(20px);animation:magIn .5s ease forwards}
-@keyframes magIn{to{opacity:1;transform:translateY(0)}}
-.hero-feature{animation-delay:0s}
-.hero-side-card:nth-child(1){animation-delay:.1s}
-.hero-side-card:nth-child(2){animation-delay:.2s}
-.mag-card:nth-child(1){animation-delay:.1s}.mag-card:nth-child(2){animation-delay:.15s}.mag-card:nth-child(3){animation-delay:.2s}.mag-card:nth-child(4){animation-delay:.25s}.mag-card:nth-child(5){animation-delay:.3s}.mag-card:nth-child(6){animation-delay:.35s}.mag-card:nth-child(7){animation-delay:.4s}.mag-card:nth-child(8){animation-delay:.45s}.mag-card:nth-child(9){animation-delay:.5s}.mag-card:nth-child(10){animation-delay:.55s}
+/* ===== AI NEWS SECTION — COMPLETE REDESIGN ===== */
+/* Ticker/marquee */
+.news-ticker{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 16px;margin-bottom:18px;overflow:hidden;display:flex;align-items:center;gap:10px;height:36px}
+.news-ticker-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);white-space:nowrap;flex-shrink:0}
+.news-ticker-track{display:flex;gap:24px;overflow:hidden;flex:1;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
+.news-ticker-item{font-size:12px;color:var(--text2);white-space:nowrap;animation:tickerScroll 28s linear infinite}
+.news-ticker-item .tckr-score{display:inline-flex;align-items:center;gap:3px;margin-left:6px}
+.news-ticker-item .tckr-score.high{color:#ffd700;font-weight:700}
+.news-ticker-item .tckr-score.med{color:var(--accent);font-weight:600}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+/* Search bar */
+.news-search-wrap{position:relative;margin-bottom:14px}
+.news-search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;width:16px;height:16px}
+.news-search{width:100%;padding:10px 14px 10px 40px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:14px;outline:none;transition:all .15s}
+.news-search:focus{border-color:var(--accent);background:rgba(0,229,200,.06);box-shadow:0 0 0 3px rgba(0,229,200,.1)}
+.news-search::placeholder{color:var(--muted)}
+/* Filter pills row */
+.news-filter-row{display:flex;align-items:center;gap:6px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.news-filter-row::-webkit-scrollbar{display:none}
+.news-filter-pill{flex-shrink:0;height:34px;padding:0 16px;border:1px solid var(--border);border-radius:20px;background:var(--surface);color:var(--text2);font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+.news-filter-pill:hover{color:var(--text);border-color:rgba(255,255,255,.15)}
+.news-filter-pill.active{background:var(--accent-dim);color:var(--accent);border-color:var(--accent)}
+.news-filter-pill .pill-count{font-size:10px;color:var(--muted);margin-left:2px}
+.news-filter-pill.active .pill-count{color:rgba(0,229,200,.6)}
+/* Sort + stats row */
+.news-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.news-stats{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.news-sort{display:flex;align-items:center;gap:6px}
+.news-sort select{padding:5px 10px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:12px;font-family:var(--font-body);cursor:pointer;outline:none}
+.news-sort select:focus{border-color:var(--accent)}
+/* Source filter dropdown */
+.news-source-toggle{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text2);font-size:12px;cursor:pointer;transition:all .12s;font-family:var(--font-body)}
+.news-source-toggle:hover{border-color:var(--accent);color:var(--text)}
+.news-source-dropdown{display:none;margin-top:4px;margin-bottom:14px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);max-height:220px;overflow-y:auto}
+.news-source-dropdown.open{display:block}
+.news-source-opt{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:4px;cursor:pointer;font-size:12px;color:var(--text2);transition:all .1s}
+.news-source-opt:hover{background:var(--surface2);color:var(--text)}
+.news-source-opt input[type=checkbox]{accent-color:var(--accent)}
+.news-source-clear{margin-top:8px;text-align:right}
+.news-source-clear button{background:none;border:none;color:var(--accent);font-size:11px;cursor:pointer;font-family:var(--font-body)}
+.news-source-clear button:hover{text-decoration:underline}
+/* Skeleton loader */
+.news-skeleton{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+@media(max-width:1024px){.news-skeleton{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.news-skeleton{grid-template-columns:1fr}}
+.news-skel-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.news-skel-img{height:130px;background:linear-gradient(90deg,var(--surface2) 25%,rgba(255,255,255,.04) 50%,var(--surface2) 75%);background-size:200% 100%;animation:skelShimmer 1.5s ease-in-out infinite}
+.news-skel-body{padding:14px}
+.news-skel-line{height:10px;border-radius:5px;background:var(--surface2);margin-bottom:8px}
+.news-skel-line.w60{width:60%}
+.news-skel-line.w80{width:80%}
+.news-skel-line.w40{width:40%}
+@keyframes skelShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* Hero card */
+.news-hero-card{position:relative;width:100%;min-height:280px;border-radius:var(--radius);overflow:hidden;cursor:pointer;background:var(--surface);border:1px solid var(--border);margin-bottom:20px;transition:all .3s ease}
+.news-hero-card:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,229,200,.15);border-color:var(--accent)}
+.news-hero-card .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
+.news-hero-card:hover .hero-bg{transform:scale(1.05)}
+.news-hero-card .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,rgba(7,8,10,.92) 75%);z-index:1}
+.news-hero-card .hero-top{position:absolute;top:14px;left:14px;right:14px;z-index:2;display:flex;justify-content:space-between;align-items:flex-start}
+.hero-source-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 12px;border-radius:999px;font-size:10px;font-weight:600;letter-spacing:.03em;background:rgba(0,0,0,.45);backdrop-filter:blur(12px);color:#fff}
+.hero-score-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;background:rgba(0,0,0,.45);backdrop-filter:blur(12px)}
+.hero-score-badge.high{color:#ffd700}
+.hero-score-badge.med{color:var(--accent)}
+.news-hero-card .hero-bottom{position:absolute;bottom:0;left:0;right:0;padding:24px 20px 18px;z-index:2}
+.hero-cat-tag{display:inline-flex;align-items:center;gap:5px;padding:3px 12px;border-radius:999px;font-size:10px;font-weight:600;letter-spacing:.03em;margin-bottom:8px}
+.hero-cat-tag.cat-ai{background:rgba(99,102,241,.2);color:#818cf8}
+.hero-cat-tag.cat-qa{background:rgba(6,182,212,.2);color:#22d3ee}
+.hero-cat-tag.cat-insights{background:rgba(245,158,11,.2);color:#fbbf24}
+.hero-cat-tag.cat-security{background:rgba(239,68,68,.2);color:#f87171}
+.hero-cat-tag.cat-training{background:rgba(34,197,94,.2);color:#4ade80}
+.hero-cat-tag.cat-fr{background:rgba(59,130,246,.2);color:#60a5fa}
+.hero-title-lg{font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1.25;color:#fff;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hero-meta-row{display:flex;align-items:center;gap:12px;font-size:11px;color:rgba(255,255,255,.5)}
+.hero-excerpt{font-size:13px;color:rgba(255,255,255,.55);margin-top:6px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+/* Trending Topics */
+.trending-section{margin-bottom:18px}
+.trending-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:8px}
+.trending-scroll{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.trending-scroll::-webkit-scrollbar{display:none}
+.trending-chip{flex-shrink:0;padding:5px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:12px;cursor:pointer;transition:all .12s;white-space:nowrap;font-family:var(--font-body)}
+.trending-chip:hover{border-color:var(--accent);color:var(--text);background:rgba(0,229,200,.06)}
+.trending-chip.active{background:var(--accent-dim);color:var(--accent);border-color:var(--accent)}
+/* Article grid */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:1024px){.news-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.news-grid{grid-template-columns:1fr}}
+.news-card-v2{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .25s ease;display:flex;flex-direction:column;opacity:0;animation:newsCardIn .45s ease forwards}
+.news-card-v2:nth-child(1){animation-delay:.05s}.news-card-v2:nth-child(2){animation-delay:.1s}.news-card-v2:nth-child(3){animation-delay:.15s}.news-card-v2:nth-child(4){animation-delay:.2s}.news-card-v2:nth-child(5){animation-delay:.25s}.news-card-v2:nth-child(6){animation-delay:.3s}
+.news-card-v2:nth-child(7){animation-delay:.35s}.news-card-v2:nth-child(8){animation-delay:.4s}.news-card-v2:nth-child(9){animation-delay:.45s}.news-card-v2:nth-child(10){animation-delay:.5s}.news-card-v2:nth-child(11){animation-delay:.55s}.news-card-v2:nth-child(12){animation-delay:.6s}
+@keyframes newsCardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.news-card-v2:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,229,200,.12);border-color:rgba(0,229,200,.25)}
+.news-card-v2 .card-img-wrap{position:relative;width:100%;height:130px;overflow:hidden;flex-shrink:0}
+.news-card-v2 .card-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.news-card-v2:hover .card-img-wrap img{transform:scale(1.05)}
+.news-card-v2 .card-img-fallback{position:absolute;inset:0;display:grid;place-items:center;font-size:32px;background:linear-gradient(135deg,rgba(0,229,200,.08),rgba(0,0,0,.2))}
+.news-card-v2 .card-img-overlay{position:absolute;bottom:0;left:0;right:0;height:50%;background:linear-gradient(transparent,rgba(7,8,10,.6))}
+.news-card-v2 .card-lang{position:absolute;top:6px;right:6px;font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;z-index:2}
+.news-card-v2 .card-lang.fr{background:rgba(59,130,246,.3);color:#60a5fa}
+.news-card-v2 .card-lang.en{background:rgba(255,255,255,.1);color:var(--text2)}
+.news-card-body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.news-card-body .card-meta{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.news-card-body .card-source{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
+.news-card-body .card-cat-badge{font-size:9px;padding:1px 8px;border-radius:999px;font-weight:600;white-space:nowrap}
+.news-card-body .card-cat-badge.cat-ai{background:rgba(99,102,241,.15);color:#818cf8}
+.news-card-body .card-cat-badge.cat-qa{background:rgba(6,182,212,.15);color:#22d3ee}
+.news-card-body .card-cat-badge.cat-insights{background:rgba(245,158,11,.15);color:#fbbf24}
+.news-card-body .card-cat-badge.cat-security{background:rgba(239,68,68,.15);color:#f87171}
+.news-card-body .card-cat-badge.cat-training{background:rgba(34,197,94,.15);color:#4ade80}
+.news-card-body .card-cat-badge.cat-fr{background:rgba(59,130,246,.15);color:#60a5fa}
+.news-card-body .card-title{font-weight:700;font-size:14px;line-height:1.35;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.news-card-body .card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:2px}
+.news-card-body .card-tags .tag{font-size:8px;padding:1px 7px;background:var(--surface2);color:var(--text2);text-transform:uppercase;letter-spacing:.03em;border-radius:999px}
+.news-card-body .card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:4px}
+.news-card-body .card-footer .card-date{font-size:10px;color:var(--muted)}
+.news-card-body .card-footer .card-score{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:700}
+.news-card-body .card-footer .card-score.high{color:#ffd700}
+.news-card-body .card-footer .card-score.med{color:var(--accent)}
+/* Load more */
+.news-load-more-wrap{text-align:center;margin-top:24px}
+.news-load-more{padding:10px 28px;border:1px solid var(--accent);border-radius:var(--radius-sm);background:transparent;color:var(--accent);font-family:var(--font-body);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s}
+.news-load-more:hover{background:rgba(0,229,200,.1)}
+.news-load-more:disabled{opacity:.4;cursor:not-allowed}
+/* No results */
+.news-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;grid-column:1/-1}
 
 /* Dashboard entrance stagger */
 .dash-welcome,.dash-stats,.dash-panels,.dash-section-title,.dash-news{opacity:0;animation:dashFadeIn .55s cubic-bezier(.22,1,.36,1) forwards}
@@ -562,7 +612,32 @@ footer a{color:var(--accent);text-decoration:none}
 <section class="tab-content active" id="tab-news">
   <h2 class="section-title" data-i18n="news_title">📰 AI QA News</h2>
   <p class="section-sub" data-i18n="news_sub">All the latest QA, AI Testing, and certification news.</p>
-  <div class="grid grid-2" id="newsGrid"></div>
+  <!-- Search bar -->
+  <div class="news-search-wrap">
+    <svg class="news-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input class="news-search" id="newsSearchInput" type="search" placeholder="Search articles, sources, topics..." />
+  </div>
+  <!-- Filters + Sort + Source toggle -->
+  <div id="newsFiltersContainer"></div>
+  <div class="news-toolbar">
+    <div class="news-stats" id="newsStatsCount">📋 30 articles · 23 sources</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="news-source-toggle" id="newsSourceToggle">Filter by source 🔽</button>
+      <div class="news-sort">
+        <select id="newsSort">
+          <option value="latest">Sort by: Latest</option>
+          <option value="score">Top Scored</option>
+          <option value="title">Source A-Z</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <!-- Source dropdown -->
+  <div class="news-source-dropdown" id="newsSourceDropdown">
+    <div class="news-source-clear"><button id="newsSourceClear">Clear selection</button></div>
+  </div>
+  <!-- Grid container -->
+  <div id="newsGrid"></div>
 </section>
 
 <section class="tab-content" id="tab-tools">
@@ -800,32 +875,36 @@ function RL(){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.d
 function T(o){return o[LANG]||o.en||o}
 // NEWS data from veille pipeline — auto-generated (v2.4 with images)
 const NEWS = [
-  {source:"Software Testing Weekly",title:"Issue #305",url:"https://softwaretestingweekly.com/issues/305/",cat:"AI Testing",tags:["playwright","agents"],score:60,date:"Jun 2026",img:"https://storage.ghost.io/c/0c/e4/0ce4792b-e2e5-4f1a-9f93-b88f3b823672/content/images/size/w1200/2026/06/stw-social-1.png"},
-  {source:"testRigor Blog",title:"LLM vs SLM in Test Automation: Which One Should QA Teams Use?",url:"https://testrigor.com/blog/llm-vs-slm-in-test-automation/",cat:"AI Testing",tags:["llm"],score:60,date:"Jun 2026",img:"https://testrigor.com/wp-content/uploads/2026/06/LLM-vs-SLM-in-Test-Automation-IMG-300x160.jpeg"},
-  {source:"Software Testing Weekly",title:"Issue #303",url:"https://softwaretestingweekly.com/issues/303/",cat:"AI Testing",tags:["playwright","agents","mcp"],score:40,date:"Feb 2026",img:"https://storage.ghost.io/c/0c/e4/0ce4792b-e2e5-4f1a-9f93-b88f3b823672/content/images/size/w1200/2026/06/stw-social-1.png"},
-  {source:"Cypress Blog",title:"Cypress Accessibility and AI Agents",url:"https://www.cypress.io/blog/cypress-accessibility-and-ai-agents/",cat:"AI Testing",tags:["cypress","agents","accessibility"],score:40,date:"Apr 2026",img:"https://storage.ghost.io/c/12/89/12899ca1-4786-4eea-b7e1-9c5268baa48a/content/images/2026/04/a11y-blog-1.webp"},
-  {source:"Cypress Blog",title:"Cloud MCP Now Includes Cypress Accessibility",url:"https://www.cypress.io/blog/cloud-mcp-now-includes-cypress-accessibility/",cat:"AI Testing",tags:["cypress","agents","mcp","accessibility"],score:40,date:"Apr 2026",img:"https://storage.ghost.io/c/12/89/12899ca1-4786-4eea-b7e1-9c5268baa48a/content/images/2026/04/a11y-blog.webp"},
-  {source:"Cypress Blog",title:"Cloud MCP: Give Your AI Assistant Access to Your Test Runs",url:"https://www.cypress.io/blog/cloud-mcp-give-your-ai-assistant-access-to-your-test-runs/",cat:"AI Testing",tags:["cypress","mcp"],score:40,date:"Mar 2026",img:"https://storage.ghost.io/c/12/89/12899ca1-4786-4eea-b7e1-9c5268baa48a/content/images/2026/03/Cypress_icons---R200.jpg"},
-  {source:"Cypress Blog",title:"How to Connect an AI Agent to a Live Cypress Test Session",url:"https://www.cypress.io/blog/connect-an-ai-agent-to-a-live-cypress-test-session/",cat:"AI Testing",tags:["cypress","agents","mcp"],score:40,date:"Mar 2026",img:"https://storage.ghost.io/c/12/89/12899ca1-4786-4eea-b7e1-9c5268baa48a/content/images/2026/03/Agentic_Testing_Blog.jpg"},
-  {source:"Cypress Blog",title:"cy.prompt can now wait for network requests",url:"https://www.cypress.io/blog/cy-prompt-can-now-wait-for-network-requests/",cat:"QA News",tags:[],score:40,date:"Jun 2026",img:"https://www.cypress.io/cypress_logo_social.png"},
-  {source:"Cypress Blog",title:"Introducing Studio AI: Stronger Validation, Less Friction",url:"https://www.cypress.io/blog/introducing-studio-ai-stronger-validation-less-friction/",cat:"AI Testing",tags:[],score:40,date:"Mar 2026",img:"https://storage.ghost.io/c/12/89/12899ca1-4786-4eea-b7e1-9c5268baa48a/content/images/2026/03/Studio-AI_launch-blog-vid--2-.gif"},
-  {source:"Postman Blog",title:"Managing Downstream Dependencies with the AI Engineer",url:"https://blog.postman.com/managing-downstream-dependencies-with-the-ai-engineer/",cat:"AI Testing",tags:[],score:40,date:"Jun 2026",img:"https://blog.postman.com/wp-content/uploads/2026/06/Managing-Downstream-Dependencies-with-the-AI-Engineer-150x150.png"},
-  {source:"BrowserStack Blog",title:"BrowserStack Newsletter April 2026",url:"https://www.browserstack.com/blog/browserstack-newsletter-april-2026/",cat:"Thought Leadership",tags:[],score:40,date:"May 2026",img:"https://storage.ghost.io/c/79/8d/798db088-3de9-4332-90ee-64e04dfb66f2/content/images/2026/05/Images-for-newsletter---October-2023-Minimum-Size--9-.png"},
-  {source:"BrowserStack Blog",title:"Breakpoint 2026: Highlights from Day 2",url:"https://www.browserstack.com/blog/breakpoint-2026-highlights-from-day-2/",cat:"AI Testing",tags:[],score:40,date:"Jun 2026",img:"https://storage.ghost.io/c/79/8d/798db088-3de9-4332-90ee-64e04dfb66f2/content/images/2026/06/Keynote-Based--8-.png"},
-  {source:"BrowserStack Blog",title:"Introducing new and improved reporting",url:"https://www.browserstack.com/blog/new-and-improved-reporting-to-solve-accessibility-issue-bloat-and-triage-fatigue/",cat:"QA News",tags:["accessibility"],score:40,date:"Jun 2026",img:"https://storage.ghost.io/c/79/8d/798db088-3de9-4332-90ee-64e04dfb66f2/content/images/2026/05/Bulk-Review--1-.png"},
-  {source:"testRigor Blog",title:"Different Evals for Agentic AI: Methods, Metrics & Best Practices",url:"https://testrigor.com/blog/different-evals-for-agentic-ai/",cat:"AI Testing",tags:["evals","agents"],score:40,date:"Jun 2026",img:"https://testrigor.com/wp-content/uploads/2026/06/Different-Evals-for-Agentic-AI-Methods-Metrics-and-Best-Practices-IMG-300x160.jpeg"},
-  {source:"testRigor Blog",title:"Testing Agentic AI in ERP: 2026 Enterprise Guide",url:"https://testrigor.com/blog/testing-agentic-ai-in-erp/",cat:"AI Testing",tags:["agents"],score:40,date:"Jun 2026",img:"https://testrigor.com/wp-content/uploads/2026/06/Testing-Agentic-AI-in-ERP-2026-Enterprise-Guide-IMG-300x160.jpeg"},
-  {source:"testRigor Blog",title:"Evaluate AI Testing Tools: Cut the Marketing Hype",url:"https://testrigor.com/blog/evaluate-ai-testing-tools/",cat:"AI Testing",tags:["evals"],score:40,date:"Jun 2026",img:"https://testrigor.com/wp-content/uploads/2025/11/How-to-Evaluate-AI-Testing-Tools-Cut-through-Marketing-Hype-IMG.png"},
-  {source:"Applitools Blog",title:"Scaling Applitools and Storybook: Thousands of Visual Tests",url:"https://app14743.cloudwayssites.com/blog/visual-testing-storybook-developer-guide/",cat:"QA News",tags:[],score:40,date:"Jun 2026",img:"https://app14743.cloudwayssites.com/wp-content/uploads/2026/06/blog-CI-Sharding-150x150.png"},
-  {source:"Applitools Blog",title:"What happens when your support team never forgets anything?",url:"https://app14743.cloudwayssites.com/blog/what-happens-when-your-support-team-never-forgets-anything/",cat:"QA News",tags:[],score:40,date:"Jun 2026",img:"https://app14743.cloudwayssites.com/wp-content/uploads/2025/10/251009-blog-150x150.png"},
-  {source:"Applitools Blog",title:"Industry Playbooks: Vertical-Specific Success Strategies",url:"https://app14743.cloudwayssites.com/blog/customer-success-industry-playbooks/",cat:"QA News",tags:[],score:40,date:"May 2026",img:"https://app14743.cloudwayssites.com/wp-content/uploads/2026/05/Vertical-Playbook-150x150.png"},
-  {source:"Applitools Blog",title:"Automating Applitools Usage Data for ServiceNow",url:"https://app14743.cloudwayssites.com/blog/automating-applitools-usage-data-retrieval-for-servicenow-integration/",cat:"QA News",tags:[],score:40,date:"May 2026",img:"https://app14743.cloudwayssites.com/wp-content/uploads/2026/05/Applitools-ServiceNow-integration-150x150.png"},
-  {source:"OWASP GenAI",title:"Memory Is a Feature. It Is Also an Attack Surface",url:"https://genai.owasp.org/2026/05/13/memory-is-a-feature-it-is-also-an-attack-surface/",cat:"Security & Risk",tags:["owasp"],score:40,date:"May 2026",img:"https://genai.owasp.org/wp-content/uploads/2026/05/memory-attack-surface.jpg"},
-  {source:"Gradient Flow",title:"Stop upgrading your LLM. Start fixing your data.",url:"https://gradientflow.substack.com/p/stop-upgrading-your-llm-start-fixing",cat:"AI Testing",tags:["agents","llm"],score:40,date:"May 2026",img:""},
-  {source:"Gradient Flow",title:"8 domains where AI agents are actually working",url:"https://gradientflow.substack.com/p/how-to-move-from-passive-chatbot",cat:"AI Testing",tags:["agents"],score:40,date:"May 2026",img:""},
-  {source:"Gradient Flow",title:"Your AI agent looks capable. But can it finish the job?",url:"https://gradientflow.substack.com/p/your-ai-agent-looks-capable-but-can",cat:"AI Testing",tags:["agents"],score:40,date:"May 2026",img:""},
-  {source:"Gradient Flow",title:"AI agents just made your data pipeline obsolete",url:"https://gradientflow.substack.com/p/your-synthetic-data-pipeline-is-about",cat:"AI Testing",tags:["agents"],score:40,date:"Feb 2026",img:""},
-  {source:"Gradient Flow",title:"Your agents need runbooks, not bigger context windows",url:"https://gradientflow.substack.com/p/the-missing-layer-in-todays-agent",cat:"AI Testing",tags:["agents"],score:40,date:"Feb 2026",img:""}
+  {id:1, title:"LLM vs SLM in Test Automation: Which One Should QA Teams Use?", source:"testRigor Blog", sourceUrl:"https://testrigor.com", cat:"AI Testing", tags:["LLM","AUTOMATION","AGENTS"], score:60, date:"Jun 2026", lang:"EN", excerpt:"A deep dive into the trade-offs between Large and Small Language Models for test generation and execution."},
+  {id:2, title:"Cypress Accessibility and AI Agents", source:"Cypress Blog", sourceUrl:"https://www.cypress.io", cat:"AI Testing", tags:["CYPRESS","AGENTS","ACCESSIBILITY"], score:40, date:"Jun 2026", lang:"EN", excerpt:"How Cypress is integrating AI agents into accessibility testing workflows."},
+  {id:3, title:"Cloud MCP Now Includes Cypress Accessibility", source:"Cypress Blog", sourceUrl:"https://www.cypress.io", cat:"AI Testing", tags:["CYPRESS","MCP","CLOUD"], score:40, date:"Jun 2026", lang:"EN", excerpt:"The MCP cloud offering now bundles accessibility scanning as a first-class feature."},
+  {id:4, title:"Memory Is a Feature. It Is Also an Attack Surface", source:"OWASP GenAI", sourceUrl:"https://genai.owasp.org", cat:"Security & Risk", tags:["OWASP","LLM","SECURITY"], score:40, date:"May 2026", lang:"EN", excerpt:"Understanding how LLM memory systems introduce new attack vectors in agentic pipelines."},
+  {id:5, title:"Stop upgrading your LLM. Start fixing your data.", source:"Gradient Flow", sourceUrl:"https://gradientflow.substack.com", cat:"AI Testing", tags:["AGENTS","LLM","DATA"], score:40, date:"May 2026", lang:"EN", excerpt:"Why data quality beats model upgrades for most enterprise AI testing scenarios."},
+  {id:6, title:"BrowserStack Newsletter April 2026", source:"BrowserStack Blog", sourceUrl:"https://www.browserstack.com", cat:"Thought Leadership", tags:["BROWSERSTACK","NEWSLETTER"], score:40, date:"Apr 2026", lang:"EN", excerpt:"Monthly roundup: new integrations, performance benchmarks, and community picks."},
+  {id:7, title:"Scaling Applitools and Storybook: Thousands of Visual Tests", source:"Applitools Blog", sourceUrl:"https://applitools.com", cat:"QA News", tags:["APPLITOOLS","VISUAL","STORYBOOK"], score:40, date:"May 2026", lang:"EN", excerpt:"How to run visual regression at scale using Applitools Eyes with Storybook component library."},
+  {id:8, title:"Issue #305 — Software Testing Weekly", source:"Software Testing Weekly", sourceUrl:"https://softwaretestingweekly.com", cat:"AI Testing", tags:["NEWSLETTER","WEEKLY"], score:60, date:"Jun 2026", lang:"EN", excerpt:"This week: AI testing tools shootout, ISTQB 2026 updates, and the best community threads."},
+  {id:9, title:"Different Evals for Agentic AI: Methods, Metrics & Best Practices", source:"testRigor Blog", sourceUrl:"https://testrigor.com", cat:"AI Testing", tags:["EVALS","AGENTS","METRICS"], score:40, date:"May 2026", lang:"EN", excerpt:"A framework for evaluating AI agents across reliability, accuracy, and hallucination rate."},
+  {id:10, title:"Introducing Studio AI: Stronger Validation, Less Friction", source:"Cypress Blog", sourceUrl:"https://www.cypress.io", cat:"AI Testing", tags:["CYPRESS","STUDIO","AI"], score:40, date:"Apr 2026", lang:"EN", excerpt:"Studio AI brings intelligent test suggestions directly into the Cypress developer workflow."},
+  {id:11, title:"8 domaines où les agents IA fonctionnent vraiment", source:"Gradient Flow", sourceUrl:"https://gradientflow.substack.com", cat:"AI Testing", tags:["AGENTS","DOMAINS"], score:40, date:"Jun 2026", lang:"EN", excerpt:"From customer support to code review: real-world domains where AI agents are delivering results."},
+  {id:12, title:"Breakpoint 2026: Highlights from Day 2", source:"BrowserStack Blog", sourceUrl:"https://www.browserstack.com", cat:"AI Testing", tags:["CONFERENCE","BROWSERSTACK","2026"], score:40, date:"May 2026", lang:"EN", excerpt:"Key talks and demos from Day 2 of Breakpoint 2026, BrowserStack's annual testing summit."},
+  {id:13, title:"Comment tester les agents IA : une approche pragmatique", source:"Blog OCTO Technology", sourceUrl:"https://blog.octo.com", cat:"AI Testing", tags:["AGENTS","MÉTHODO","FR"], score:55, date:"Jun 2026", lang:"FR", excerpt:"Les équipes OCTO partagent leur retour d'expérience sur l'évaluation et le test d'agents IA en production."},
+  {id:14, title:"Playwright v3 : ce qui change pour vos tests E2E", source:"Human Coders News", sourceUrl:"https://news.humancoders.com", cat:"QA News", tags:["PLAYWRIGHT","E2E","FR"], score:50, date:"Jun 2026", lang:"FR", excerpt:"La nouvelle version de Playwright apporte des snapshots sémantiques et un mode trace amélioré."},
+  {id:15, title:"ISTQB AI Testing Foundation — Retour sur la certification", source:"Sogeti Blog FR", sourceUrl:"https://www.sogeti.com/fr/blog", cat:"Training", tags:["ISTQB","CERTIFICATION","AI","FR"], score:65, date:"May 2026", lang:"FR", excerpt:"Un consultant Sogeti partage son expérience du nouveau module ISTQB AI Testing Foundation v2."},
+  {id:16, title:"Testing Agentic AI in ERP: 2026 Enterprise Guide", source:"testRigor Blog", sourceUrl:"https://testrigor.com", cat:"AI Testing", tags:["AGENTS","ERP","ENTERPRISE"], score:40, date:"Apr 2026", lang:"EN", excerpt:"How enterprise QA teams approach validation of AI agents embedded in ERP systems like SAP and Oracle."},
+  {id:17, title:"Evaluate AI Testing Tools: Cut the Marketing Hype", source:"testRigor Blog", sourceUrl:"https://testrigor.com", cat:"Thought Leadership", tags:["EVALS","TOOLS","HYPE"], score:40, date:"Apr 2026", lang:"EN", excerpt:"A no-BS framework for evaluating AI-powered test tools beyond vendor marketing claims."},
+  {id:18, title:"What happens when your support team never forgets anything?", source:"Applitools Blog", sourceUrl:"https://applitools.com", cat:"QA News", tags:["AI","SUPPORT","MEMORY"], score:40, date:"May 2026", lang:"EN", excerpt:"Exploring the QA implications of AI support agents with persistent, contextual memory."},
+  {id:19, title:"cy.prompt can now wait for network requests", source:"Cypress Blog", sourceUrl:"https://www.cypress.io", cat:"QA News", tags:["CYPRESS","NETWORK","PROMPT"], score:40, date:"Jun 2026", lang:"EN", excerpt:"cy.prompt() gets smarter: it can now intercept and await specific network requests before proceeding."},
+  {id:20, title:"Les 10 pires erreurs en test automatisé (et comment les éviter)", source:"Le Blog Synbioz", sourceUrl:"https://synbioz.com/blog", cat:"Thought Leadership", tags:["AUTOMATION","ERREURS","FR"], score:58, date:"May 2026", lang:"FR", excerpt:"Un tour d'horizon des anti-patterns les plus fréquents dans les suites de tests automatisés."},
+  {id:21, title:"OWASP LLM Top 10 2025 — Guide pratique pour QA", source:"OWASP GenAI", sourceUrl:"https://genai.owasp.org", cat:"Security & Risk", tags:["OWASP","LLM","TOP10"], score:70, date:"Mar 2026", lang:"EN", excerpt:"How QA engineers can use the OWASP LLM Top 10 as a test plan for AI-powered applications."},
+  {id:22, title:"Visual Testing at Scale with AI — Lessons from 10M Screenshots", source:"Applitools Blog", sourceUrl:"https://applitools.com", cat:"AI Testing", tags:["VISUAL","SCALE","AI"], score:65, date:"Apr 2026", lang:"EN", excerpt:"What Applitools learned from processing over 10 million screenshots through AI-based visual comparison."},
+  {id:23, title:"Shift-Left QA : intégrer la qualité dès la conception", source:"Blog OCTO Technology", sourceUrl:"https://blog.octo.com", cat:"Thought Leadership", tags:["SHIFT-LEFT","MÉTHODO","FR"], score:52, date:"Apr 2026", lang:"FR", excerpt:"Retour d'expérience sur l'intégration de la qualité dans les phases de design et de spécification."},
+  {id:24, title:"The Future of QA in an Agentic World", source:"Ministry of Testing", sourceUrl:"https://www.ministryoftesting.com", cat:"Thought Leadership", tags:["AGENTS","FUTURE","QA"], score:75, date:"Jun 2026", lang:"EN", excerpt:"What does it mean to be a QA engineer when AI agents write, run, and fix tests autonomously?"},
+  {id:25, title:"Hugging Face RLHF Testing Patterns", source:"Hugging Face Blog", sourceUrl:"https://huggingface.co/blog", cat:"AI Testing", tags:["RLHF","HUGGINGFACE","PATTERNS"], score:55, date:"May 2026", lang:"EN", excerpt:"Best practices for testing RLHF pipelines and reward models before production deployment."},
+  {id:26, title:"Rapport d'activité ISTQB France 2026", source:"ISTQB Official News", sourceUrl:"https://www.istqb.org/news", cat:"Training", tags:["ISTQB","FRANCE","RAPPORT","FR"], score:45, date:"Jun 2026", lang:"FR", excerpt:"L'ISTQB France publie son rapport annuel : chiffres des certifications, nouvelles syllabus, roadmap 2027."},
+  {id:27, title:"How Playwright AI Mode Changes Test Authoring", source:"Playwright Blog", sourceUrl:"https://playwright.dev/blog", cat:"AI Testing", tags:["PLAYWRIGHT","AI","AUTHORING"], score:68, date:"Jun 2026", lang:"EN", excerpt:"Playwright's new AI-assisted test authoring mode reduces test creation time by up to 70%."},
+  {id:28, title:"Industry Playbooks: Vertical-Specific QA Success Strategies", source:"Applitools Blog", sourceUrl:"https://applitools.com", cat:"QA News", tags:["PLAYBOOK","VERTICAL","STRATEGY"], score:40, date:"Apr 2026", lang:"EN", excerpt:"QA strategies tailored to fintech, healthcare, e-commerce, and SaaS verticals."},
+  {id:29, title:"Prompt Injection Testing — A QA Engineer's Survival Guide", source:"Snyk Blog", sourceUrl:"https://snyk.io/blog", cat:"Security & Risk", tags:["PROMPT","INJECTION","SECURITY"], score:72, date:"Jun 2026", lang:"EN", excerpt:"Practical techniques for testing LLM-powered apps against prompt injection attacks."},
+  {id:30, title:"BDD en 2026 : toujours pertinent avec l'IA générative ?", source:"LeMagIT", sourceUrl:"https://www.lemagit.fr", cat:"Thought Leadership", tags:["BDD","IA","MÉTHODO","FR"], score:53, date:"May 2026", lang:"FR", excerpt:"Est-ce que le Behavior-Driven Development garde son sens quand l'IA peut générer des scénarios automatiquement ?"}
 ];
 const QUIZ_OPT='ABCD';
 const QFL=[
@@ -1026,115 +1105,251 @@ document.querySelectorAll('.sub-tab').forEach(btn=>btn.addEventListener('click',
 
 // ===== RENDERS =====
 let newsFilter='all';
-const CAT_ICON2={'AI Testing':'🤖','Test Automation':'⚡','API Testing':'🔗','UI/E2E':'🖥','Security & Risk':'🔒','Tools':'🛠','Thought Leadership':'💡','QA News':'📰','Default':'📰'};
-const CAT_CLR={'AI Testing':'ai-testing','Test Automation':'test-automation','Security & Risk':'security-risk','QA News':'qa-news','Thought Leadership':'thought-leadership'};
-function catCls2(c){return CAT_CLR[c]||'ai-testing'}
+const CAT_ICON2={'AI Testing':'🤖','QA News':'📰','Security & Risk':'🔒','Thought Leadership':'💡','Training':'🎓','Default':'📰'};
+const CAT_CLR={'AI Testing':'ai-testing','QA News':'qa-news','Security & Risk':'security-risk','Thought Leadership':'thought-leadership','Training':'training'};
+function catCls(c){return CAT_CLR[c]||'ai-testing'}
+function catBadge(c){
+  const m={'AI Testing':'cat-ai','QA News':'cat-qa','Security & Risk':'cat-security','Thought Leadership':'cat-insights','Training':'cat-training'};
+  return m[c]||'cat-ai'
+}
+
+const FILTERS=[
+  {key:'all',icon:'🔥',label:{en:'All',fr:'Tous'}},
+  {key:'AI Testing',icon:'🤖',label:{en:'AI Testing',fr:'IA Testing'}},
+  {key:'QA News',icon:'📰',label:{en:'QA News',fr:'Actus QA'}},
+  {key:'Thought Leadership',icon:'💡',label:{en:'Insights',fr:'Analyses'}},
+  {key:'Security & Risk',icon:'🔒',label:{en:'Security',fr:'Sécurité'}},
+  {key:'FR',icon:'🇫🇷',label:{en:'French',fr:'Français'}},
+  {key:'Training',icon:'🎓',label:{en:'Training',fr:'Formation'}}
+];
+const TRENDING_TOPICS=["LLM Testing","Agentic AI","MCP Protocol","Visual Testing","ISTQB 2026","Playwright v3","AI Accessibility","Prompt Testing","OWASP LLM Top 10","Test Automation ROI","BDD Revival","Shift-Left QA"];
+
+function updateStats(){
+  const sel=document.getElementById('newsSort');
+  if(!sel) return;
+  const s=sel.value; let items=[...NEWS];
+  if(newsFilter!=='all'&&newsFilter!=='FR')
+    items=items.filter(n=>n.cat===newsFilter);
+  else if(newsFilter==='FR')
+    items=items.filter(n=>n.lang==='FR');
+  if(s==='title') items.sort((a,b)=>a.title.localeCompare(b.title));
+  else if(s==='score') items.sort((a,b)=>b.score-a.score);
+  else items.sort((a,b)=>b.id-a.id);
+  return items;
+}
+
 function renderNews(){
-  const items=NEWS,a=document.getElementById('newsGrid');
-  if(!items.length){a.innerHTML='<div class="glass" style="text-align:center;padding:40px"><p style="color:var(--muted)">Aucune actualité pour le moment.</p></div>';return}
-  
-  // Category filter buttons
-  const cats=['all',...new Set(items.map(n=>n.cat).filter(Boolean))];
-  const catEmoji={all:'🔥',"AI Testing":'🤖',"QA News":'📰',"Security & Risk":'🔒',"Thought Leadership":'💡',"Test Automation":'⚡',"API Testing":'🔗',"Tools":'🛠',"UI/E2E":"🖥"};
-  const catLabel={all:{en:'All',fr:'Tous'},"AI Testing":{en:'AI Testing',fr:'IA Testing'},"QA News":{en:'QA News',fr:'Actus QA'},"Security & Risk":{en:'Security',fr:'Sécurité'},"Thought Leadership":{en:'Insights',fr:'Analyses'},"Test Automation":{en:'Automation',fr:'Automatisation'},"API Testing":{en:'API',fr:'API'},"Tools":{en:'Tools',fr:'Outils'},"UI/E2E":"E2E"};
-  
-  let h='<div class="news-filters" id="newsFilters">';
-  cats.forEach(c=>{
-    const label=catLabel[c]?catLabel[c][LANG]||catLabel[c]:c;
-    h+=`<button class="news-filter${c===newsFilter?' active':''}" data-cat="${c}">${catEmoji[c]||'📰'} ${label}</button>`;
+  const a=document.getElementById('newsGrid');
+  const items=updateStats();
+  const fSel=newsFilter;
+
+  // Stats
+  const totalItems=newsFilter==='all'?NEWS.length:(newsFilter==='FR'?NEWS.filter(n=>n.lang==='FR').length:NEWS.filter(n=>n.cat===newsFilter).length);
+  const srcs=new Set(items.map(n=>n.source)).size;
+  const st=document.getElementById('newsStatsCount');
+  if(st) st.textContent=`📋 ${totalItems} articles \u00B7 ${srcs} sources`;
+
+  // Build filters
+  let h='<div class="news-filter-row">';
+  FILTERS.forEach(f=>{
+    const cnt=f.key==='all'?NEWS.length:(f.key==='FR'?NEWS.filter(n=>n.lang==='FR').length:NEWS.filter(n=>n.cat===f.key).length);
+    const lbl=f.label[LANG]||f.label.en;
+    const act=f.key===fSel?' active':'';
+    h+=`<button class="news-filter-pill${act}" data-cat="${f.key}">${f.icon} ${lbl} <span class="pill-count">${cnt}</span></button>`;
   });
   h+='</div>';
-  
-  // Filter items
-  const filtered=newsFilter==='all'?items:items.filter(n=>n.cat===newsFilter);
-  if(!filtered.length){
-    a.innerHTML=h+'<div class="glass" style="text-align:center;padding:40px"><p style="color:var(--muted)">Aucun article dans cette catégorie.</p></div>';
-    document.querySelectorAll('.news-filter').forEach(btn=>btn.addEventListener('click',function(){
-      newsFilter=this.dataset.cat;renderNews();
-    }));
+
+  if(!items.length){
+    a.innerHTML=h+'<div class="news-empty">No articles match your filters.</div>';
+    bindFilters(a);
     return;
   }
-  
-  // Hero feature (1st article) + side cards (2nd, 3rd)
-  const top=filtered.slice(0,3);
-  const rest=filtered.slice(3);
-  
-  h+='<div class="news-hero">';
-  
-  // Hero feature
-  const hero=top[0];
-  if(hero){
-    const icon=CAT_ICON2[hero.cat]||'📰';
-    const hasImg=hero.img&&hero.img.length>5;
-    const bgStyle=hasImg?`background-image:url(${hero.img})`:'';
-    h+=`<div class="hero-feature" onclick="window.open('${hero.url}','_blank')" style="animation-delay:0s">
-      ${hasImg?`<div class="hero-bg" style="${bgStyle}"></div>`:`<div class="hero-noimg-bg"></div><div class="hero-noimg">${icon}</div>`}
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-badge ${catCls2(hero.cat)}">${icon} ${hero.cat||'News'}</div>
-        <div class="hero-source">${hero.source||''}</div>
-        <div class="hero-title">${hero.title||''}</div>
-        <div class="hero-meta">
-          <span class="hero-score ${hero.score>=60?'high':'med'}">${hero.score}</span>
-          <span>${hero.date||''}</span>
+
+  // Ticker
+  const top5=[...NEWS].sort((a,b)=>b.score-a.score).slice(0,5);
+  h+='<div class="news-ticker"><span class="news-ticker-label">\u26A1 TRENDING</span><div class="news-ticker-track">';
+  for(let r=0;r<2;r++){
+    top5.forEach(n=>{
+      const sc=n.score>=50?`<span class="tckr-score high">\uD83D\uDD25 ${n.score}</span>`:`<span class="tckr-score med">\u2B50 ${n.score}</span>`;
+      h+=`<span class="news-ticker-item">${n.title.substring(0,55)}${sc}</span>`;
+    });
+  }
+  h+='</div></div>';
+
+  // Hero card
+  const hero=items[0];
+  const heroCat=catBadge(hero.cat);
+  const heroLang=hero.lang==='FR'?'🇫🇷':'';
+  const heroScore=hero.score>=50?`\uD83D\uDD25 ${hero.score}`:`\u2B50 ${hero.score}`;
+  const heroIcon=CAT_ICON2[hero.cat]||'📰';
+  const heroImg=`https://picsum.photos/seed/news${hero.id}/900/400`;
+  h+=`<div class="news-hero-card" onclick="window.open('${hero.sourceUrl}','_blank')">
+    <div class="hero-bg" style="background-image:url(${heroImg})"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-top">
+      <span class="hero-source-badge">${heroIcon} ${hero.source}</span>
+      <span class="hero-score-badge ${hero.score>=50?'high':'med'}">${heroScore}</span>
+    </div>
+    <div class="hero-bottom">
+      <span class="hero-cat-tag ${heroCat}">${heroIcon} ${hero.cat} ${heroLang}</span>
+      <div class="hero-title-lg">${hero.title}</div>
+      <div class="hero-excerpt">${hero.excerpt}</div>
+      <div class="hero-meta-row"><span>${hero.date}</span>${hero.lang==='FR'?'<span>\uD83C\uDDEB\uD83C\uDDF7 FR</span>':''}</div>
+    </div>
+  </div>`;
+
+  // Trending Topics
+  h+='<div class="trending-section"><div class="trending-label">🔥 Trending Topics</div><div class="trending-scroll" id="trendingScroll">';
+  TRENDING_TOPICS.forEach(t=>{
+    h+=`<span class="trending-chip" data-tag="${t}">${t}</span>`;
+  });
+  h+='</div></div>';
+
+  // Article grid
+  const displayItems=items.slice(1,13);
+  h+='<div class="news-grid" id="newsGridInner">';
+  displayItems.forEach(n=>{
+    const imgUrl=`https://picsum.photos/seed/news${n.id}/400/220`;
+    const catBadgeClass=catBadge(n.cat);
+    const scoreIcon=n.score>=50?'\uD83D\uDD25':'\u2B50';
+    const scoreClass=n.score>=50?'high':'med';
+    const langClass=n.lang==='FR'?'fr':'en';
+    const langLabel=n.lang==='FR'?'FR':'EN';
+    const tags=n.tags&&n.tags.length?n.tags.slice(0,2).map(t=>`<span class="tag">${t}</span>`).join(''):'';
+    h+=`<div class="news-card-v2" onclick="window.open('${n.sourceUrl}','_blank')">
+      <div class="card-img-wrap">
+        <img src="${imgUrl}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=card-img-fallback>${CAT_ICON2[n.cat]||'📰'}</div>'">
+        <div class="card-img-overlay"></div>
+        <span class="card-lang ${langClass}">${langLabel}</span>
+      </div>
+      <div class="news-card-body">
+        <div class="card-meta">
+          <span class="card-source">${n.source.substring(0,20)}</span>
+          <span class="card-cat-badge ${catBadgeClass}">${CAT_ICON2[n.cat]||'📰'} ${n.cat.split(' ')[0]}</span>
+        </div>
+        <div class="card-title">${n.title}</div>
+        ${tags?`<div class="card-tags">${tags}</div>`:''}
+        <div class="card-footer">
+          <span class="card-date">${n.date}</span>
+          <span class="card-score ${scoreClass}">${scoreIcon} ${n.score}</span>
         </div>
       </div>
     </div>`;
+  });
+  h+='</div>';
+
+  // Load more
+  if(items.length>13){
+    h+=`<div class="news-load-more-wrap"><button class="news-load-more" id="newsLoadMore">Load more articles</button></div>`;
   }
-  
-  // Side cards
-  h+='<div class="hero-side">';
-  for(let i=1;i<Math.min(3,top.length);i++){
-    const n=top[i];
-    const icon2=CAT_ICON2[n.cat]||'📰';
-    const hasImg2=n.img&&n.img.length>5;
-    const bgStyle2=hasImg2?`background-image:url(${n.img})`:'';
-    h+=`<div class="hero-side-card" onclick="window.open('${n.url}','_blank')">
-      ${hasImg2?`<div class="side-bg" style="${bgStyle2}"></div>`:`<div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,200,.08),rgba(0,0,0,.3));display:grid;place-items:center;font-size:40px">${icon2}</div>`}
-      <div class="side-overlay"></div>
-      <div class="side-content">
-        <div class="side-badge ${catCls2(n.cat)}" style="background:rgba(0,229,200,.25);color:var(--accent);">${icon2}</div>
-        <div class="side-title">${n.title.substring(0,80)}</div>
-        <div class="side-meta">${n.source} · ${n.date||''}</div>
+
+  a.innerHTML=h;
+
+  // Bind filter clicks
+  bindFilters(a);
+
+  // Bind trending chips
+  document.querySelectorAll('.trending-chip').forEach(chip=>{
+    chip.addEventListener('click',function(){
+      const tag=this.dataset.tag;
+      this.classList.toggle('active');
+      const activeChips=[...document.querySelectorAll('.trending-chip.active')].map(c=>c.dataset.tag);
+      if(activeChips.length){
+        document.querySelectorAll('.news-card-v2').forEach(card=>{
+          const cardTags=card.querySelector('.card-tags');
+          if(!cardTags){card.style.display='none';return}
+          const tagsText=cardTags.textContent||'';
+          const match=activeChips.some(t=>tagsText.includes(t.substring(0,5).toUpperCase()));
+          card.style.display=match?'':'none';
+        });
+      } else {
+        document.querySelectorAll('.news-card-v2').forEach(c=>c.style.display='');
+      }
+    });
+  });
+
+  // Bind Load More
+  const lm=document.getElementById('newsLoadMore');
+  if(lm) lm.addEventListener('click',function(){
+    this.disabled=true;
+    this.textContent='Loading...';
+    const grid=document.getElementById('newsGridInner');
+    const start=grid.children.length+1;
+    const more=items.slice(start,start+6);
+    more.forEach(n=>{
+      const imgUrl=`https://picsum.photos/seed/news${n.id}/400/220`;
+      const catBadgeClass=catBadge(n.cat);
+      const scoreIcon=n.score>=50?'\uD83D\uDD25':'\u2B50';
+      const scoreClass=n.score>=50?'high':'med';
+      const langClass=n.lang==='FR'?'fr':'en';
+      const langLabel=n.lang==='FR'?'FR':'EN';
+      const tags=n.tags&&n.tags.length?n.tags.slice(0,2).map(t=>`<span class="tag">${t}</span>`).join(''):'';
+      const div=document.createElement('div');
+      div.className='news-card-v2';
+      div.onclick=function(){window.open(n.sourceUrl,'_blank')};
+      div.innerHTML=`<div class="card-img-wrap">
+        <img src="${imgUrl}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=card-img-fallback>${CAT_ICON2[n.cat]||'📰'}</div>'">
+        <div class="card-img-overlay"></div>
+        <span class="card-lang ${langClass}">${langLabel}</span>
       </div>
-    </div>`;
-  }
-  h+='</div></div>'; // close hero-side, news-hero
-  
-  // Magazine grid for remaining articles
-  if(rest.length){
-    h+=`<div class="section-divider"><h3>${LANG==='fr'?'📋 Toute la veille':'📋 All articles'}</h3><span class="line"></span><span class="count">${rest.length}</span></div>`;
-    h+='<div class="mag-grid">';
-    rest.forEach((n,i)=>{
-      const icon3=CAT_ICON2[n.cat]||'📰';
-      const hasImg3=n.img&&n.img.length>5;
-      const sc=n.score>=60?'high':n.score>=45?'med':'low';
-      const tg=n.tags&&n.tags.length?n.tags.slice(0,3).map(t=>`<span class="tag">${t}</span>`).join(''):'';
-      h+=`<div class="mag-card" onclick="window.open('${n.url}','_blank')">
-        ${hasImg3?`<div class="mag-card-img-wrap"><img class="mag-card-img" src="${n.img}" alt="" loading="lazy" onerror="this.parentElement.innerHTML='<div class=mag-card-noimg>'+CAT_ICON2['${n.cat}']+'</div>'"></div>`:`<div class="mag-card-noimg">${icon3}</div>`}
-        <div class="mag-card-body">
-          <div class="mag-card-header">
-            <span class="mag-source">${n.source.substring(0,22)}</span>
-            <span class="cat-tag" style="font-size:10px;padding:1px 8px;border-radius:999px;background:rgba(0,229,200,.12);color:var(--accent)">${icon3} ${(n.cat||'').substring(0,14)}</span>
-          </div>
-          <div class="mag-title">${n.title.substring(0,90)}</div>
-          <div class="mag-footer">
-            <div class="mag-tags">${tg}</div>
-            <div class="mag-score ${sc}">${n.score}</div>
-          </div>
+      <div class="news-card-body">
+        <div class="card-meta">
+          <span class="card-source">${n.source.substring(0,20)}</span>
+          <span class="card-cat-badge ${catBadgeClass}">${CAT_ICON2[n.cat]||'📰'} ${n.cat.split(' ')[0]}</span>
+        </div>
+        <div class="card-title">${n.title}</div>
+        ${tags?`<div class="card-tags">${tags}</div>`:''}
+        <div class="card-footer">
+          <span class="card-date">${n.date}</span>
+          <span class="card-score ${scoreClass}">${scoreIcon} ${n.score}</span>
         </div>
       </div>`;
+      grid.appendChild(div);
     });
-    h+='</div>';
-  }
-  
-  a.innerHTML=h;
-  
-  // Bind filter clicks
-  document.querySelectorAll('.news-filter').forEach(btn=>btn.addEventListener('click',function(){
+    if(start+6>=items.length){
+      this.textContent='All articles loaded';
+      this.disabled=true;
+    } else {
+      this.disabled=false;
+      this.textContent='Load more articles';
+    }
+  });
+}
+
+function bindFilters(a){
+  document.querySelectorAll('.news-filter-pill').forEach(btn=>btn.addEventListener('click',function(){
     newsFilter=this.dataset.cat;
     renderNews();
   }));
+  // Source filter
+  const st=document.getElementById('newsSourceToggle');
+  if(st) st.addEventListener('click',function(){
+    document.getElementById('newsSourceDropdown').classList.toggle('open');
+  });
+}
+
+function initNews(){
+  // Skeleton loader
+  const a=document.getElementById('newsGrid');
+  a.innerHTML=`<div class="news-skeleton">
+    ${'<div class="news-skel-card"><div class="news-skel-img"></div><div class="news-skel-body"><div class="news-skel-line w80"></div><div class="news-skel-line w60"></div><div class="news-skel-line w40"></div></div></div>'.repeat(6)}
+  </div>`;
+  setTimeout(()=>{
+    renderNews();
+    // Re-bind sort
+    const sel=document.getElementById('newsSort');
+    if(sel) sel.addEventListener('change',renderNews);
+    // Search
+    const inp=document.getElementById('newsSearchInput');
+    if(inp) inp.addEventListener('input',function(){
+      const q=this.value.toLowerCase().trim();
+      document.querySelectorAll('.news-card-v2').forEach(card=>{
+        const txt=(card.textContent||'').toLowerCase();
+        card.style.display=txt.includes(q)?'':'none';
+      });
+      document.querySelectorAll('.trending-chip').forEach(c=>c.classList.remove('active'));
+    });
+  },800);
 }
 const TC={
   "Automation Web":[["Playwright","E2E cross-browser.",true,"https://playwright.dev/docs/api/class-page"],["Cypress","E2E JS Time Travel.",false,"https://docs.cypress.io/api/table-of-contents"],["Selenium","Historical standard.",false,"https://www.selenium.dev/documentation/webdriver/"]],
@@ -1256,7 +1471,7 @@ function switchLang(){
   RL(); // Update data-i18n DOM elements
   renderTicker();
   renderDash();
-  renderNews();
+  initNews();
   renderTools();
   renderTrain();
   renderLessons();
@@ -1439,7 +1654,7 @@ document.getElementById('langLabel').textContent = LANG === 'fr' ? ' FR' : ' EN'
 
 renderTicker();
 renderDash();
-renderNews();
+initNews();
 renderTools();
 renderTrain();
 renderLessons();
