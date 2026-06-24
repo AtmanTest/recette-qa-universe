@@ -7183,13 +7183,17 @@ function init() {
   renderLabs();
   renderIstqb();
   renderTicker();
-  initNews();
 
   // Switch to default tab
   switchTab(currentTab);
 
   // Apply i18n to nav items
   RL(document.getElementById('app-nav'));
+
+  // Delayed news init (must run AFTER switchTab renders tab-panel visible)
+  setTimeout(() => {
+    initNews();
+  }, 50);
 
   console.log(`🚀 QA Universe v2 initialized — ${TOOLS_DATA.length} tools, ${LESSONS.length} lessons, ${currentLang} language`);
 } catch(e) {
@@ -8459,7 +8463,11 @@ document.querySelectorAll('.tool-modal-tab').forEach(tab=>{
     if(sec)sec.classList.add('active');
   });
 });
-document.addEventListener('DOMContentLoaded', init);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 </body>
 </html>
