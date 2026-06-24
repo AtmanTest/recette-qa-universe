@@ -5591,7 +5591,7 @@ function switchTab(tabId) {
     case 'training': renderTrain(); break;
     case 'labs': renderLabs(); break;
     case 'istqb': renderIstqb(); break;
-    case 'news': /* renderNews() handled by existing code */ break;
+    case 'tab-news': setTimeout(() => renderNews(), 10); break;
   }
 
   // Close chatbot when switching tabs
