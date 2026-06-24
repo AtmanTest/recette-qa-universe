@@ -248,6 +248,32 @@ async function runTests() {
     if (hamburgerVisible) ok('Menu hamburger visible en viewport mobile');
     else fail('Menu hamburger masqué en mobile', 'CSS mobile à corriger');
 
+    // Test drawer toggle
+    const drawerToggleWorks = await page.evaluate(() => {
+      const hb = document.getElementById('hamburgerBtn');
+      const drawer = document.getElementById('mobileDrawer');
+      if (!hb || !drawer) return 'elements manquants';
+      // Click to open
+      hb.click();
+      const opened = drawer.classList.contains('open');
+      // Click to close
+      hb.click();
+      const closed = !drawer.classList.contains('open');
+      return opened && closed ? 'ok' : 'echec toggle';
+    });
+    if (drawerToggleWorks === 'ok') ok('Drawer mobile toggle fonctionne (open/close)');
+    else fail('Drawer mobile ne toggle pas', drawerToggleWorks);
+
+    // Verify ISTQB Prep link exists in drawer
+    const istqbInDrawer = await page.evaluate(() => {
+      const drawer = document.getElementById('mobileDrawer');
+      if (!drawer) return false;
+      const links = drawer.querySelectorAll('.nav-tab');
+      return Array.from(links).some(l => l.dataset.tab === 'tab-istqb');
+    });
+    if (istqbInDrawer) ok('ISTQB Prep présent dans le drawer mobile');
+    else fail('ISTQB Prep absent du drawer mobile', 'Ajouter tab-istqb dans le drawer');
+
     // Vérifier que les tabs sont fonctionnels
     const tabs = await page.evaluate(() => {
       return document.querySelectorAll('.nav-tab').length;
