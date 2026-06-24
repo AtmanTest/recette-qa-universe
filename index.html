@@ -7640,9 +7640,8 @@ function finQ(){
   document.getElementById('quizFinalEmoji').textContent=emoji;document.getElementById('quizFinalLabel').textContent=label;
   const p=getP();p.scores.push(pct);saveP(p);
 }
-function resetQuiz(){qs=null;document.getElementById('quizFinalScore').style.display='none';document.getElementById('quizArea').innerHTML=`<div class="glass" style="text-align:center;padding:28px"><p style="color:var(--text2)">${R('quiz_welcome')}</p></div>`;}
-document.getElementById('quizStartBtn').addEventListener('click',()=>startQuiz(document.getElementById('quizDomain').value));
-resetQuiz();
+function resetQuiz(){qs=null;const qfs=document.getElementById('quizFinalScore');if(qfs)qfs.style.display='none';const qa=document.getElementById('quizArea');if(qa)qa.innerHTML=`<div class="glass" style="text-align:center;padding:28px"><p style="color:var(--text2)">${R('quiz_welcome')}</p></div>`;}
+(()=>{const qb=document.getElementById('quizStartBtn');if(qb)qb.addEventListener('click',()=>startQuiz((document.getElementById('quizDomain')||{}).value||'fl'));const qs=document.getElementById('quizFinalScore');if(qs)resetQuiz();})();
 
 // ===== EXAM =====
 let es=null,et=null;
