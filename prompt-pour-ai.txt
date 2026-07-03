@@ -1,0 +1,152 @@
+═══════════════════════════════════════════════════════════════
+  PROMPT POUR L'AI DE CORRECTION — QA UNIVERSE SITE
+  Transmission entre l'Agent Hermes (Hermes Agent) et toi
+═══════════════════════════════════════════════════════════════
+
+## 🎯 OBJECTIF
+Corriger et améliorer le site QA Universe — un site web statique monopage (single-file HTML/CSS/JS) dédié au monde du QA/Testing. Tu trouveras le code source en section RESSOURCES ci-dessous.
+
+## 📋 CONTEXTE
+- C'est un fichier HTML unique (~11 500 lignes, ~490 KB) avec tout le CSS inline dans <style> et tout le JS inline dans <script>
+- Le site est hébergé sur GitHub Pages (recette : https://atmantest.github.io/recette-qa-universe/, prod : https://atmantest.github.io/qa-universe/)
+- L'utilisateur est Thasin Jahangir, Consultant QA Senior, il parle français
+- Le build est validé par une suite de tests Playwright (21 tests, commande : node tests-bugs.mjs)
+- L'agent principal (Hermes Agent) appliquera tes corrections localement, lancera les tests, commitera et pushera
+
+## 🔴 PROBLÈMES SIGNALÉS À CORRIGER (par priorité)
+
+### 1. RESPONSIVE MOBILE — CORRECTIONS INCOMPLÈTES
+Le burger menu ne fonctionnait pas (corrigé en partie) mais plusieurs bugs persistent :
+- **Pages tronquées** : quand on clique sur un onglet (Dashboard, Tools, ISTQB Prep, etc.) sur mobile, le contenu dépasse / est coupé
+- **Chat panel tronqué** : la fenêtre de l'assistant IA 🤖 (position:fixed, right:88px) est trop grande et coupée sur mobile
+- **TJ avatar** : le cercle "TJ" dans la navbar doit être caché sur mobile (il prend de la place inutilement)
+- **Navbar overflow** : les icônes dans .nav-actions débordent sur mobile
+
+### 2. MODE LIGHT — CORRECTIONS
+Le mode clair [data-theme="light"] existe en CSS mais :
+- Certains éléments gardent leur fond sombre
+- Les cartes, inputs, et textes ne sont pas correctement stylés en mode light
+- L'assistant IA 🤖 n'a pas de styles light mode (fond blanc, texte foncé, bordures adaptées)
+
+### 3. ASSISTANT IA 🤖 — AMÉLIORATIONS
+- La vibration toutes les 10s doit fonctionner (actuellement l'animation CSS peut être écrasée par d'autres états)
+- Les questions prédéfinies doivent défiler horizontalement sur mobile
+- Le design doit ressembler à un vrai assistant (bulles de chat, etc.)
+- Les 10 réponses prédéfinies sont bonnes mais peuvent être enrichies
+
+### 4. GÉNÉRAL
+- Vérifier que tous les éléments data-i18n s'affichent correctement
+- Vérifier que la bascule dark/light fonctionne sur TOUS les composants (footer, assistant, drawer, tools cards, hero card)
+
+## 🛠️ RESSOURCES
+
+### Code source complet (RAW) :
+https://raw.githubusercontent.com/AtmanTest/recette-qa-universe/main/index.html
+
+### Téléchargement direct (alternative) :
+Demande le fichier .zip à l'utilisateur
+
+### Structure du fichier :
+```
+<html lang="fr" data-theme="dark">
+  <head>
+    <style>
+      Sections CSS 1 à 49
+      - Sections 1-30: Layout général, navbar, grilles
+      - Section 30: [data-theme="light"] overrides
+      - Section 31: Scrollbar
+      - Sections 32-47: Composants (cards, hero, footer, badges, etc.)
+      - Section 48: AI Assistant CSS (ligne ~5635)
+      - Section 49: Mobile overrides (ligne ~5677)
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR (~ligne 5683) -->
+    <!-- NEWS TICKER -->
+    <!-- TABS (News, Dashboard, Tools, Training, Labs, ISTQB Prep) -->
+    <!-- FOOTER -->
+    <!-- AI ASSISTANT HTML (~ligne 11530) -->
+    <script>
+      try {
+        // Data (I18N keys, tools, courses, questions)
+        // Functions (switchTab, renderDash, renderTools, T(), RL(), etc.)
+        // Theme toggle, Lang toggle, Reader
+        // AI Assistant JS
+        // INITIALIZATION
+      } catch(e) { ... }
+    </script>
+  </body>
+</html>
+```
+
+### Suite de tests :
+Le projet utilise Playwright pour les tests. 21 tests couvrent :
+- Chargement de la page
+- Filtre par source (news)
+- Bouton Reader
+- Traduction (I18N)
+- Menu hamburger
+- Theme toggle
+
+Pour exécuter : `npm install playwright` puis `node tests-bugs.mjs`
+
+## 📤 COMMENT TRANSMETTRE TES CORRECTIONS
+
+### Option A — Push direct sur GitHub (recommandé)
+Tu as un accès GitHub par token. Procédure :
+
+```bash
+# 1. Cloner le dépôt recette
+git clone https://[TON_TOKEN_GITHUB]@github.com/AtmanTest/recette-qa-universe.git
+cd recette-qa-universe
+
+# 2. Créer une branche pour tes corrections
+git checkout -b fix/nom-de-la-correction
+
+# 3. Faire tes modifications sur index.html
+# (éditer le fichier)
+
+# 4. Tester
+node tests-bugs.mjs
+
+# 5. Commit et push
+git add index.html
+git commit -m "fix: description de la correction"
+git push origin fix/nom-de-la-correction
+```
+
+⚠️ **NE JAMAIS push sur main directement.** Toujours créer une branche.
+
+### Option B — Fichier complet
+Après tes modifications, renvoie le fichier **index.html** complet à l'utilisateur.
+
+### Option C — Patch diff
+```diff
+--- a/index.html
++++ b/index.html
+@@ -XXX,YY +ZZZ,WW @@
+ -ancienne ligne
+ +nouvelle ligne
+```
+
+### Option D — Instructions de patch (en dernier recours)
+Décris précisément chaque modification.
+
+## ✅ CRITÈRES DE SUCCÈS
+1. Le burger menu s'ouvre et affiche les 6 onglets sur mobile
+2. Tous les onglets s'affichent correctement (pas de contenu tronqué)
+3. Le chat IA est utilisable sur mobile (taille adaptée, scrollable)
+4. Le mode light fonctionne parfaitement (tous les composants)
+5. Les 21 tests Playwright passent
+6. TJ est caché sur mobile
+7. L'assistant IA vibre toutes les 10s
+
+## ⚠️ RÈGLES IMPORTANTES
+- Ne JAMAIS supprimer ou casser les fonctions existantes (T(), RL(), switchTab(), renderDash(), renderTools(), renderTraining(), renderLabs(), renderISTQB(), init(), toggleMobileNav(), toggleCreatorDropdown(), toggleAI(), sendAI())
+- Ne JAMAIS modifier les clés I18N ou les données bilingues
+- Le fichier doit rester UN SEUL fichier HTML (tout inline)
+- Teste avec un viewport mobile (390x844) pour le responsive
+- L'utilisateur communique en français, parle-lui en français si nécessaire
+- Si un problème est trop complexe ou nécessite une décision, explique-le à l'utilisateur en français
+
+═══════════════════════════════════════════════════════════════
