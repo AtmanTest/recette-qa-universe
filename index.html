@@ -5067,7 +5067,7 @@ h5 { font-size: 1rem; }
   cursor: pointer;
   transition: all 120ms ease;
   font-size: 0.8125rem;
-  color: #8b8fa8;
+  color: #b0b4c8;
   line-height: 1.5;
 }
 
@@ -5107,7 +5107,7 @@ h5 { font-size: 1rem; }
   padding-top: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   font-size: 0.75rem;
-  color: #8b8fa8;
+  color: #b0b4c8;
   margin-bottom: 8px;
 }
 
@@ -5180,7 +5180,7 @@ h5 { font-size: 1rem; }
 
 .skill-progress-label {
   font-size: 0.75rem;
-  color: #8b8fa8;
+  color: #b0b4c8;
 }
 
 .skill-timer {
@@ -5216,7 +5216,7 @@ h5 { font-size: 1rem; }
   cursor: pointer;
   transition: all 120ms ease;
   font-size: 0.8125rem;
-  color: #8b8fa8;
+  color: #b0b4c8;
   line-height: 1.5;
 }
 
@@ -5499,7 +5499,7 @@ h5 { font-size: 1rem; }
 
 .template-preview-text {
   font-size: 0.75rem;
-  color: #8b8fa8;
+  color: #b0b4c8;
   line-height: 1.5;
 }
 
@@ -5512,7 +5512,7 @@ h5 { font-size: 1rem; }
 
 .template-date {
   font-size: 0.6875rem;
-  color: #4a4e66;
+  color: #9ca3af;
 }
 
 .template-lang-badge {
@@ -5552,7 +5552,7 @@ h5 { font-size: 1rem; }
 
 .template-preview-btn {
   background: transparent;
-  color: #8b8fa8;
+  color: #b0b4c8;
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -6037,6 +6037,65 @@ h5 { font-size: 1rem; }
 [data-theme="light"] .ai-chat-header{border-bottom-color:rgba(0,0,0,0.08)}
 
 /* ═══════════════════════════════════════════════
+   LLM RANK — Ranking Table
+   ═══════════════════════════════════════════════ */
+
+.llm-header h2 { margin-bottom:4px }
+.llm-subtitle { font-size:13px;color:var(--text-secondary,#8b8fa8);margin:0 0 16px }
+.llm-subtitle a { color:var(--accent,#00c8b4);text-decoration:none }
+.llm-subtitle a:hover { text-decoration:underline }
+
+.llm-stats { display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px }
+.llm-stat { flex:1;min-width:100px;background:var(--card-bg,rgba(255,255,255,0.04));border:1px solid var(--border,rgba(255,255,255,0.08));border-radius:10px;padding:12px 16px;text-align:center }
+.llm-stat-label { display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-secondary,#8b8fa8);margin-bottom:4px }
+.llm-stat-value { display:block;font-size:22px;font-weight:700;font-family:'Sora',sans-serif;color:var(--accent,#00c8b4) }
+
+.llm-filters { display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px;padding:12px;background:var(--card-bg,rgba(255,255,255,0.04));border:1px solid var(--border,rgba(255,255,255,0.08));border-radius:10px }
+.llm-input { flex:2;min-width:160px;padding:8px 12px;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;background:var(--surface,#13151f);color:var(--text,#e0e0e0);font-size:13px;outline:none;transition:border-color .2s }
+.llm-input:focus { border-color:var(--accent,#00c8b4) }
+.llm-select { flex:1;min-width:120px;padding:8px 10px;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;background:var(--surface,#13151f);color:var(--text,#e0e0e0);font-size:13px;outline:none;cursor:pointer }
+.llm-btn-link { background:none;border:none;color:var(--accent,#00c8b4);cursor:pointer;font-size:12px;padding:4px 8px;text-decoration:underline;white-space:nowrap }
+.llm-btn-link:hover { color:var(--accent-light,#33daca) }
+.llm-count { font-size:12px;color:var(--text-secondary,#8b8fa8);margin-left:auto;white-space:nowrap }
+
+.llm-table-wrap { overflow-x:auto;border:1px solid var(--border,rgba(255,255,255,0.08));border-radius:10px;background:var(--card-bg,rgba(255,255,255,0.02)) }
+.llm-table { width:100%;border-collapse:collapse;font-size:13px;min-width:540px }
+.llm-table th { background:var(--surface,#13151f);padding:10px 12px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-secondary,#8b8fa8);position:sticky;top:0;z-index:1 }
+.llm-table td { padding:8px 12px;border-top:1px solid var(--border,rgba(255,255,255,0.04));color:var(--text,#e0e0e0) }
+.llm-table tr:hover td { background:rgba(0,200,180,0.04) }
+.llm-table .llm-rank { font-weight:700;color:var(--accent,#00c8b4);width:36px }
+.llm-table .llm-model { font-weight:500 }
+.llm-table .llm-score { font-family:'Sora',sans-serif;font-weight:600;color:var(--text,#e0e0e0) }
+.llm-table .llm-ci { font-size:11px;color:var(--text-secondary,#8b8fa8) }
+.llm-table .llm-votes { color:var(--text-secondary,#8b8fa8) }
+.llm-table .llm-price { color:var(--text-secondary,#8b8fa8) }
+.llm-table .llm-empty { text-align:center;padding:40px;color:var(--text-secondary,#8b8fa8) }
+.llm-table .llm-badge { display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;background:rgba(255,193,7,0.15);color:#f0c040 }
+
+.llm-footer { margin-top:12px;font-size:12px;color:var(--text-secondary,#8b8fa8);text-align:center }
+
+/* Light theme overrides */
+[data-theme="light"] .llm-stat { background:rgba(0,0,0,0.02);border-color:rgba(0,0,0,0.08) }
+[data-theme="light"] .llm-filters { background:rgba(0,0,0,0.02);border-color:rgba(0,0,0,0.08) }
+[data-theme="light"] .llm-input { background:#fff;border-color:rgba(0,0,0,0.12);color:#1a1a2e }
+[data-theme="light"] .llm-select { background:#fff;border-color:rgba(0,0,0,0.12);color:#1a1a2e }
+[data-theme="light"] .llm-table-wrap { border-color:rgba(0,0,0,0.08) }
+[data-theme="light"] .llm-table th { background:rgba(0,0,0,0.03);color:#666 }
+[data-theme="light"] .llm-table td { color:#333;border-top-color:rgba(0,0,0,0.06) }
+[data-theme="light"] .llm-table .llm-score { color:#333 }
+[data-theme="light"] .llm-table tr:hover td { background:rgba(0,200,180,0.06) }
+
+/* Mobile */
+@media(max-width:768px){
+  .llm-stat { min-width:calc(50% - 8px) }
+  .llm-filters { flex-direction:column }
+  .llm-input, .llm-select { width:100%;flex:none;min-width:0 }
+  .llm-count { margin-left:0 }
+  .llm-table { font-size:12px }
+  .llm-table td, .llm-table th { padding:6px 8px }
+}
+
+/* ═══════════════════════════════════════════════
    END OF QA UNIVERSE v2 DESIGN SYSTEM
    ═══════════════════════════════════════════════ */
 </style>
@@ -6063,6 +6122,7 @@ h5 { font-size: 1rem; }
       <button class="nav-tab" data-tab="tab-training" onclick="switchTab('tab-training')" data-i18n="nav.training">📚 Training</button>
       <button class="nav-tab" data-tab="tab-labs" onclick="switchTab('tab-labs')" data-i18n="nav.labs">🔬 Labs</button>
       <button class="nav-tab" data-tab="tab-istqb" onclick="switchTab('tab-istqb')" data-i18n="nav.istqb_prep">🎓 ISTQB Prep</button>
+      <button class="nav-tab" data-tab="tab-llmrank" onclick="switchTab('tab-llmrank')" data-i18n="nav.llmrank">🤖 AI Ranking</button>
     </div>
 
     <!-- Nav Actions -->
@@ -6115,6 +6175,7 @@ h5 { font-size: 1rem; }
       <button class="mobile-drawer-close" onclick="toggleMobileNav()">✕</button>
       <button class="nav-tab active" data-tab="tab-news" onclick="switchTab('tab-news'); toggleMobileNav();" data-i18n="nav.news">📰 News</button>
       <button class="nav-tab" data-tab="tab-home" onclick="switchTab('tab-home'); toggleMobileNav();" data-i18n="nav.dashboard">📊 Dashboard</button>
+      <button class="nav-tab" data-tab="tab-llmrank" onclick="switchTab('tab-llmrank'); toggleMobileNav();" data-i18n="nav.llmrank">🤖 AI Ranking</button>
       <button class="nav-tab" data-tab="tab-tools" onclick="switchTab('tab-tools'); toggleMobileNav();" data-i18n="nav.tools">🛠️ Tools</button>
       <button class="nav-tab" data-tab="tab-training" onclick="switchTab('tab-training'); toggleMobileNav();" data-i18n="nav.training">📚 Training</button>
       <button class="nav-tab" data-tab="tab-labs" onclick="switchTab('tab-labs'); toggleMobileNav();" data-i18n="nav.labs">🔬 Labs</button>
@@ -8010,6 +8071,47 @@ h5 { font-size: 1rem; }
   </div>
 </footer>
 
+<!-- ====== TAB: LLM RANKING ====== -->
+<section id="tab-llmrank" class="tab-content">
+  <div class="tab-inner">
+    <div class="llm-header">
+      <h2 data-i18n="nav.llmrank">🤖 AI Ranking</h2>
+      <p class="llm-subtitle"><span id="llm-count">—</span> modèles classés par score Elo Arena · <a href="https://arena.ai/leaderboard/text/overall" target="_blank" rel="noopener">Chatbot Arena</a></p>
+    </div>
+    <div class="llm-stats">
+      <div class="llm-stat"><span class="llm-stat-label">Top</span><span class="llm-stat-value" id="llm-top">—</span></div>
+      <div class="llm-stat"><span class="llm-stat-label">Score moyen</span><span class="llm-stat-value" id="llm-avg">—</span></div>
+      <div class="llm-stat"><span class="llm-stat-label">Modèles</span><span class="llm-stat-value" id="llm-total">—</span></div>
+      <div class="llm-stat"><span class="llm-stat-label">Providers</span><span class="llm-stat-value" id="llm-providers">—</span></div>
+    </div>
+    <div class="llm-filters">
+      <input type="search" id="llm-search" placeholder="🔍 Rechercher un modèle..." class="llm-input" autocomplete="off" />
+      <select id="llm-provider-filter" class="llm-select">
+        <option value="all">Tous les providers</option>
+      </select>
+      <select id="llm-sort" class="llm-select">
+        <option value="rank">Tri : Rang</option>
+        <option value="score">Tri : Score</option>
+        <option value="votes">Tri : Votes</option>
+        <option value="price">Tri : Prix</option>
+      </select>
+      <span class="llm-count" id="llm-filter-count">— / —</span>
+      <button id="llm-showall" class="llm-btn-link">Afficher tout</button>
+    </div>
+    <div class="llm-table-wrap">
+      <table class="llm-table">
+        <thead><tr><th>#</th><th>Modèle</th><th>Score Elo</th><th>Votes</th><th>Prix $/M tok</th><th>Contexte</th></tr></thead>
+        <tbody id="llm-body">
+          <tr><td colspan="6" class="llm-empty">Chargement...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="llm-footer">
+      <p>Source : <a href="https://arena.ai/leaderboard/text/overall" target="_blank" rel="noopener">Chatbot Arena (LMSYS)</a> — scores Elo basés sur les préférences humaines.</p>
+    </div>
+  </div>
+</section>
+
 <script>try {
 /* ========================================
    QA Universe v2 — Main Application
@@ -8301,6 +8403,7 @@ const I18N = {
     nav_training: 'Formation',
     nav_labs: 'Labs',
     nav_istqb: 'Prépa ISTQB',
+    nav_llmrank: 'Classement IA',
     // Dashboard
     kpi_questions: 'Questions Répondues',
     kpi_exams: 'Examens Passés',
@@ -8419,6 +8522,7 @@ const I18N = {
     nav_training: 'Training',
     nav_labs: 'Labs',
     nav_istqb: 'ISTQB Prep',
+    nav_llmrank: 'AI Ranking',
     // Dashboard
     kpi_questions: 'Questions Answered',
     kpi_exams: 'Exams Taken',
@@ -8709,6 +8813,7 @@ function switchTab(tabId) {
     case 'tab-training': renderTrain(); break;
     case 'tab-labs': renderLabs(); break;
     case 'tab-istqb': renderIstqb(); break;
+    case 'tab-llmrank': renderLLMRank(); break;
     case 'tab-news': renderNews(); break;
   }
 
@@ -10716,6 +10821,91 @@ function updateStats(){
   else if(s==='score') items.sort((a,b)=>b.score-a.score);
   else items.sort((a,b)=>b.id-a.id);
   return items;
+}
+
+function renderLLMRank(){
+  const tbody = document.getElementById('llm-body');
+  const search = document.getElementById('llm-search');
+  const pfilt = document.getElementById('llm-provider-filter');
+  const ssort = document.getElementById('llm-sort');
+  const showall = document.getElementById('llm-showall');
+  const fcount = document.getElementById('llm-filter-count');
+  if (!tbody) return;
+
+  let allModels = [];
+  let providerSet = new Set();
+
+  const renderTable = (filtered) => {
+    // Update stats
+    document.getElementById('llm-top').textContent = filtered.length > 0 ? (filtered[0].arena_score || '—') : '—';
+    document.getElementById('llm-avg').textContent = filtered.length > 0 ? Math.round(filtered.reduce((s,m)=>s+parseFloat(m.arena_score||0),0)/filtered.length) : '—';
+    document.getElementById('llm-total').textContent = filtered.length;
+    document.getElementById('llm-providers').textContent = providerSet.size;
+    document.getElementById('llm-count').textContent = (search && search.value) || (pfilt && pfilt.value !== 'all') ? `${filtered.length} / ${allModels.length}` : `${allModels.length} modèles`;
+
+    if (filtered.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="llm-empty">Aucun modèle trouvé</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = filtered.map((m,i) => {
+      const elo = parseFloat(m.arena_score) || 0;
+      const ci = m.arena_score_ci ? `±${Math.round(parseFloat(m.arena_score_ci)*100)/100}` : '';
+      const votes = m.arena_votes ? parseInt(m.arena_votes).toLocaleString() : '—';
+      const ctx = m.context_tokens ? `${Math.round(parseInt(m.context_tokens)/1000)}K` : '—';
+      const iprice = m.price_in_per_mtok ? `$${parseFloat(m.price_in_per_mtok).toFixed(2)}` : '—';
+      const badge = (m.arena_votes && parseInt(m.arena_votes) < 10000) ? ' <span class="llm-badge">préliminaire</span>' : '';
+      return `<tr>
+        <td class="llm-rank">${i+1}</td>
+        <td class="llm-model">${m.display_name || m.name || m.model}${badge}</td>
+        <td class="llm-score">${Math.round(elo)} ${ci ? `<span class="llm-ci">${ci}</span>` : ''}</td>
+        <td class="llm-votes">${votes}</td>
+        <td class="llm-price">${iprice}</td>
+        <td class="llm-price">${ctx}</td>
+      </tr>`;
+    }).join('');
+  };
+
+  const applyFilters = () => {
+    let filtered = [...allModels];
+    const q = (search && search.value || '').toLowerCase();
+    if (q) filtered = filtered.filter(m => (m.display_name || m.name || m.model || '').toLowerCase().includes(q));
+    const pv = pfilt ? pfilt.value : 'all';
+    if (pv !== 'all') filtered = filtered.filter(m => (m.provider || '').toLowerCase() === pv);
+    const sort = ssort ? ssort.value : 'rank';
+    if (sort === 'rank') { /* keep natural order */ }
+    else if (sort === 'score') filtered.sort((a,b) => parseFloat(b.arena_score||0) - parseFloat(a.arena_score||0));
+    else if (sort === 'votes') filtered.sort((a,b) => parseInt(b.arena_votes||0) - parseInt(a.arena_votes||0));
+    else if (sort === 'price') filtered.sort((a,b) => parseFloat(a.price_in_per_mtok||0) - parseFloat(b.price_in_per_mtok||0));
+    renderTable(filtered);
+  };
+
+  const loadData = () => {
+    const url = 'https://atmantest.github.io/LMMRANK/public/data/llm-ranking.json';
+    fetch(url)
+      .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(data => {
+        allModels = Array.isArray(data) ? data : (data.rankings || data.models || data.data || []);
+        allModels.forEach(m => { if (m.provider) providerSet.add(m.provider.toLowerCase()); });
+        // Populate provider filter
+        if (pfilt) {
+          pfilt.innerHTML = '<option value="all">Tous les providers</option>' +
+            [...providerSet].sort().map(v => `<option value="${v}">${v.charAt(0).toUpperCase()+v.slice(1)}</option>`).join('');
+        }
+        applyFilters();
+      })
+      .catch(err => {
+        tbody.innerHTML = `<tr><td colspan="6" class="llm-empty">❌ Erreur chargement: ${err.message}</td></tr>`;
+      });
+  };
+
+  loadData();
+
+  // Re-filter on input changes
+  if (search) search.oninput = applyFilters;
+  if (pfilt) pfilt.onchange = applyFilters;
+  if (ssort) ssort.onchange = applyFilters;
+  if (showall) showall.onclick = () => { if (search) search.value=''; if (pfilt) pfilt.value='all'; applyFilters(); };
 }
 
 function renderNews(){
