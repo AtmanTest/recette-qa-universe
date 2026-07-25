@@ -310,6 +310,7 @@ body::after {
   align-items: center;
   gap: 12px;
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 .nav-btn {
@@ -5575,6 +5576,69 @@ h5 { font-size: 1rem; }
   margin-top: 4px;
 }
 
+.istqb-redirect-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px;
+  background: rgba(0, 200, 180, 0.04);
+  border: 1px solid rgba(0, 200, 180, 0.15);
+  border-radius: 16px;
+  min-height: 360px;
+}
+.istqb-redirect-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+  filter: drop-shadow(0 0 20px rgba(0, 200, 180, 0.2));
+}
+.istqb-redirect-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e8e9f0;
+  margin-bottom: 12px;
+}
+.istqb-redirect-desc {
+  font-size: 0.9375rem;
+  color: #8b8fa8;
+  max-width: 420px;
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+.istqb-redirect-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #00c8b4, #0ea5e9);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 24px rgba(0, 200, 180, 0.2);
+}
+.istqb-redirect-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px rgba(0, 200, 180, 0.35);
+}
+.istqb-redirect-hint {
+  font-size: 0.75rem;
+  color: #5c6080;
+  margin-top: 16px;
+}
+[data-theme="light"] .istqb-redirect-card {
+  background: rgba(0, 200, 180, 0.03);
+  border-color: rgba(0, 200, 180, 0.12);
+}
+[data-theme="light"] .istqb-redirect-title { color: #1a1a2e; }
+[data-theme="light"] .istqb-redirect-desc { color: #4a4e66; }
+[data-theme="light"] .istqb-redirect-hint { color: #8b8fa8; }
+
 .istqb-controls {
   display: flex;
   flex-wrap: wrap;
@@ -7610,423 +7674,16 @@ h5 { font-size: 1rem; }
 <section id="tab-istqb" class="tab-content">
   <div class="tab-inner">
 
-    <!-- Header -->
-    <div class="istqb-header">
-      <h2 data-i18n="istqb.title">🎓 ISTQB Prep</h2>
-      <p class="istqb-subtitle" data-i18n="istqb.subtitle">CTFL v4.0 · CT-AI v2.0 · CT-GenAI v1.1</p>
-    </div>
-
-    <!-- Exam Selector + Stats -->
-    <div class="istqb-controls">
-      <select id="examSelector" class="exam-selector">
-        <option value="ctfl" data-i18n="istqb.exam.ctfl">CTFL v4.0</option>
-        <option value="ct-ai" data-i18n="istqb.exam.ct_ai">CT-AI v2.0</option>
-        <option value="ct-genai" data-i18n="istqb.exam.ct_genai">CT-GenAI v1.1</option>
-      </select>
-      <div class="istqb-stats">
-        <div class="istqb-stat">
-          <span class="istqb-stat-value">78%</span>
-          <span class="istqb-stat-label" data-i18n="istqb.stat.avg_score">Avg Score</span>
-        </div>
-        <div class="istqb-stat">
-          <span class="istqb-stat-value">47</span>
-          <span class="istqb-stat-label" data-i18n="istqb.stat.quizzes">Quizzes</span>
-        </div>
-        <div class="istqb-stat">
-          <span class="istqb-stat-value">8</span>
-          <span class="istqb-stat-label" data-i18n="istqb.stat.mock_exams">Mock Exams</span>
-        </div>
-        <div class="istqb-stat">
-          <span class="istqb-stat-value">6.2h</span>
-          <span class="istqb-stat-label" data-i18n="istqb.stat.study_time">Study Time</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sub-tabs -->
-    <div class="istqb-subtabs">
-      <button class="istqb-subtab active" data-istqbtab="lessons" onclick="switchIstqbTab('lessons')" data-i18n="istqb.subtab.lessons">📖 Lessons</button>
-      <button class="istqb-subtab" data-istqbtab="quiz" onclick="switchIstqbTab('quiz')" data-i18n="istqb.subtab.quiz">❓ Quiz</button>
-      <button class="istqb-subtab" data-istqbtab="mock" onclick="switchIstqbTab('mock')" data-i18n="istqb.subtab.mock_exam">📝 Mock Exam</button>
-      <button class="istqb-subtab" data-istqbtab="stats" onclick="switchIstqbTab('stats')" data-i18n="istqb.subtab.stats">📊 Stats</button>
-    </div>
-
-    <!-- ISTQB Sub-tab: Lessons -->
-    <div class="istqb-subtab-content active" id="istqb-lessons">
-      <div class="lessons-accordion">
-        <!-- Chapter 1 -->
-        <div class="lesson-chapter">
-          <button class="chapter-header" onclick="toggleChapter(this)">
-            <span class="chapter-number" data-i18n="istqb.chapter1.num">Chapter 1</span>
-            <span class="chapter-name" data-i18n="istqb.chapter1.name">Fundamentals of Testing</span>
-            <span class="chapter-progress-small"><span class="chapter-bar"><span class="chapter-bar-fill" style="width:100%"></span></span> 100%</span>
-            <span class="chapter-toggle">▾</span>
-          </button>
-          <div class="chapter-body">
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter1.s1">1.1 What is Testing?</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter1.s2">1.2 Testing & Quality</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter1.s3">1.3 Testing Principles</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter1.s4">1.4 Fundamental Test Process</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter1.s5">1.5 Psychology of Testing</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <button class="chapter-action-btn" data-i18n="istqb.chapter.review">Review Chapter</button>
-          </div>
-        </div>
-
-        <!-- Chapter 2 -->
-        <div class="lesson-chapter">
-          <button class="chapter-header" onclick="toggleChapter(this)">
-            <span class="chapter-number" data-i18n="istqb.chapter2.num">Chapter 2</span>
-            <span class="chapter-name" data-i18n="istqb.chapter2.name">Testing Throughout SDLC</span>
-            <span class="chapter-progress-small"><span class="chapter-bar"><span class="chapter-bar-fill" style="width:80%"></span></span> 80%</span>
-            <span class="chapter-toggle">▾</span>
-          </button>
-          <div class="chapter-body">
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter2.s1">2.1 SDLC Models</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter2.s2">2.2 Test Levels</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter2.s3">2.3 Test Types</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section in-progress">
-              <span class="sub-status">⟳</span>
-              <span data-i18n="istqb.chapter2.s4">2.4 Maintenance Testing</span>
-              <span class="sub-badge in-progress" data-i18n="istqb.status.in_progress">In Progress</span>
-            </div>
-            <div class="sub-section not-started">
-              <span class="sub-status">○</span>
-              <span data-i18n="istqb.chapter2.s5">2.5 Test Impact Analysis</span>
-              <span class="sub-badge not-started" data-i18n="istqb.status.not_started">Not Started</span>
-            </div>
-            <button class="chapter-action-btn" data-i18n="istqb.chapter.continue">Continue</button>
-          </div>
-        </div>
-
-        <!-- Chapter 3 -->
-        <div class="lesson-chapter">
-          <button class="chapter-header" onclick="toggleChapter(this)">
-            <span class="chapter-number" data-i18n="istqb.chapter3.num">Chapter 3</span>
-            <span class="chapter-name" data-i18n="istqb.chapter3.name">Static Testing</span>
-            <span class="chapter-progress-small"><span class="chapter-bar"><span class="chapter-bar-fill" style="width:50%"></span></span> 50%</span>
-            <span class="chapter-toggle">▾</span>
-          </button>
-          <div class="chapter-body">
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter3.s1">3.1 Static Testing Basics</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter3.s2">3.2 Review Process</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section not-started">
-              <span class="sub-status">○</span>
-              <span data-i18n="istqb.chapter3.s3">3.3 Static Analysis Tools</span>
-              <span class="sub-badge not-started" data-i18n="istqb.status.not_started">Not Started</span>
-            </div>
-            <button class="chapter-action-btn" data-i18n="istqb.chapter.continue">Continue</button>
-          </div>
-        </div>
-
-        <!-- Chapter 4 -->
-        <div class="lesson-chapter">
-          <button class="chapter-header" onclick="toggleChapter(this)">
-            <span class="chapter-number" data-i18n="istqb.chapter4.num">Chapter 4</span>
-            <span class="chapter-name" data-i18n="istqb.chapter4.name">Test Analysis & Design</span>
-            <span class="chapter-progress-small"><span class="chapter-bar"><span class="chapter-bar-fill" style="width:35%"></span></span> 35%</span>
-            <span class="chapter-toggle">▾</span>
-          </button>
-          <div class="chapter-body">
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter4.s1">4.1 Test Techniques Overview</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section in-progress">
-              <span class="sub-status">⟳</span>
-              <span data-i18n="istqb.chapter4.s2">4.2 Black-box Techniques</span>
-              <span class="sub-badge in-progress" data-i18n="istqb.status.in_progress">In Progress</span>
-            </div>
-            <div class="sub-section not-started">
-              <span class="sub-status">○</span>
-              <span data-i18n="istqb.chapter4.s3">4.3 White-box Techniques</span>
-              <span class="sub-badge not-started" data-i18n="istqb.status.not_started">Not Started</span>
-            </div>
-            <div class="sub-section not-started">
-              <span class="sub-status">○</span>
-              <span data-i18n="istqb.chapter4.s4">4.4 Experience-based Techniques</span>
-              <span class="sub-badge not-started" data-i18n="istqb.status.not_started">Not Started</span>
-            </div>
-            <button class="chapter-action-btn" data-i18n="istqb.chapter.continue">Continue</button>
-          </div>
-        </div>
-
-        <!-- Chapter 5 -->
-        <div class="lesson-chapter">
-          <button class="chapter-header" onclick="toggleChapter(this)">
-            <span class="chapter-number" data-i18n="istqb.chapter5.num">Chapter 5</span>
-            <span class="chapter-name" data-i18n="istqb.chapter5.name">Test Management</span>
-            <span class="chapter-progress-small"><span class="chapter-bar"><span class="chapter-bar-fill" style="width:20%"></span></span> 20%</span>
-            <span class="chapter-toggle">▾</span>
-          </button>
-          <div class="chapter-body">
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter5.s1">5.1 Test Organization</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section not-started">
-              <span class="sub-status">○</span>
-              <span data-i18n="istqb.chapter5.s2">5.2 Test Planning & Estimation</span>
-              <span class="sub-badge not-started" data-i18n="istqb.status.not_started">Not Started</span>
-            </div>
-            <div class="sub-section not-started">
-              <span class="sub-status">○</span>
-              <span data-i18n="istqb.chapter5.s3">5.3 Test Monitoring & Control</span>
-              <span class="sub-badge not-started" data-i18n="istqb.status.not_started">Not Started</span>
-            </div>
-            <div class="sub-section not-started">
-              <span class="sub-status">○</span>
-              <span data-i18n="istqb.chapter5.s4">5.4 Configuration Management</span>
-              <span class="sub-badge not-started" data-i18n="istqb.status.not_started">Not Started</span>
-            </div>
-            <div class="sub-section not-started">
-              <span class="sub-status">○</span>
-              <span data-i18n="istqb.chapter5.s5">5.5 Risk-Based Testing</span>
-              <span class="sub-badge not-started" data-i18n="istqb.status.not_started">Not Started</span>
-            </div>
-            <button class="chapter-action-btn" data-i18n="istqb.chapter.start">Start Chapter</button>
-          </div>
-        </div>
-
-        <!-- Chapter 6 -->
-        <div class="lesson-chapter">
-          <button class="chapter-header" onclick="toggleChapter(this)">
-            <span class="chapter-number" data-i18n="istqb.chapter6.num">Chapter 6</span>
-            <span class="chapter-name" data-i18n="istqb.chapter6.name">Tool Support for Testing</span>
-            <span class="chapter-progress-small"><span class="chapter-bar"><span class="chapter-bar-fill" style="width:10%"></span></span> 10%</span>
-            <span class="chapter-toggle">▾</span>
-          </button>
-          <div class="chapter-body">
-            <div class="sub-section done">
-              <span class="sub-status">✓</span>
-              <span data-i18n="istqb.chapter6.s1">6.1 Tool Classification</span>
-              <span class="sub-badge done" data-i18n="istqb.status.done">Done</span>
-            </div>
-            <div class="sub-section not-started">
-              <span class="sub-status">○</span>
-              <span data-i18n="istqb.chapter6.s2">6.2 Tool Selection</span>
-              <span class="sub-badge not-started" data-i18n="istqb.status.not_started">Not Started</span>
-            </div>
-            <div class="sub-section not-started">
-              <span class="sub-status">○</span>
-              <span data-i18n="istqb.chapter6.s3">6.3 Tool Implementation</span>
-              <span class="sub-badge not-started" data-i18n="istqb.status.not_started">Not Started</span>
-            </div>
-            <button class="chapter-action-btn" data-i18n="istqb.chapter.start">Start Chapter</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ISTQB Sub-tab: Quiz -->
-    <div class="istqb-subtab-content" id="istqb-quiz">
-      <div class="quiz-config-card">
-        <h3 data-i18n="istqb.quiz.config_title">❓ Configure Quiz</h3>
-        <div class="quiz-config-form">
-          <div class="form-group">
-            <label data-i18n="istqb.quiz.chapter">Chapter:</label>
-            <select id="quizChapter">
-              <option value="all" data-i18n="istqb.quiz.all_chapters">All Chapters</option>
-              <option value="1" data-i18n="istqb.quiz.ch1">Chapter 1 - Fundamentals</option>
-              <option value="2" data-i18n="istqb.quiz.ch2">Chapter 2 - Testing Throughout SDLC</option>
-              <option value="3" data-i18n="istqb.quiz.ch3">Chapter 3 - Static Testing</option>
-              <option value="4" data-i18n="istqb.quiz.ch4">Chapter 4 - Test Analysis & Design</option>
-              <option value="5" data-i18n="istqb.quiz.ch5">Chapter 5 - Test Management</option>
-              <option value="6" data-i18n="istqb.quiz.ch6">Chapter 6 - Tool Support</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label data-i18n="istqb.quiz.question_count">Questions:</label>
-            <select id="quizCount">
-              <option value="10">10</option>
-              <option value="20" selected>20</option>
-              <option value="40">40</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label data-i18n="istqb.quiz.mode">Mode:</label>
-            <div class="radio-group">
-              <label class="radio-label"><input type="radio" name="quizMode" value="timed" checked /> <span data-i18n="istqb.quiz.timed">⏱️ Timed</span></label>
-              <label class="radio-label"><input type="radio" name="quizMode" value="practice" /> <span data-i18n="istqb.quiz.practice">📖 Practice</span></label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label data-i18n="istqb.quiz.language">Language:</label>
-            <div class="radio-group">
-              <label class="radio-label"><input type="radio" name="quizLang" value="en" checked /> <span>🇬🇧 English</span></label>
-              <label class="radio-label"><input type="radio" name="quizLang" value="fr" /> <span>🇫🇷 Français</span></label>
-            </div>
-          </div>
-          <button class="quiz-start-btn" onclick="startQuiz()" data-i18n="istqb.quiz.start">🚀 Start Quiz</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ISTQB Sub-tab: Mock Exam -->
-    <div class="istqb-subtab-content" id="istqb-mock">
-      <div class="mock-exam-card">
-        <div class="mock-header">
-          <h3 data-i18n="istqb.mock.title">📝 Mock Exam</h3>
-          <div class="mock-timer" id="mockTimer">⏱️ 71:23</div>
-        </div>
-        <div class="mock-progress-bar">
-          <div class="mock-progress-fill" style="width:20%"></div>
-        </div>
-        <span class="mock-progress-text" data-i18n="istqb.mock.progress">Question 8 of 40</span>
-        <div class="mock-actions">
-          <button class="mock-action-btn" onclick="pauseMockExam()" data-i18n="istqb.mock.pause">⏸️ Pause</button>
-          <button class="mock-action-btn" onclick="flagMockQuestion()" data-i18n="istqb.mock.flag">🚩 Flag</button>
-          <button class="mock-action-btn primary" onclick="submitMockExam()" data-i18n="istqb.mock.submit">📊 Submit</button>
-        </div>
-        <div class="mock-results hidden" id="mockResults">
-          <div class="mock-score-card">
-            <span class="mock-score" id="mockScoreValue">28/40</span>
-            <span class="mock-pass-fail pass" data-i18n="istqb.mock.pass">✅ PASS</span>
-          </div>
-          <div class="mock-chapter-scores">
-            <div class="mock-chapter-score">
-              <span data-i18n="istqb.mock.ch1_score">Ch 1: 90%</span>
-              <div class="mock-chapter-bar"><div class="mock-chapter-bar-fill" style="width:90%"></div></div>
-            </div>
-            <div class="mock-chapter-score">
-              <span data-i18n="istqb.mock.ch2_score">Ch 2: 75%</span>
-              <div class="mock-chapter-bar"><div class="mock-chapter-bar-fill" style="width:75%"></div></div>
-            </div>
-            <div class="mock-chapter-score">
-              <span data-i18n="istqb.mock.ch3_score">Ch 3: 60%</span>
-              <div class="mock-chapter-bar"><div class="mock-chapter-bar-fill" style="width:60%"></div></div>
-            </div>
-            <div class="mock-chapter-score">
-              <span data-i18n="istqb.mock.ch4_score">Ch 4: 45%</span>
-              <div class="mock-chapter-bar"><div class="mock-chapter-bar-fill" style="width:45%"></div></div>
-            </div>
-            <div class="mock-chapter-score">
-              <span data-i18n="istqb.mock.ch5_score">Ch 5: 70%</span>
-              <div class="mock-chapter-bar"><div class="mock-chapter-bar-fill" style="width:70%"></div></div>
-            </div>
-            <div class="mock-chapter-score">
-              <span data-i18n="istqb.mock.ch6_score">Ch 6: 50%</span>
-              <div class="mock-chapter-bar"><div class="mock-chapter-bar-fill" style="width:50%"></div></div>
-            </div>
-          </div>
-          <div class="mock-result-actions">
-            <button class="mock-result-btn" onclick="reviewMockExam()" data-i18n="istqb.mock.review">🔍 Review Answers</button>
-            <button class="mock-result-btn" onclick="shareMockResult()" data-i18n="istqb.mock.share">📤 Share Result</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ISTQB Sub-tab: Stats -->
-    <div class="istqb-subtab-content" id="istqb-stats">
-      <div class="stats-grid">
-        <div class="stats-card">
-          <h3 data-i18n="istqb.stats.radar_title">📊 Skill Radar</h3>
-          <canvas id="istqbRadarChart" width="300" height="300"></canvas>
-        </div>
-        <div class="stats-card">
-          <h3 data-i18n="istqb.stats.progress_title">📈 30-Day Progress</h3>
-          <canvas id="progressCurve" width="300" height="200"></canvas>
-        </div>
-        <div class="stats-card">
-          <h3 data-i18n="istqb.stats.history_title">📋 Mock Exam History</h3>
-          <div class="mock-history-table">
-            <div class="mock-history-row header">
-              <span data-i18n="istqb.stats.date">Date</span>
-              <span data-i18n="istqb.stats.score">Score</span>
-              <span data-i18n="istqb.stats.result">Result</span>
-            </div>
-            <div class="mock-history-row">
-              <span>Jun 21</span><span>32/40</span><span class="result-pass">✅ Pass</span>
-            </div>
-            <div class="mock-history-row">
-              <span>Jun 18</span><span>28/40</span><span class="result-pass">✅ Pass</span>
-            </div>
-            <div class="mock-history-row">
-              <span>Jun 14</span><span>22/40</span><span class="result-fail">❌ Fail</span>
-            </div>
-            <div class="mock-history-row">
-              <span>Jun 10</span><span>30/40</span><span class="result-pass">✅ Pass</span>
-            </div>
-            <div class="mock-history-row">
-              <span>Jun 5</span><span>25/40</span><span class="result-fail">❌ Fail</span>
-            </div>
-            <div class="mock-history-row">
-              <span>May 30</span><span>31/40</span><span class="result-pass">✅ Pass</span>
-            </div>
-            <div class="mock-history-row">
-              <span>May 22</span><span>27/40</span><span class="result-pass">✅ Pass</span>
-            </div>
-            <div class="mock-history-row">
-              <span>May 15</span><span>18/40</span><span class="result-fail">❌ Fail</span>
-            </div>
-          </div>
-        </div>
-        <div class="stats-card">
-          <h3 data-i18n="istqb.stats.weakest_topic">⚠️ Weakest Topic</h3>
-          <p class="weakest-topic-text" data-i18n="istqb.stats.weakest_hint">Chapter 4: Test Analysis & Design (45%) — Focus on black-box techniques and boundary value analysis.</p>
-          <button class="weakest-action-btn" onclick="switchIstqbTab('lessons')" data-i18n="istqb.stats.practice_now">📖 Practice Now</button>
-        </div>
-        <div class="stats-card goal-tracker">
-          <h3 data-i18n="istqb.stats.goal_title">🎯 Goal Tracker</h3>
-          <div class="goal-item">
-            <span data-i18n="istqb.stats.goal1">Complete CTFL Syllabus</span>
-            <div class="goal-bar"><div class="goal-bar-fill" style="width:65%"></div></div>
-            <span>65%</span>
-          </div>
-          <div class="goal-item">
-            <span data-i18n="istqb.stats.goal2">Pass Mock Exam (32+)</span>
-            <div class="goal-bar"><div class="goal-bar-fill" style="width:80%"></div></div>
-            <span>80%</span>
-          </div>
-          <div class="goal-item">
-            <span data-i18n="istqb.stats.goal3">Study 20h This Month</span>
-            <div class="goal-bar"><div class="goal-bar-fill" style="width:31%"></div></div>
-            <span>31%</span>
-          </div>
-        </div>
-      </div>
+    <div class="istqb-redirect-card">
+      <div class="istqb-redirect-icon">🎓</div>
+      <h2 class="istqb-redirect-title" data-i18n="istqb.title">ISTQB Prep</h2>
+      <p class="istqb-redirect-desc" data-i18n="istqb.redirect_desc">Accédez à la plateforme complète d'entraînement ISTQB : quiz, exams blancs, suivi de progression.</p>
+      <a href="https://atmantest.github.io/ISTQB" target="_blank" rel="noopener noreferrer" class="istqb-redirect-btn">
+        <span>🚀</span>
+        <span data-i18n="istqb.redirect_cta">Ouvrir ISTQB Prep</span>
+        <span>→</span>
+      </a>
+      <p class="istqb-redirect-hint" data-i18n="istqb.redirect_hint">Nouvel onglet · Site dédié</p>
     </div>
 
   </div>
