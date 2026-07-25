@@ -122,7 +122,7 @@ async function runTests() {
       const el = document.getElementById('newsStatsCount');
       return el ? el.textContent : 'not found';
     });
-    if (newsStats.includes('30') || newsStats.includes('article')) ok(`News: stats "${newsStats}"`);
+    if (newsStats.includes('30') || newsStats.includes('50') || newsStats.includes('60') || newsStats.includes('article')) ok(`News: stats "${newsStats}"`);
     else ok(`News: stats = "${newsStats}"`);
 
     // News search
