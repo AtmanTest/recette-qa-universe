@@ -9360,19 +9360,19 @@ function renderIstqb() {
   const container = document.getElementById('tab-istqb');
   if (!container) return;
   // Redirect card — the static HTML already in the tab section
-  container.innerHTML = \`<div class="tab-inner">
+  container.innerHTML = `<div class="tab-inner">
     <div class="istqb-redirect-card">
       <div class="istqb-redirect-icon">🎓</div>
-      <h2 class="istqb-redirect-title">\${T('istqb_title')||'ISTQB Prep'}</h2>
-      <p class="istqb-redirect-desc">\${T('redirect_desc')||'Accédez à la plateforme complète d\'entraînement ISTQB : quiz, exams blancs, suivi de progression.'}</p>
+      <h2 class="istqb-redirect-title">${T('istqb_title')||'ISTQB Prep'}</h2>
+      <p class="istqb-redirect-desc">${T('redirect_desc')||'Accédez à la plateforme complète d\'entraînement ISTQB : quiz, exams blancs, suivi de progression.'}</p>
       <a href="https://atmantest.github.io/ISTQB" target="_blank" rel="noopener noreferrer" class="istqb-redirect-btn">
         <span>🚀</span>
-        <span>\${T('redirect_cta')||'Ouvrir ISTQB Prep'}</span>
+        <span>${T('redirect_cta')||'Ouvrir ISTQB Prep'}</span>
         <span>→</span>
       </a>
-      <p class="istqb-redirect-hint">\${T('redirect_hint')||'Nouvel onglet · Site dédié'}</p>
+      <p class="istqb-redirect-hint">${T('redirect_hint')||'Nouvel onglet · Site dédié'}</p>
     </div>
-  </div>\`;
+  </div>`;
 }
 
 function switchIstqbTab(btn, tab) {
