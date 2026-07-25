@@ -8125,6 +8125,9 @@ const I18N = {
     question_progress: 'Question',
     // ISTQB
     istqb_title: 'Préparation ISTQB CTFL v4.0',
+    redirect_desc: "Accédez à la plateforme complète d'entraînement ISTQB : quiz, exams blancs, suivi de progression.",
+    redirect_cta: 'Ouvrir ISTQB Prep',
+    redirect_hint: 'Nouvel onglet · Site dédié',
     lessons_title: 'Leçons',
     quiz_title: 'Quiz Rapide',
     exam_title: 'Examen Blanc',
@@ -8243,6 +8246,9 @@ const I18N = {
     question_progress: 'Question',
     // ISTQB
     istqb_title: 'ISTQB CTFL v4.0 Prep',
+    redirect_desc: 'Full ISTQB training platform: quizzes, mock exams, progress tracking.',
+    redirect_cta: 'Open ISTQB Prep',
+    redirect_hint: 'New tab · Dedicated site',
     lessons_title: 'Lessons',
     quiz_title: 'Quick Quiz',
     exam_title: 'Mock Exam',
@@ -9353,30 +9359,20 @@ function downloadTemplate(name) {
 function renderIstqb() {
   const container = document.getElementById('tab-istqb');
   if (!container) return;
-
-  let html = `
-    <h2>${T('istqb_title')}</h2>
-    <div class="istqb-tabs">
-      <button class="istqb-tab active" data-istqb="lessons" onclick="switchIstqbTab(this, 'lessons')">${T('lessons_title')}</button>
-      <button class="istqb-tab" data-istqb="quiz" onclick="switchIstqbTab(this, 'quiz')">${T('quiz_title')}</button>
-      <button class="istqb-tab" data-istqb="exam" onclick="switchIstqbTab(this, 'exam')">${T('exam_title')}</button>
-      <button class="istqb-tab" data-istqb="stats" onclick="switchIstqbTab(this, 'stats')">${T('stats_title')}</button>
+  // Redirect card — the static HTML already in the tab section
+  container.innerHTML = \`<div class="tab-inner">
+    <div class="istqb-redirect-card">
+      <div class="istqb-redirect-icon">🎓</div>
+      <h2 class="istqb-redirect-title">\${T('istqb_title')||'ISTQB Prep'}</h2>
+      <p class="istqb-redirect-desc">\${T('redirect_desc')||'Accédez à la plateforme complète d\'entraînement ISTQB : quiz, exams blancs, suivi de progression.'}</p>
+      <a href="https://atmantest.github.io/ISTQB" target="_blank" rel="noopener noreferrer" class="istqb-redirect-btn">
+        <span>🚀</span>
+        <span>\${T('redirect_cta')||'Ouvrir ISTQB Prep'}</span>
+        <span>→</span>
+      </a>
+      <p class="istqb-redirect-hint">\${T('redirect_hint')||'Nouvel onglet · Site dédié'}</p>
     </div>
-    <div class="istqb-content" id="istqb-content-lessons" style="display:block">
-      ${renderLessonsHTML()}
-    </div>
-    <div class="istqb-content" id="istqb-content-quiz" style="display:none">
-      ${renderQuizHTML()}
-    </div>
-    <div class="istqb-content" id="istqb-content-exam" style="display:none">
-      ${renderExamHTML()}
-    </div>
-    <div class="istqb-content" id="istqb-content-stats" style="display:none">
-      ${renderStatsHTML()}
-    </div>
-  `;
-  container.innerHTML = html;
-  RL(container);
+  </div>\`;
 }
 
 function switchIstqbTab(btn, tab) {
