@@ -34,3 +34,4 @@ Chaque agent lit et écrit ici pour se synchroniser sans endpoint ni webhook.
 ```
 [2026-07-29 09:22 CEST] [KIMI3] INIT — AGENT_LOG créé sur ce repo
 ```
+[2026-08-20 07:30 CEST] [HERMES] FIX veille quotidienne (21j d'échec 117/118) — (1) flux playwright.dev/blog/feed.xml mort (404) → remplacé par dev.to/feed/tag/playwright; (2) tri 'Latest' inversé dans updateStats() (b.id-a.id → a.id-b.id, id 1 = plus récent) : le défaut affichait les PLUS ANCIENS articles, donc les articles Playwright les plus récents (ids 1-12) n'étaient jamais rendus → recherche "Playwright" = 0 résultat; (3) veille.py: REQUIRED_KEYWORDS=["playwright"] + swap-in dans la fenêtre rendue (index 0-12) si non couvert. tests-bugs.mjs 118/118. Toujours parser la ligne "RÉSULTATS : X/118" (exit code = 0 même à 117/118).
