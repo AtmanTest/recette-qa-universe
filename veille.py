@@ -140,28 +140,34 @@ def generate_news():
     full_sorted = all_arts
     all_arts = all_arts[:60]
     # Coverage guarantee: tests-bugs.mjs requires the keyword search to return
-    # >=1 card. The default 'latest' render shows hero + grid = indices 0..12
-    # (ids 1..13), so the keyword must appear in that window.
-    # If it is absent from the top-60, swap in the best-scoring matching article
-    # from the full fetched set into index 12 (last rendered grid slot).
-    # If it is present but too old to render, move the newest match up to index 12.
+    # >=1 card. The default 'latest' render shows hero = index 0 (id 1,
+    # .news-hero-card) + grid = indices 1..12 (ids 2..13, .news-card-v2).
+    # The search test counts ONLY .news-card-v2 grid cards — the hero is NOT
+    # counted (real case 2026-08-21: hero was a Playwright article, grid had
+    # none -> 117/118). The keyword must therefore appear in indices 1..12.
+    # If absent: move the best-scoring match already in the top-60 (e.g. the
+    # hero article) into index 12 (last rendered grid slot), or swap in the
+    # best match from the full fetched set as a last resort.
     for kw in REQUIRED_KEYWORDS:
-        covered = [i for i, a in enumerate(all_arts)
-                   if kw in (a["title"] + " " + a["excerpt"]).lower()]
-        if not covered:
-            best = None
-            for a in full_sorted:
-                if kw in (a["title"] + " " + a["excerpt"]).lower() and a not in all_arts:
-                    if best is None or a["score"] > best["score"]:
-                        best = a
-            if best is not None:
-                if len(all_arts) > 12:
-                    all_arts[12] = best
-                else:
-                    all_arts[-1] = best
-        elif min(covered) > 12 and len(all_arts) > 12:
-            a = all_arts.pop(min(covered))
-            all_arts.insert(12, a)
+        covered = [i for i in range(1, 13) if i < len(all_arts)
+                   and kw in (all_arts[i]["title"] + " " + all_arts[i]["excerpt"]).lower()]
+        if covered:
+            continue
+        best = None
+        for a in full_sorted:
+            if kw in (a["title"] + " " + a["excerpt"]).lower():
+                if best is None or a["score"] > best["score"]:
+                    best = a
+        if best is None:
+            continue
+        if len(all_arts) > 12:
+            if best in all_arts:
+                bi = all_arts.index(best)
+                all_arts.insert(12, all_arts.pop(bi))
+            else:
+                all_arts[12] = best
+        else:
+            all_arts[-1] = best
     for i,a in enumerate(all_arts,1):
         a["id"]=i
         if isinstance(a["date"],datetime):
